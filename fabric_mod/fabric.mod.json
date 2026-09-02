@@ -1,0 +1,27 @@
+{
+    "format": "12",
+    "id": "altarsmp",
+    "version": "26.2.0",
+    "name": "AltarSMP",
+    "description": "Complete AltarSMP mod port for Minecraft Java Fabric 26.2",
+    "author": "Kuragami & Standzz",
+    "contact": "",
+    "license": "All rights reserved",
+    "icon": "",
+    "accessWidener": "altarsmp.accesswidener",
+    "dependency": [
+        {
+            "id": "fabric",
+            "version": "26.2"
+        },
+        {
+            "id": "fabric-api",
+            "version": "0.156.0+26.2"
+        }
+    ],
+    "screenshots": [],
+    "authors": "Kuragami & Standzz",
+    "environment": "client|server",
+    "component": "meta",
+    "accessWidener": null
+}
