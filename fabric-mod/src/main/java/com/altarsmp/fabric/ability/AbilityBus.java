@@ -238,6 +238,50 @@ public final class AbilityBus {
 		return cancel;
 	}
 
+	/**
+	 * Tells every worn AltarSMP armour piece that its wearer just died - the Copper
+	 * Leggings replay an explosion over the corpse. Called from the death pipeline
+	 * ({@code event.GameListeners#onDeath}).
+	 *
+	 * @param victim the dead player
+	 * @param source the killing damage source
+	 * @param killer the player credit, if any
+	 */
+	public void onArmorDeath(ServerPlayer victim, DamageSource source, @Nullable ServerPlayer killer) {
+		for (ArmorEntry entry : wornArmor(victim)) {
+			try {
+				this.count(entry.behavior().id() + ".death");
+				entry.behavior().onDeath(victim, source, killer);
+			} catch (RuntimeException | Error e) {
+				this.mod.reportFailure("armour death hook " + entry.behavior().id(), e);
+			}
+		}
+	}
+
+	/**
+	 * Markup a dying wearer's armour wants the death message replaced with (the
+	 * Copper Leggings' "was caught in ... explosion"). The first non-{@code null}
+	 * answer wins; the mixin that replaces {@code PlayerList}'s broadcast asks for it.
+	 *
+	 * @param victim the dead player
+	 * @param killer the player credit, if any
+	 * @return the winning markup, or {@code null} to keep the vanilla message
+	 */
+	@Nullable
+	public String armorDeathMessage(ServerPlayer victim, @Nullable ServerPlayer killer) {
+		for (ArmorEntry entry : wornArmor(victim)) {
+			try {
+				String markup = entry.behavior().deathMessageMarkup(victim, killer);
+				if (markup != null) {
+					return markup;
+				}
+			} catch (RuntimeException | Error e) {
+				this.mod.reportFailure("armour death message " + entry.behavior().id(), e);
+			}
+		}
+		return null;
+	}
+
 	public void onProjectileHit(ServerPlayer shooter, Entity projectile, @Nullable Entity hit) {
 		Optional<AbilityContext> ctx = weaponContext(shooter);
 		if (ctx.isEmpty()) {

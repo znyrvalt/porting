@@ -51,6 +51,7 @@ public final class GameListeners {
 			if (config.getBoolean("death.lightning", true)) {
 				Fx.lightning(level, player.position(), true);
 			}
+			this.mod.abilities().onArmorDeath(player, source, killer);
 			if (killer != null && shouldDropHead(killer, player)) {
 				dropHead(player, level, killer);
 			}

@@ -56,3 +56,10 @@ accessible method net/minecraft/world/entity/decoration/ArmorStand setInvisible 
 # FoodData only exposes a getter and addExhaustion(), which would drain four
 # times slower than the original, so the field itself is widened instead.
 accessible field net/minecraft/world/food/FoodData saturationLevel F
+
+# --- net.minecraft.world.entity.monster.Creeper -----------------------------
+# The Copper Chestplate's Static Shock charges every creeper in the ring (Bukkit:
+# creeper.setPowered(true)). Vanilla only powers creepers through thunderHit(),
+# which also sets them on fire, so the synched-data key is widened and set
+# directly instead.
+accessible field net/minecraft/world/entity/monster/Creeper DATA_IS_POWERED Lnet/minecraft/network/syncher/EntityDataAccessor;
