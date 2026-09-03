@@ -5,23 +5,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.IntConsumer;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ChestMenu;
-import net.minecraft.world.inventory.ClickType;
-import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -41,7 +32,8 @@ import com.altarsmp.fabric.util.Messaging;
  * <p>Season 2's table is the one the merged plugin actually registered; the season 1 class of the
  * same name was never wired to a command. Each entry shows the crafted item and the nine grid slots
  * that make it, so a player can see what an altar craft costs before spending the ingredients.
- * Everything is display only: the window consumes every click and never lets an item leave.
+ * Everything is display only: {@link DisplayMenu} swallows every click, so nothing can be pulled out
+ * of a recipe.
  */
 public final class RecipesGui {
 	/** One row of the index: the crafted item plus the nine grid slots that make it. */
@@ -60,16 +52,15 @@ public final class RecipesGui {
 			Messaging.send(player, "<red>Every recipe in the table is disabled in the config.");
 			return;
 		}
-		int size = Math.max(9, Math.min(54, ((shown.size() + 1) / 9 + 1) * 9));
-
-		SimpleContainer board = new SimpleContainer(size);
-		board.setItem(0, blockedSlot());
-		for (int i = 0; i < shown.size(); i++) {
-			board.setItem(1 + i, shown.get(i).result().copy());
-		}
+		int size = ((shown.size() + 1) / 9 + 1) * 9;
 
 		Fx.soundTo(player, SoundEvents.AMETHYST_BLOCK_CHIME, 0.8F, 1.2F);
-		openMenu(player, board, size, INDEX_TITLE, slot -> {
+		DisplayMenu.open(player, size, INDEX_TITLE, board -> {
+			board.setItem(0, blockedSlot());
+			for (int i = 0; i < shown.size(); i++) {
+				board.setItem(1 + i, shown.get(i).result().copy());
+			}
+		}, slot -> {
 			int index = slot - 1;
 			if (index >= 0 && index < shown.size()) {
 				openDetail(player, shown.get(index));
@@ -77,12 +68,24 @@ public final class RecipesGui {
 		});
 	}
 
+	/** Opens one recipe: its grid on the left, an arrow, then the crafted item. */
+	private static void openDetail(ServerPlayer player, Entry entry) {
+		Fx.soundTo(player, SoundEvents.UI_BUTTON_CLICK.value(), 0.6F, 1.0F);
+		DisplayMenu.open(player, 27, Messaging.msg(DETAIL_TITLE + nameOf(entry.result())), board -> {
+			for (int i = 0; i < GRID_SLOTS.length; i++) {
+				ItemStack ingredient = entry.grid()[i];
+				board.setItem(GRID_SLOTS[i], ingredient == null ? ItemStack.EMPTY : ingredient.copy());
+			}
+			board.setItem(14, arrowSlot());
+			board.setItem(16, entry.result().copy());
+		}, slot -> {});
+	}
+
 	/** Every recipe the table knows, filtered by {@code recipes-enabled.<key>} in the config. */
 	private static Map<String, Entry> enabled() {
-		Map<String, Entry> all = definitions();
 		Map<String, Entry> shown = new LinkedHashMap<>();
 		AltarSMPMod mod = AltarSMPMod.get();
-		for (Map.Entry<String, Entry> entry : all.entrySet()) {
+		for (Map.Entry<String, Entry> entry : definitions().entrySet()) {
 			if (mod == null || mod.config().getBoolean("recipes-enabled." + entry.getKey(), true)) {
 				shown.put(entry.getKey(), entry.getValue());
 			}
@@ -128,39 +131,6 @@ public final class RecipesGui {
 				block(Items.GLASS), item(Items.NETHERITE_SCRAP), block(Items.GLASS),
 				null, null, null}));
 		return all;
-	}
-
-	/** Opens one recipe: its grid on the left, an arrow, then the crafted item. */
-	private static void openDetail(ServerPlayer player, Entry entry) {
-		SimpleContainer board = new SimpleContainer(27);
-		for (int i = 0; i < GRID_SLOTS.length; i++) {
-			ItemStack ingredient = entry.grid()[i];
-			board.setItem(GRID_SLOTS[i], ingredient == null ? ItemStack.EMPTY : ingredient.copy());
-		}
-		board.setItem(14, arrowSlot());
-		board.setItem(16, entry.result().copy());
-		Fx.soundTo(player, SoundEvents.UI_BUTTON_CLICK.value(), 0.6F, 1.0F);
-		openMenu(player, board, 27, Messaging.msg(DETAIL_TITLE + nameOf(entry.result())), slot -> {});
-	}
-
-	/**
-	 * Shows a read-only chest window. Clicks are answered by {@code clicked} without ever reaching
-	 * the container, so nothing can be taken out of a recipe.
-	 */
-	private static void openMenu(ServerPlayer player, SimpleContainer board, int slots, Component title,
-			IntConsumer onClick) {
-		int rows = slots / 9;
-		player.openMenu(new MenuProvider() {
-			@Override
-			public Component getDisplayName() {
-				return title;
-			}
-
-			@Override
-			public AbstractContainerMenu createMenu(int containerId, Inventory inventory, Player ignored) {
-				return new ReadOnlyMenu(containerId, player, board, rows, onClick);
-			}
-		});
 	}
 
 	/** The catalogue entry for a plugin item, or an empty stack when the id cannot be built. */
@@ -220,36 +190,5 @@ public final class RecipesGui {
 		ItemStack stack = new ItemStack(Items.ARROW);
 		stack.set(DataComponents.CUSTOM_NAME, Messaging.msg("<gray>Crafts"));
 		return stack;
-	}
-
-	/** Chest window that never lets an item leave it. */
-	private static final class ReadOnlyMenu extends ChestMenu {
-		private final int contentSize;
-		private final IntConsumer onClick;
-
-		private ReadOnlyMenu(int containerId, Player player, SimpleContainer board, int rows, IntConsumer onClick) {
-			super(menuType(rows), containerId, player.getInventory(), board, rows);
-			this.contentSize = rows * 9;
-			this.onClick = onClick;
-		}
-
-		private static MenuType<ChestMenu> menuType(int rows) {
-			return switch (rows) {
-				case 1 -> MenuType.GENERIC_9x1;
-				case 2 -> MenuType.GENERIC_9x2;
-				case 3 -> MenuType.GENERIC_9x3;
-				case 4 -> MenuType.GENERIC_9x4;
-				case 5 -> MenuType.GENERIC_9x5;
-				default -> MenuType.GENERIC_9x6;
-			};
-		}
-
-		@Override
-		public void clicked(int slotId, int button, ClickType clickType, Player player) {
-			// Deliberately never calls super: the window is a display, and any move would desync.
-			if (slotId >= 0 && slotId < this.contentSize) {
-				this.onClick.accept(slotId);
-			}
-		}
 	}
 }

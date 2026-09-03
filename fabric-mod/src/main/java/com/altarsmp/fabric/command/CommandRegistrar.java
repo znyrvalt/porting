@@ -51,7 +51,7 @@ import com.altarsmp.fabric.AltarSMPMod;
 import com.altarsmp.fabric.ability.Displays;
 import com.altarsmp.fabric.altar.AltarManager;
 import com.altarsmp.fabric.altar.AltarRegistry;
-import com.altarsmp.fabric.data.AltarRecord;
+import com.altarsmp.fabric.config.ConfigFields;
 import com.altarsmp.fabric.data.PlayerRecord;
 import com.altarsmp.fabric.faction.FactionManager;
 import com.altarsmp.fabric.item.ContentCatalog;
@@ -140,6 +140,7 @@ public final class CommandRegistrar {
 		registerEventCommands(dispatcher);
 		registerUtilityCommands(dispatcher);
 		registerContentGuis(dispatcher);
+		registerConfigEditors(dispatcher);
 		AltarSMPMod.LOGGER.info("[AltarSMP] registered {} commands", this.registered);
 	}
 
@@ -219,19 +220,9 @@ public final class CommandRegistrar {
 	private void reload(CommandSourceStack source) {
 		this.mod.config().reload();
 		// The holograms quote recipe amounts from the config, so a reload rewrites them.
-		for (AltarRecord record : this.mod.altars().recorded()) {
-			AltarRegistry.Spec spec = this.mod.altarRegistry().byKey(record.altarType());
-			ServerLevel level = levelOf(source.getServer(), record.dimension());
-			if (spec == null || level == null) {
-				continue;
-			}
-			for (net.minecraft.world.entity.Entity entity : level.getAllEntities()) {
-				if (record.altarId().equals(entity.getStringUUID()) && this.mod.altars().specOf(entity) != null) {
-					this.mod.altars().refreshHologram(level, entity, spec);
-				}
-			}
-		}
-		tell(source, "<green>[AltarSMP] Configuration reloaded!");
+		int refreshed = this.mod.altars().refreshAllHolograms(source.getServer());
+		tell(source, "<green>[AltarSMP] Configuration reloaded!"
+				+ (refreshed == 0 ? "" : "<gray> (" + refreshed + " altar hologram(s) rewritten)"));
 	}
 
 	private int addHeldToPool(CommandSourceStack source) throws CommandSyntaxException {
@@ -1577,6 +1568,61 @@ public final class CommandRegistrar {
 		}));
 	}
 
+	// ================================================== /legendaryconfig
+
+	/**
+	 * {@code LegendaryConfigCommand} in both seasons: the live stat editor. Season 1's lists every
+	 * weapon and armour piece that declares editable values plus a global block; season 2's lists
+	 * its five weapons. Both are op only in the plugin, and both are players only.
+	 */
+	private void registerConfigEditors(CommandDispatcher<CommandSourceStack> dispatcher) {
+		add(dispatcher, configEditor("legendaryconfig", false));
+		add(dispatcher, configEditor("legendaryconfig2", true));
+	}
+
+	private static LiteralArgumentBuilder<CommandSourceStack> configEditor(String name, boolean seasonTwo) {
+		return admin(name)
+				.executes(ctx -> {
+					LegendaryConfigGui.openList(player(ctx.getSource()), seasonTwo);
+					return 1;
+				})
+				// The plugin typed new values into chat; Brigadier takes them as an argument, with
+				// the same range checks and the same refusal messages.
+				.then(Commands.literal("set")
+						.then(Commands.argument("entry", StringArgumentType.word())
+								.suggests((ctx, builder) -> suggest(LegendaryConfigGui.entryIds(), builder))
+								.then(Commands.argument("path", StringArgumentType.string())
+										.suggests((ctx, builder) -> suggest(LegendaryConfigGui
+												.fieldPaths(StringArgumentType.getString(ctx, "entry")), builder))
+										.executes(ctx -> describeField(ctx.getSource(),
+												StringArgumentType.getString(ctx, "entry"),
+												StringArgumentType.getString(ctx, "path")))
+										.then(Commands.argument("value", StringArgumentType.string())
+												.executes(ctx -> setField(ctx.getSource(),
+														StringArgumentType.getString(ctx, "entry"),
+														StringArgumentType.getString(ctx, "path"),
+														StringArgumentType.getString(ctx, "value")))))));
+	}
+
+	/** Without a value, {@code set} reports what the field holds and what it accepts. */
+	private static int describeField(CommandSourceStack source, String entry, String path) {
+		Optional<ConfigFields.Field> field = ConfigFields.forContent(entry).stream()
+				.filter(candidate -> candidate.path().equalsIgnoreCase(path))
+				.findFirst();
+		if (field.isEmpty()) {
+			tell(source, "<red>No such value for " + entry + ": " + path);
+			return 0;
+		}
+		tell(source, "<yellow>" + field.get().label() + "<gray> (" + path + ")<gray>: "
+				+ LegendaryConfigGui.allowed(field.get()));
+		return 1;
+	}
+
+	private static int setField(CommandSourceStack source, String entry, String path, String text)
+			throws CommandSyntaxException {
+		return LegendaryConfigGui.set(player(source), entry, path, text) ? 1 : 0;
+	}
+
 	// ================================================================ plumbing
 
 	private void add(CommandDispatcher<CommandSourceStack> dispatcher,
@@ -1628,16 +1674,6 @@ public final class CommandRegistrar {
 		return type.cast(behavior);
 	}
 
-	@Nullable
-	private static ServerLevel levelOf(MinecraftServer server, String dimension) {
-		for (ServerLevel level : server.getAllLevels()) {
-			if (level.dimension().identifier().toString().equals(dimension)) {
-				return level;
-			}
-		}
-		return null;
-	}
-
 	/** Every altar key, for the {@code /altar} suggestions. */
 	public Collection<String> altarKeys() {
 		Set<String> keys = new LinkedHashSet<>();
@@ -1666,7 +1702,7 @@ public final class CommandRegistrar {
 				"altarsmpconfig", "altarsmps2reload", "s2reload", "omen", "ancientblade", "withersymbiote",
 				"tidebreaker", "dragonrend", "bowofdeceptionandlies", "soulinabottle", "fragmentofthesea",
 				"dragonheart", "amethystpickaxe", "amethystaxe", "blackghastsaddle", "recipes", "legendaries",
-				"legendaries2"));
+				"legendaries2", "legendaryconfig", "legendaryconfig2"));
 		return names;
 	}
 }

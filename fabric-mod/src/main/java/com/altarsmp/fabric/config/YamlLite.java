@@ -277,4 +277,157 @@ public final class YamlLite {
 		}
 		return out;
 	}
+
+	// -- writing ---------------------------------------------------------------
+
+	/**
+	 * Rewrites one scalar in a config document, keeping the file's comments and layout.
+	 *
+	 * <p>Bukkit's {@code YamlConfiguration#save} rewrote the whole document from its
+	 * in-memory tree and threw every comment away, so editing one number in the
+	 * original plugin cost the server owner the annotated {@code config.yml} they
+	 * shipped with. This edits the text instead: the key's own line is replaced in
+	 * place, trailing comments are kept, and a key that is not in the file yet is
+	 * appended under the deepest parent that does exist, at the file's own indent
+	 * width.
+	 *
+	 * @param content the document as text
+	 * @param path    a dotted config path, e.g. {@code abilities.hyperion.holy_lance_cooldown}
+	 * @param value   the new scalar: a Boolean, a Number or a String
+	 * @return the updated document
+	 */
+	public static String setValue(String content, String path, Object value) {
+		String[] parts = path.split("\\.");
+		String text = content == null ? "" : content;
+		String newline = text.contains("\r\n") ? "\r\n" : "\n";
+		List<String> lines = new ArrayList<>(List.of(text.split("\r?\n", -1)));
+		int unit = indentUnit(lines);
+
+		int[] levelIndent = new int[parts.length];
+		int[] levelLine = new int[parts.length];
+		int depth = 0;
+		int bestDepth = 0;
+		int bestEnd = -1;
+		int bestIndent = -1;
+
+		for (int i = 0; i < lines.size(); i++) {
+			String line = lines.get(i);
+			String trimmed = line.strip();
+			if (trimmed.isEmpty() || trimmed.startsWith("#") || trimmed.startsWith("- ")) {
+				continue;
+			}
+			int indent = line.length() - line.stripLeading().length();
+			int colon = findKeyColon(trimmed);
+			if (colon <= 0) {
+				continue;
+			}
+			String key = unquote(trimmed.substring(0, colon).strip());
+			while (depth > 0 && indent <= levelIndent[depth - 1]) {
+				depth--;
+			}
+			if (depth < parts.length && key.equals(parts[depth])) {
+				levelIndent[depth] = indent;
+				levelLine[depth] = i;
+				depth++;
+				if (depth == parts.length) {
+					lines.set(i, withValue(line, colon, value));
+					return String.join(newline, lines);
+				}
+				if (depth > bestDepth) {
+					bestDepth = depth;
+					bestIndent = levelIndent[depth - 1];
+					bestEnd = i;
+				}
+			}
+			if (depth >= bestDepth && bestDepth > 0) {
+				bestEnd = i;
+			}
+		}
+
+		// The key is not in the document yet: add it under the deepest parent that is.
+		int indent = bestDepth == 0 ? 0 : bestIndent + unit;
+		List<String> added = new ArrayList<>();
+		for (int i = bestDepth; i < parts.length; i++) {
+			String pad = " ".repeat(Math.max(0, indent + unit * (i - bestDepth)));
+			added.add(i == parts.length - 1 ? pad + parts[i] + ": " + scalarText(value) : pad + parts[i] + ":");
+		}
+		int at = bestEnd < 0 ? lines.size() : bestEnd + 1;
+		if (at > 0 && at <= lines.size() && !lines.get(at - 1).isBlank() && bestDepth == 0) {
+			added.add(0, "");
+		}
+		lines.addAll(Math.min(at, lines.size()), added);
+		return String.join(newline, lines);
+	}
+
+	/** Replaces the value on a {@code key: value} line, keeping any trailing comment. */
+	private static String withValue(String line, int colonInTrimmed, Object value) {
+		String trimmed = line.stripLeading();
+		int leading = line.length() - trimmed.length();
+		int colon = findKeyColon(trimmed);
+		if (colon < 0) {
+			colon = colonInTrimmed;
+		}
+		String rest = trimmed.substring(colon + 1);
+		String comment = trailingComment(rest);
+		return " ".repeat(leading) + trimmed.substring(0, colon + 1) + " " + scalarText(value) + comment;
+	}
+
+	/** The {@code # ...} tail of a value, or an empty string when the line has none. */
+	private static String trailingComment(String rest) {
+		boolean inSingle = false;
+		boolean inDouble = false;
+		for (int i = 0; i < rest.length(); i++) {
+			char c = rest.charAt(i);
+			if (c == '\'' && !inDouble) {
+				inSingle = !inSingle;
+			} else if (c == '"' && !inSingle) {
+				inDouble = !inDouble;
+			} else if (c == '#' && !inSingle && !inDouble && i > 0 && Character.isWhitespace(rest.charAt(i - 1))) {
+				return rest.substring(i - 1);
+			}
+		}
+		return "";
+	}
+
+	/** The document's indent width: the smallest indent any nested key uses. */
+	private static int indentUnit(List<String> lines) {
+		int unit = Integer.MAX_VALUE;
+		for (String line : lines) {
+			String trimmed = line.stripLeading();
+			if (trimmed.isEmpty() || trimmed.startsWith("#")) {
+				continue;
+			}
+			int indent = line.length() - trimmed.length();
+			if (indent > 0) {
+				unit = Math.min(unit, indent);
+			}
+		}
+		return unit == Integer.MAX_VALUE ? 2 : unit;
+	}
+
+	/**
+	 * How a value is written back out, so that {@link #load} reads it as the same
+	 * type: booleans bare, whole numbers bare, decimals always with a point, and
+	 * strings quoted.
+	 */
+	public static String scalarText(Object value) {
+		if (value == null) {
+			return "''";
+		}
+		if (value instanceof Boolean bool) {
+			return bool ? "true" : "false";
+		}
+		if (value instanceof Double || value instanceof Float) {
+			double number = ((Number) value).doubleValue();
+			if (number == Math.rint(number) && Math.abs(number) < 1.0E15D) {
+				return String.valueOf(number) + (String.valueOf(number).contains(".") ? "" : ".0");
+			}
+			return String.valueOf(number);
+		}
+		if (value instanceof Number) {
+			return value.toString();
+		}
+		String text = value.toString();
+		return "\"" + text.replace("\\", "\\\\").replace("\"", "\\\"") + "\"";
+	}
 }

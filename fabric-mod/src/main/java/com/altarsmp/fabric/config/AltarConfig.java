@@ -138,4 +138,60 @@ public final class AltarConfig {
 		return this.s2Path;
 	}
 
+
+	// -- writing (the /legendaryconfig editor) ----------------------------------
+
+	/**
+	 * Stores one edited value in the file that owns it and re-reads both documents.
+	 *
+	 * <p>This is the port's {@code plugin.getConfig().set(path, value)} plus
+	 * {@code plugin.saveConfig()} plus {@code reloadConfigAndServices()}: the editor
+	 * calls it once per change and every system that reads the config sees the new
+	 * number immediately afterwards. The edit is written into the text of the file
+	 * rather than re-serialised from memory, so the annotated {@code config.yml} the
+	 * mod ships keeps its comments.
+	 *
+	 * @return true when the file was written; false (and a logged reason) when it was not
+	 */
+	public boolean write(String path, Object value) {
+		if (path == null || path.isBlank()) {
+			AltarSMPMod.LOGGER.warn("[AltarSMP] refused to write an empty config path");
+			return false;
+		}
+		Path file = ownedByS2(path) ? this.s2Path : this.mainPath;
+		try {
+			String content = Files.exists(file) ? Files.readString(file, StandardCharsets.UTF_8) : "";
+			String updated = YamlLite.setValue(content, path, value);
+			Path temporary = file.resolveSibling(file.getFileName() + ".tmp");
+			Files.writeString(temporary, updated, StandardCharsets.UTF_8);
+			Files.move(temporary, file, StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			AltarSMPMod.LOGGER.error("[AltarSMP] could not write {} to {}", path, file, e);
+			return false;
+		}
+		reload();
+		AltarSMPMod.LOGGER.info("[AltarSMP] config {} set to {} in {}", path, YamlLite.scalarText(value),
+				file.getFileName());
+		return true;
+	}
+
+	/** True when {@code s2.yml} carries the key itself instead of inheriting {@code config.yml}. */
+	private boolean ownedByS2(String path) {
+		return resolveOwn(this.s2.root(), path);
+	}
+
+	private static boolean resolveOwn(Map<String, Object> root, String path) {
+		Object current = root;
+		for (String part : path.split("\\.")) {
+			if (!(current instanceof Map<?, ?> map)) {
+				return false;
+			}
+			current = map.get(part);
+			if (current == null) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 }

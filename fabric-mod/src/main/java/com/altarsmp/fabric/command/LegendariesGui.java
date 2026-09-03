@@ -6,23 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ChestMenu;
-import net.minecraft.world.inventory.ClickType;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ItemLore;
+import net.minecraft.core.component.DataComponents;
 
 import com.altarsmp.fabric.AltarSMPMod;
 import com.altarsmp.fabric.item.ItemFactory;
@@ -35,9 +25,9 @@ import com.altarsmp.fabric.util.Messaging;
  *
  * <p>Upstream shipped two windows: season 1's, and a season 2 one that refused to open whenever
  * season 1 was loaded, telling the player to look in {@code /legendaries} instead — while season 1's
- * own page 2 sat unreachable in the code. Both pages are wired up here at the slot numbers the
- * plugin used, so every legendary in the catalogue can be browsed and, for operators, received with
- * a click.
+ * own page 2 sat unreachable in the code, its navigation arrow and click handler included. Both
+ * pages are wired up here at the slot numbers the plugin used, so every legendary in the catalogue
+ * can be browsed and, for operators, received with a click.
  */
 public final class LegendariesGui {
 	private static final Component PAGE_ONE_TITLE = Messaging.msg("<dark_purple><bold>LEGENDARIES");
@@ -55,54 +45,61 @@ public final class LegendariesGui {
 		Map<Integer, String> entries = page == 2 ? pageTwoEntries() : pageOneEntries();
 		boolean operator = player.hasPermissions(2);
 
-		SimpleContainer board = new SimpleContainer(54);
-		ItemStack pane = pane(page == 2 ? Items.CYAN_STAINED_GLASS_PANE : Items.PURPLE_STAINED_GLASS_PANE);
-		for (int slot = 0; slot < 9; slot++) {
-			board.setItem(slot, pane.copy());
-		}
-		if (page == 2) {
-			for (int slot = 45; slot < 54; slot++) {
+		Fx.soundTo(player, SoundEvents.AMETHYST_BLOCK_CHIME, 0.8F, 1.2F);
+		DisplayMenu.open(player, 54, page == 2 ? PAGE_TWO_TITLE : PAGE_ONE_TITLE, board -> {
+			net.minecraft.world.item.Item paneItem =
+					page == 2 ? Items.CYAN_STAINED_GLASS_PANE : Items.PURPLE_STAINED_GLASS_PANE;
+			ItemStack pane = DisplayMenu.pane(paneItem);
+			for (int slot = 0; slot < 9; slot++) {
 				board.setItem(slot, pane.copy());
 			}
-		}
-
-		for (Map.Entry<Integer, String> entry : entries.entrySet()) {
-			Optional<ItemStack> built = ItemFactory.content(entry.getValue(), player);
-			if (built.isEmpty()) {
-				AltarSMPMod.LOGGER.warn("[legendaries] page {} slot {}: the catalogue cannot build '{}'",
-						page, entry.getKey(), entry.getValue());
-				continue;
-			}
-			ItemStack stack = built.get();
-			List<Component> lore = new ArrayList<>();
 			if (page == 2) {
-				lore.add(Component.empty());
-			}
-			lore.add(Messaging.msg("<dark_gray>/" + entry.getValue()));
-			if (operator) {
-				lore.add(Messaging.msg("<yellow>Click to receive"));
-			}
-			stack.set(DataComponents.LORE, new ItemLore(lore));
-			board.setItem(entry.getKey(), stack);
-		}
-
-		if (page == 1) {
-			board.setItem(53, nav("<gold>→ Next Page", "<gray>Season 2 Legendaries"));
-		} else {
-			board.setItem(45, nav("<gold>← Previous Page", "<gray>AltarSMP Items"));
-		}
-
-		Fx.soundTo(player, SoundEvents.AMETHYST_BLOCK_CHIME, 0.8F, 1.2F);
-		player.openMenu(new MenuProvider() {
-			@Override
-			public Component getDisplayName() {
-				return page == 2 ? PAGE_TWO_TITLE : PAGE_ONE_TITLE;
+				for (int slot = 45; slot < 54; slot++) {
+					board.setItem(slot, pane.copy());
+				}
 			}
 
-			@Override
-			public AbstractContainerMenu createMenu(int containerId, Inventory inventory, Player ignored) {
-				return new LegendariesMenu(containerId, player, board, entries, operator, page);
+			for (Map.Entry<Integer, String> entry : entries.entrySet()) {
+				Optional<ItemStack> built = ItemFactory.content(entry.getValue(), player);
+				if (built.isEmpty()) {
+					AltarSMPMod.LOGGER.warn("[legendaries] page {} slot {}: the catalogue cannot build '{}'",
+							page, entry.getKey(), entry.getValue());
+					continue;
+				}
+				ItemStack stack = built.get();
+				List<Component> lore = new ArrayList<>();
+				if (page == 2) {
+					lore.add(Component.empty());
+				}
+				lore.add(Messaging.msg("<dark_gray>/" + entry.getValue()));
+				if (operator) {
+					lore.add(Messaging.msg("<yellow>Click to receive"));
+				}
+				stack.set(DataComponents.LORE, new ItemLore(lore));
+				board.setItem(entry.getKey(), stack);
 			}
+
+			if (page == 1) {
+				board.setItem(53, DisplayMenu.button(Items.ARROW, "<gold>→ Next Page",
+						List.of("<gray>Season 2 Legendaries")));
+			} else {
+				board.setItem(45, DisplayMenu.button(Items.ARROW, "<gold>← Previous Page",
+						List.of("<gray>AltarSMP Items")));
+			}
+		}, slot -> {
+			if (page == 1 && slot == 53) {
+				open(player, 2);
+				return;
+			}
+			if (page == 2 && slot == 45) {
+				open(player, 1);
+				return;
+			}
+			String contentId = entries.get(slot);
+			if (contentId == null || !operator) {
+				return;
+			}
+			ItemFactory.content(contentId, player).ifPresent(stack -> receive(player, stack));
 		});
 	}
 
@@ -169,62 +166,11 @@ public final class LegendariesGui {
 		return entries;
 	}
 
-	private static ItemStack pane(Item item) {
-		ItemStack stack = new ItemStack(item);
-		stack.set(DataComponents.CUSTOM_NAME, Component.literal(" ").withStyle(ChatFormatting.WHITE));
-		return stack;
-	}
-
-	private static ItemStack nav(String name, String lore) {
-		ItemStack stack = new ItemStack(Items.ARROW);
-		stack.set(DataComponents.CUSTOM_NAME, Messaging.msg(name));
-		stack.set(DataComponents.LORE, new ItemLore(List.of(Messaging.msg(lore))));
-		return stack;
-	}
-
 	/** Hands an item to an operator, dropping it at their feet when their inventory is full. */
 	private static void receive(ServerPlayer player, ItemStack stack) {
 		if (!player.getInventory().add(stack.copy())) {
 			player.drop(stack.copy(), false);
 		}
 		Fx.soundTo(player, SoundEvents.PLAYER_LEVELUP, 0.5F, 1.5F);
-	}
-
-	/** The browser window: display only, clicks either navigate or hand out an item. */
-	private static final class LegendariesMenu extends ChestMenu {
-		private final ServerPlayer viewer;
-		private final Map<Integer, String> entries;
-		private final boolean operator;
-		private final int page;
-
-		private LegendariesMenu(int containerId, ServerPlayer viewer, SimpleContainer board,
-				Map<Integer, String> entries, boolean operator, int page) {
-			super(MenuType.GENERIC_9x6, containerId, viewer.getInventory(), board, 6);
-			this.viewer = viewer;
-			this.entries = entries;
-			this.operator = operator;
-			this.page = page;
-		}
-
-		@Override
-		public void clicked(int slotId, int button, ClickType clickType, Player player) {
-			// Deliberately never calls super: nothing may be taken out of the browser.
-			if (slotId < 0 || slotId >= 54) {
-				return;
-			}
-			if (this.page == 1 && slotId == 53) {
-				open(this.viewer, 2);
-				return;
-			}
-			if (this.page == 2 && slotId == 45) {
-				open(this.viewer, 1);
-				return;
-			}
-			String contentId = this.entries.get(slotId);
-			if (contentId == null || !this.operator) {
-				return;
-			}
-			ItemFactory.content(contentId, this.viewer).ifPresent(stack -> receive(this.viewer, stack));
-		}
 	}
 }

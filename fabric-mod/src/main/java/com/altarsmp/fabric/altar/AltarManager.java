@@ -560,6 +560,51 @@ public final class AltarManager {
 	}
 
 	/**
+	 * Rewrites every altar hologram in every loaded level.
+	 *
+	 * <p>The holograms quote recipe amounts and names straight out of the config, so
+	 * {@code /altarsmp reload} and the {@code /legendaryconfig} editor both call this
+	 * after a change; what a player reads over an altar always matches the file on
+	 * disk. This is {@code AltarSMP#reloadConfigAndServices}' hologram half.
+	 *
+	 * @return how many holograms were rewritten
+	 */
+	public int refreshAllHolograms(MinecraftServer server) {
+		int refreshed = 0;
+		for (AltarRecord record : recorded()) {
+			AltarRegistry.Spec spec = this.mod.altarRegistry().byKey(record.altarType());
+			ServerLevel level = levelById(server, record.dimension());
+			if (spec == null || level == null) {
+				continue;
+			}
+			net.minecraft.world.entity.Entity stand;
+			try {
+				stand = level.getEntity(java.util.UUID.fromString(record.altarId()));
+			} catch (IllegalArgumentException e) {
+				AltarSMPMod.LOGGER.warn("[AltarSMP] altar record {} is not a usable entity id", record.altarId());
+				continue;
+			}
+			if (stand == null || specOf(stand) == null) {
+				continue;
+			}
+			refreshHologram(level, stand, spec);
+			refreshed++;
+		}
+		return refreshed;
+	}
+
+	/** The level whose dimension id matches a stored record, or null when it is not loaded. */
+	@Nullable
+	private static ServerLevel levelById(MinecraftServer server, String dimension) {
+		for (ServerLevel level : server.getAllLevels()) {
+			if (level.dimension().identifier().toString().equals(dimension)) {
+				return level;
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * {@code DestroyAltarsCommand}'s sweep: removes every altar part in a level.
 	 *
 	 * @return how many entities were removed
