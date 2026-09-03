@@ -75,6 +75,33 @@ public final class CombatHooks {
 		return false;
 	}
 
+	/**
+	 * The damage <em>amplification</em> pass, the other half of Bukkit's
+	 * {@code EntityDamageByEntityEvent#setDamage}. {@link #handleDamage} decides
+	 * whether a hit is cancelled at all; this decides how hard it lands, and the
+	 * mixin on {@code LivingEntity#hurtServer} must feed its result back into the
+	 * damage argument before the hit is processed.
+	 *
+	 * <p>Today the only amplifier is the faction system (Hyperion bonus against
+	 * cursed players, vampire night damage, pale backstab multiplier), exactly as in
+	 * {@code VampireManager#onDamage}.
+	 *
+	 * @param victim the entity being hit
+	 * @param source the damage source
+	 * @param amount the incoming amount
+	 * @return the amount to actually apply
+	 */
+	public static float modifyDamage(LivingEntity victim, DamageSource source, float amount) {
+		AltarSMPMod mod = AltarSMPMod.get();
+		if (mod == null || !(victim instanceof ServerPlayer victimPlayer)) {
+			return amount;
+		}
+		if (!(source.getEntity() instanceof ServerPlayer attacker) || attacker == victimPlayer) {
+			return amount;
+		}
+		return mod.factions().modifyPlayerDamage(attacker, victimPlayer, amount);
+	}
+
 	private static void tellStunned(ServerPlayer player) {
 		com.altarsmp.fabric.util.Messaging.actionBar(player, "<red>You are stunned!");
 	}

@@ -66,6 +66,16 @@ public final class Fx {
 		send(level, optionsFor(type), pos, count, dx, dy, dz, speed);
 	}
 
+	/**
+	 * Bukkit {@code spawnParticle(Particle.X, location, count, dx, dy, dz, speed)}
+	 * named the way the plugin named it - resolved through the registry so a name
+	 * that no longer exists in this Minecraft version is logged, never guessed.
+	 */
+	public static void simple(ServerLevel level, String bukkitParticle, Vec3 pos, int count,
+			double dx, double dy, double dz, double speed) {
+		simple(level, GameRegistry.particle(bukkitParticle), pos, count, dx, dy, dz, speed);
+	}
+
 	private static final Set<ParticleType<?>> REPORTED_OPTIONLESS = new HashSet<>();
 
 	/**
