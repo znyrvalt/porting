@@ -1,3 +1,5 @@
+import java.security.MessageDigest
+
 plugins {
 	id 'net.fabricmc.fabric-loom' version "${loom_version}"
 	id 'maven-publish'
@@ -14,10 +16,14 @@ repositories {
 	mavenCentral()
 }
 
-loom {
-	// Split sources: server/common code in src/main, client-only code in src/client.
-	splitEnvironmentSourceSets()
+// The authoritative resource pack, committed at the repository root. Its assets are
+// unpacked into the jar at build time rather than committed a second time, so the
+// archive stays the single source of truth for every texture, model and sound.
+def packZip = rootProject.projectDir.parentFile.toPath().resolve('AltarSMP-ResourcePack.zip')
+def packAssets = layout.buildDirectory.dir('generated/altarsmp-pack')
+def distDir = rootProject.projectDir.parentFile.toPath().resolve('dist')
 
+loom {
 	// Widens the private vanilla Display/ArmourStand setters the original Bukkit
 	// plugin reached through Paper's entity API (see the file header for details).
 	accessWidenerPath = file("src/main/resources/altarsmp.accesswidener")
@@ -25,13 +31,8 @@ loom {
 	mods {
 		"altarsmp" {
 			sourceSet sourceSets.main
-			sourceSet sourceSets.client
 		}
 	}
-
-	// Ship the vanilla-compatible resource pack inside the mod jar as well so the
-	// pack is applied automatically for every player that joins a server with the
-	// mod installed (see src/main/resources/assets/**).
 }
 
 dependencies {
@@ -40,12 +41,41 @@ dependencies {
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 }
 
+/**
+ * Unpacks the original resource pack's assets.
+ *
+ * <p>The pack is a current-format pack (its {@code pack.mcmeta} declares
+ * {@code min_format 75}), and its {@code assets/minecraft/items/*.json} are
+ * {@code range_dispatch} definitions keyed on {@code minecraft:custom_model_data} -
+ * the same model data numbers the plugin stamped on its items and this port stamps
+ * on its stacks. Carrying those assets inside the jar is what makes a legendary look
+ * like a legendary for every player that has the mod, with no pack to download; the
+ * zip in {@code dist/} remains for vanilla and Geyser clients, which cannot load a
+ * mod and take the pack the way they always did.
+ *
+ * <p>{@code pack.mcmeta} is deliberately left out: the jar is a mod, not a pack, and
+ * already carries {@code fabric.mod.json}.
+ */
+tasks.register('extractResourcePack', Sync) {
+	group = 'altarsmp'
+	description = 'Unpacks the original AltarSMP resource pack so its assets ship inside the mod jar'
+	from(zipTree(packZip)) {
+		include 'assets/**'
+		exclude 'pack.mcmeta'
+	}
+	into packAssets
+}
+
 processResources {
+	dependsOn 'extractResourcePack'
+	from(packAssets)
+
 	def version = project.version
 	inputs.property "version", version
 	inputs.property "minecraft_version", project.minecraft_version
 	inputs.property "loader_version", project.loader_version
 	inputs.property "fabric_api_version", project.fabric_api_version
+	inputs.file packZip
 
 	filesMatching("fabric.mod.json") {
 		expand([
@@ -76,15 +106,87 @@ jar {
 	}
 }
 
-// `./gradlew build` -> build/libs/altarsmp-fabric-<version>.jar
-// `./gradlew releaseBundle` -> dist/ (jar + resource pack + source zip + checksums)
-tasks.register('releaseBundle', Copy) {
-	dependsOn 'build'
+// ---------------------------------------------------------------- release bundle
+
+/** The port's own sources plus the tooling and reports that describe them. */
+tasks.register('sourceZip', Zip) {
+	group = 'altarsmp'
+	description = 'Zips the mod sources, the audit tooling and the reports'
+	archiveBaseName = "${project.archives_base_name}-sources"
+	archiveVersion = project.mod_version
+	destinationDirectory = layout.buildDirectory.dir('dist')
+	from(rootProject.projectDir) {
+		include 'src/**'
+		include 'build.gradle'
+		include 'gradle.properties'
+		include 'settings.gradle'
+		include 'gradlew'
+		include 'gradlew.bat'
+		include 'gradle/**'
+	}
+	from(rootProject.projectDir.parentFile) {
+		include 'README.md'
+		include 'CHANGELOG.md'
+		include 'LICENSE'
+		include 'docs/**'
+		include 'tools/**'
+		exclude 'tools/.venv-jdk/**'
+	}
+}
+
+/** Everything the brief asks the bundle to carry, in one directory. */
+tasks.register('assembleBundle', Copy) {
 	group = 'altarsmp'
 	description = 'Assembles the AltarSMP release bundle into ../dist'
-	from("${project.buildDir}/libs") {
+	dependsOn 'build', 'sourceZip'
+	from(layout.buildDirectory.dir('libs')) {
 		include '*.jar'
 		exclude '*-sources.jar'
 	}
-	into "${rootDir.parentFile}/dist"
+	from(layout.buildDirectory.dir('dist')) {
+		include '*.zip'
+	}
+	from(packZip)
+	from(rootProject.projectDir.parentFile) {
+		include 'README.md'
+		include 'CHANGELOG.md'
+		include 'docs/**'
+	}
+	into distDir.toFile()
+}
+
+/** SHA-256 of every file in the bundle, written last so it covers the whole thing. */
+tasks.register('checksums') {
+	group = 'altarsmp'
+	description = 'Writes dist/SHA256SUMS.txt for the assembled bundle'
+	dependsOn 'assembleBundle'
+	inputs.dir distDir.toFile()
+	outputs.file distDir.resolve('SHA256SUMS.txt').toFile()
+	doLast {
+		def root = distDir.toFile()
+		def lines = []
+		root.eachFileRecurse { file ->
+			if (!file.isFile() || file.name == 'SHA256SUMS.txt') {
+				return
+			}
+			def digest = MessageDigest.getInstance('SHA-256')
+			file.withInputStream { stream ->
+				def buffer = new byte[8192]
+				int read
+				while ((read = stream.read(buffer)) > 0) {
+					digest.update(buffer, 0, read)
+				}
+			}
+			def hex = digest.digest().collect { String.format('%02x', it) }.join()
+			lines << "${hex}  ${root.toPath().relativize(file.toPath()).toString().replace(File.separatorChar, (char) '/')}"
+		}
+		new File(root, 'SHA256SUMS.txt').text = lines.sort().join('\n') + '\n'
+		logger.lifecycle("[altarsmp] wrote SHA256SUMS.txt for ${lines.size()} file(s)")
+	}
+}
+
+tasks.register('releaseBundle') {
+	group = 'altarsmp'
+	description = 'Builds the mod, assembles ../dist and checksums it'
+	dependsOn 'checksums'
 }
