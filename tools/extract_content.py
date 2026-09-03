@@ -544,6 +544,73 @@ def parse_s2_weapon(path: str) -> Optional[Dict[str, Any]]:
     }
 
 
+# --- copper armour ---------------------------------------------------------
+# The four CopperBoots/CopperChestplate/CopperLeggings/CopperHelmet classes build
+# their ItemStack with the obfuscated fluent helper `m`, so the generic item
+# parser misses the enchantments and the equipment asset. Both are read here
+# straight out of createArmor(), and CopperDiamondArmor - which builds the four
+# diamond-looking trial pieces programmatically - is expanded into real entries.
+ARMOR_ENCHANTS = {
+    "PROTECTION": "protection",
+    "RESPIRATION": "respiration",
+    "AQUA_AFFINITY": "aqua_affinity",
+    "UNBREAKING": "unbreaking",
+    "MENDING": "mending",
+    "FEATHER_FALLING": "feather_falling",
+    "SOUL_SPEED": "soul_speed",
+    "DEPTH_STRIDER": "depth_strider",
+}
+
+
+def copper_armor_id(cls: str) -> str:
+    out: List[str] = []
+    for ch in cls:
+        if ch.isupper() and out:
+            out.append("_")
+        out.append(ch.lower())
+    return "".join(out)
+
+
+def armor_enchants(body: str) -> List[Dict[str, Any]]:
+    out: List[Dict[str, Any]] = []
+    for name, level in re.findall(r"\.a\(\s*Enchantment\.([A-Z_0-9]+)\s*,\s*(\d+)\s*\)", body):
+        out.append({"enchant": ARMOR_ENCHANTS.get(name, name.lower()), "config": None, "default": int(level)})
+    return out
+
+
+def enrich_armor(entry: Dict[str, Any], body: str) -> Dict[str, Any]:
+    entry["enchants"] = armor_enchants(body)
+    model = re.search(r'setModel\(\s*NamespacedKey\.fromString\(\s*"([^"]+)"', body)
+    entry["equippable_model"] = model.group(1) if model else None
+    entry["unbreakable"] = bool(re.search(r"\.a\(\s*true\s*\)", body))
+    return entry
+
+
+def copper_diamond_variants(body: str) -> List[Dict[str, Any]]:
+    if "copper_diamond_" not in body:
+        return []
+    enchants = armor_enchants(body)
+    model = re.search(r'setModel\(\s*NamespacedKey\.fromString\(\s*"([^"]+)"', body)
+    out = []
+    for material, piece in (("DIAMOND_HELMET", "Helmet"), ("DIAMOND_CHESTPLATE", "Chestplate"),
+                            ("DIAMOND_LEGGINGS", "Leggings"), ("DIAMOND_BOOTS", "Boots")):
+        out.append({
+            "id": "copper_diamond_" + piece.lower(),
+            "class": "CopperDiamondArmor",
+            "base_material": material,
+            "custom_model_data": None,
+            "display_name": "<gold>Copper " + piece,
+            "tooltip_style": None,
+            "rarity": None,
+            "lore": ["<gray>Diamond armor with Copper appearance"],
+            "pdc_keys": [],
+            "enchants": enchants,
+            "equippable_model": model.group(1) if model else "custom:copper",
+            "unbreakable": True,
+        })
+    return out
+
+
 def parse_item_class(path: str) -> Optional[Dict[str, Any]]:
     """Parses the com.altarsmp.items / com.altarsmps2.items helper item classes."""
     src = read(path)
@@ -747,8 +814,15 @@ def main() -> int:
         if not path.endswith(".java"):
             continue
         parsed = parse_item_class(os.path.join(d, path))
+        body = read(os.path.join(d, path))
         if parsed:
-            armor.append(parsed)
+            cls = os.path.basename(path)[:-5]
+            parsed["id"] = copper_armor_id(cls)
+            armor.append(enrich_armor(parsed, body))
+        if os.path.basename(path) == "CopperDiamondArmor.java":
+            # Only this class builds the diamond-looking trial pieces; the other
+            # four merely mention their ids when checking what a player wears.
+            armor.extend(copper_diamond_variants(body))
 
     apply_manual_overrides(s1, s2)
 

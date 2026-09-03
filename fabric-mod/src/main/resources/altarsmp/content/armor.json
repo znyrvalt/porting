@@ -20,7 +20,42 @@
    "<blue>+1 Water Movement Efficiency",
    "<blue>Unbreakable"
   ],
-  "pdc_keys": []
+  "pdc_keys": [],
+  "id": "copper_boots",
+  "enchants": [
+   {
+    "enchant": "protection",
+    "config": null,
+    "default": 3
+   },
+   {
+    "enchant": "feather_falling",
+    "config": null,
+    "default": 4
+   },
+   {
+    "enchant": "soul_speed",
+    "config": null,
+    "default": 3
+   },
+   {
+    "enchant": "depth_strider",
+    "config": null,
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "config": null,
+    "default": 3
+   },
+   {
+    "enchant": "mending",
+    "config": null,
+    "default": 1
+   }
+  ],
+  "equippable_model": "custom:copper",
+  "unbreakable": true
  },
  {
   "class": "CopperChestplate",
@@ -43,7 +78,135 @@
    "<blue>+1 Knockback Resistance",
    "<blue>Unbreakable"
   ],
-  "pdc_keys": []
+  "pdc_keys": [],
+  "id": "copper_chestplate",
+  "enchants": [
+   {
+    "enchant": "protection",
+    "config": null,
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "config": null,
+    "default": 3
+   },
+   {
+    "enchant": "mending",
+    "config": null,
+    "default": 1
+   }
+  ],
+  "equippable_model": "custom:copper",
+  "unbreakable": true
+ },
+ {
+  "id": "copper_diamond_helmet",
+  "class": "CopperDiamondArmor",
+  "base_material": "DIAMOND_HELMET",
+  "custom_model_data": null,
+  "display_name": "<gold>Copper Helmet",
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<gray>Diamond armor with Copper appearance"
+  ],
+  "pdc_keys": [],
+  "enchants": [
+   {
+    "enchant": "protection",
+    "config": null,
+    "default": 4
+   },
+   {
+    "enchant": "unbreaking",
+    "config": null,
+    "default": 3
+   }
+  ],
+  "equippable_model": "custom:copper",
+  "unbreakable": true
+ },
+ {
+  "id": "copper_diamond_chestplate",
+  "class": "CopperDiamondArmor",
+  "base_material": "DIAMOND_CHESTPLATE",
+  "custom_model_data": null,
+  "display_name": "<gold>Copper Chestplate",
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<gray>Diamond armor with Copper appearance"
+  ],
+  "pdc_keys": [],
+  "enchants": [
+   {
+    "enchant": "protection",
+    "config": null,
+    "default": 4
+   },
+   {
+    "enchant": "unbreaking",
+    "config": null,
+    "default": 3
+   }
+  ],
+  "equippable_model": "custom:copper",
+  "unbreakable": true
+ },
+ {
+  "id": "copper_diamond_leggings",
+  "class": "CopperDiamondArmor",
+  "base_material": "DIAMOND_LEGGINGS",
+  "custom_model_data": null,
+  "display_name": "<gold>Copper Leggings",
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<gray>Diamond armor with Copper appearance"
+  ],
+  "pdc_keys": [],
+  "enchants": [
+   {
+    "enchant": "protection",
+    "config": null,
+    "default": 4
+   },
+   {
+    "enchant": "unbreaking",
+    "config": null,
+    "default": 3
+   }
+  ],
+  "equippable_model": "custom:copper",
+  "unbreakable": true
+ },
+ {
+  "id": "copper_diamond_boots",
+  "class": "CopperDiamondArmor",
+  "base_material": "DIAMOND_BOOTS",
+  "custom_model_data": null,
+  "display_name": "<gold>Copper Boots",
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<gray>Diamond armor with Copper appearance"
+  ],
+  "pdc_keys": [],
+  "enchants": [
+   {
+    "enchant": "protection",
+    "config": null,
+    "default": 4
+   },
+   {
+    "enchant": "unbreaking",
+    "config": null,
+    "default": 3
+   }
+  ],
+  "equippable_model": "custom:copper",
+  "unbreakable": true
  },
  {
   "class": "CopperHelmet",
@@ -66,7 +229,27 @@
    "<blue>+400% Submerged Mining Speed",
    "<blue>Unbreakable"
   ],
-  "pdc_keys": []
+  "pdc_keys": [],
+  "id": "copper_helmet",
+  "enchants": [
+   {
+    "enchant": "protection",
+    "config": null,
+    "default": 3
+   },
+   {
+    "enchant": "respiration",
+    "config": null,
+    "default": 3
+   },
+   {
+    "enchant": "aqua_affinity",
+    "config": null,
+    "default": 1
+   }
+  ],
+  "equippable_model": "custom:copper",
+  "unbreakable": true
  },
  {
   "class": "CopperLeggings",
@@ -88,6 +271,26 @@
    "<blue>+1 Knockback Resistance",
    "<blue>Unbreakable"
   ],
-  "pdc_keys": []
+  "pdc_keys": [],
+  "id": "copper_leggings",
+  "enchants": [
+   {
+    "enchant": "protection",
+    "config": null,
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "config": null,
+    "default": 3
+   },
+   {
+    "enchant": "mending",
+    "config": null,
+    "default": 1
+   }
+  ],
+  "equippable_model": "custom:copper",
+  "unbreakable": true
  }
 ]

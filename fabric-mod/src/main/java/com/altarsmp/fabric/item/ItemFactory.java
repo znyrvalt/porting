@@ -15,9 +15,12 @@ import com.mojang.serialization.Unit;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -27,6 +30,8 @@ import net.minecraft.world.item.component.CustomModelData;
 import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
+import net.minecraft.world.item.equipment.Equippable;
+import net.minecraft.world.item.equipment.EquipmentAssets;
 import net.minecraft.nbt.CompoundTag;
 
 import com.altarsmp.fabric.AltarSMPMod;
@@ -160,7 +165,8 @@ public final class ItemFactory {
 		}
 		ItemStack stack = base(def.baseMaterial());
 		decorate(stack, def.displayName(), def.lore(), List.of(), def.customModelData(), def.tooltipStyle(),
-				def.rarity(), true, List.of(), def.id(), null);
+				def.rarity(), def.unbreakable(), def.enchants(), def.id(), null);
+		applyEquipmentAsset(stack, def.equippableModel());
 		Identity.putLegacy(stack, Identity.KEY_ARMOR, def.id());
 		return stack;
 	}
@@ -250,6 +256,49 @@ public final class ItemFactory {
 			stack.set(ModComponents.PROVENANCE, owner.getGameProfile().getName() + "|" + owner.getUUID());
 		}
 		stack.set(ModComponents.IDENTITY, contentId);
+	}
+
+	/**
+	 * Bukkit's {@code EquippableComponent#setModel(NamespacedKey.fromString("custom:copper"))}
+	 * - the armour keeps its vanilla slot and equip sound but wears the resource
+	 * pack's copper equipment asset, so a netherite (or diamond) piece renders as
+	 * copper.
+	 */
+	public static void applyEquipmentAsset(ItemStack stack, @Nullable String model) {
+		if (model == null || model.isEmpty()) {
+			return;
+		}
+		Equippable existing = stack.get(DataComponents.EQUIPPABLE);
+		EquipmentSlot slot = existing != null ? existing.slot() : slotFromContentId(stack);
+		if (slot == null) {
+			AltarSMPMod.LOGGER.warn("[AltarSMP] cannot work out the equipment slot for '{}'", stack.getItem());
+			return;
+		}
+		Equippable.Builder builder = Equippable.builder(slot);
+		if (existing != null) {
+			builder.setEquipSound(existing.equipSound());
+		}
+		builder.setAsset(ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.parse(model)));
+		stack.set(DataComponents.EQUIPPABLE, builder.build());
+	}
+
+	/** Fallback for items that arrive without an equippable component. */
+	@Nullable
+	private static EquipmentSlot slotFromContentId(ItemStack stack) {
+		String id = String.valueOf(BuiltInRegistries.ITEM.getKey(stack.getItem()));
+		if (id.endsWith("_helmet")) {
+			return EquipmentSlot.HEAD;
+		}
+		if (id.endsWith("_chestplate")) {
+			return EquipmentSlot.CHEST;
+		}
+		if (id.endsWith("_leggings")) {
+			return EquipmentSlot.LEGS;
+		}
+		if (id.endsWith("_boots")) {
+			return EquipmentSlot.FEET;
+		}
+		return null;
 	}
 
 	/**

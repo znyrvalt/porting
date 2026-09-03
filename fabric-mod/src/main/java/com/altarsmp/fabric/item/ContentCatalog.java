@@ -191,11 +191,27 @@ public final class ContentCatalog {
 			if (cls == null) {
 				continue;
 			}
-			String id = classToId(cls, "altarsmp");
+			// The copper pieces are keyed by their PDC value (copper_boots, ...), and
+			// CopperDiamondArmor's four generated pieces carry an explicit id.
+			String explicit = str(o, "id");
+			String id = Identity.normalise(explicit != null ? explicit : classToId(cls, "altarsmp"));
 			ARMOR.put(id, new ArmorDef(id, cls, str(o, "base_material"),
 					o.has("custom_model_data") && !o.get("custom_model_data").isJsonNull() ? o.get("custom_model_data").getAsInt() : null,
-					str(o, "display_name"), str(o, "tooltip_style"), str(o, "rarity"), strings(o, "lore")));
+					str(o, "display_name"), str(o, "tooltip_style"), str(o, "rarity"),
+					bool(o, "unbreakable", true), enchantSpecs(o), str(o, "equippable_model"), strings(o, "lore")));
 		}
+	}
+
+	private static List<EnchantSpec> enchantSpecs(JsonObject o) {
+		List<EnchantSpec> enchants = new ArrayList<>();
+		JsonArray ea = o.has("enchants") && o.get("enchants").isJsonArray() ? o.getAsJsonArray("enchants") : null;
+		if (ea != null) {
+			for (JsonElement ee : ea) {
+				JsonObject eo = ee.getAsJsonObject();
+				enchants.add(new EnchantSpec(str(eo, "enchant"), str(eo, "config"), number(eo, "default")));
+			}
+		}
+		return Collections.unmodifiableList(enchants);
 	}
 
 	private static String classToId(String cls, @Nullable String pkg) {
@@ -495,8 +511,16 @@ public final class ContentCatalog {
 			@Nullable String displayName, @Nullable String tooltipStyle, @Nullable String rarity, List<String> lore) {
 	}
 
+	/**
+	 * One piece of copper armour. {@code enchants} and {@code equippableModel} come
+	 * from the original {@code createArmor()} builders: the pieces are netherite (or
+	 * diamond, for the trial variants) wearing the resource pack's
+	 * {@code custom:copper} equipment asset, which is what makes them look like
+	 * copper instead of netherite.
+	 */
 	public record ArmorDef(String id, String sourceClass, @Nullable String baseMaterial, @Nullable Integer customModelData,
-			@Nullable String displayName, @Nullable String tooltipStyle, @Nullable String rarity, List<String> lore) {
+			@Nullable String displayName, @Nullable String tooltipStyle, @Nullable String rarity, boolean unbreakable,
+			List<EnchantSpec> enchants, @Nullable String equippableModel, List<String> lore) {
 	}
 
 	public record AltarDef(String key, String display, @Nullable String color, @Nullable Integer customModelData,

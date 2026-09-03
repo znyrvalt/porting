@@ -21,6 +21,16 @@ public interface ArmorBehavior {
 
 	EquipmentSlot slot();
 
+	/**
+	 * Other content ids this behaviour also answers to. The copper trial armour has
+	 * a diamond-based variant per piece ({@code copper_diamond_boots} and friends)
+	 * which the original checked for alongside the netherite one, so both ids drive
+	 * the same passive.
+	 */
+	default java.util.Set<String> aliasIds() {
+		return java.util.Set.of();
+	}
+
 	default ItemStack create() {
 		return ItemFactory.armor(id());
 	}

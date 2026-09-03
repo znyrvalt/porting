@@ -42,6 +42,7 @@ public final class AbilityBus {
 	private final AltarSMPMod mod;
 	private final Map<String, WeaponBehavior> weapons = new LinkedHashMap<>();
 	private final Map<String, ArmorBehavior> armors = new LinkedHashMap<>();
+	private final Map<String, ArmorBehavior> armorAliases = new LinkedHashMap<>();
 	private final Map<String, Integer> dispatches = new LinkedHashMap<>();
 
 	private final Map<UUID, Boolean> lastSneak = new HashMap<>();
@@ -65,6 +66,11 @@ public final class AbilityBus {
 
 	public void register(ArmorBehavior behavior) {
 		this.armors.put(Identity.normalise(behavior.id()), behavior);
+		// The diamond-looking trial pieces share the copper behaviours, so they are
+		// indexed as aliases instead of as behaviours of their own.
+		for (String alias : behavior.aliasIds()) {
+			this.armorAliases.put(Identity.normalise(alias), behavior);
+		}
 	}
 
 	@Nullable
@@ -74,7 +80,9 @@ public final class AbilityBus {
 
 	@Nullable
 	public ArmorBehavior armor(String id) {
-		return this.armors.get(Identity.normalise(id));
+		String key = Identity.normalise(id);
+		ArmorBehavior behavior = this.armors.get(key);
+		return behavior != null ? behavior : this.armorAliases.get(key);
 	}
 
 	public Collection<WeaponBehavior> weapons() {
@@ -429,7 +437,7 @@ public final class AbilityBus {
 		if (previousWorn != null) {
 			for (String id : previousWorn) {
 				if (!worn.contains(id)) {
-					ArmorBehavior behavior = this.armors.get(id);
+					ArmorBehavior behavior = armor(id);
 					if (behavior != null) {
 						this.count(id + ".unequip");
 						behavior.onUnequip(player, ItemStack.EMPTY);
@@ -462,7 +470,7 @@ public final class AbilityBus {
 			if (id == null) {
 				continue;
 			}
-			ArmorBehavior behavior = this.armors.get(id);
+			ArmorBehavior behavior = armor(id);
 			if (behavior != null) {
 				out.add(new ArmorEntry(behavior, stack, slot));
 			}
