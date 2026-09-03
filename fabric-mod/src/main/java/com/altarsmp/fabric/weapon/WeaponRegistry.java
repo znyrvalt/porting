@@ -10,6 +10,7 @@ import javax.annotation.Nullable;
 
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
+import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -206,6 +207,22 @@ public final class WeaponRegistry {
 			return InteractionResult.PASS;
 		});
 
+		// Right-clicking an entity: the plugin cancelled PlayerArmorStandManipulateEvent
+		// on every altar stand (nobody may use its hand) and ran CraftingAltarInteract's
+		// collect path from PlayerInteractAtEntityEvent.
+		UseEntityCallback.EVENT.register((player, level, hand, target, hitResult) -> {
+			if (!(player instanceof ServerPlayer serverPlayer)) {
+				return InteractionResult.PASS;
+			}
+			if (this.mod.altars().handleRightClick(serverPlayer, target)) {
+				return InteractionResult.SUCCESS;
+			}
+			if (this.mod.altars().blockManipulate(serverPlayer, target)) {
+				return InteractionResult.FAIL;
+			}
+			return InteractionResult.PASS;
+		});
+
 		// Right-click with a weapon in hand (some abilities are use-triggered).
 		// Global interception runs first: Omen's forbidden circles cancel wind
 		// charge use even though the player is not holding an Omen.
@@ -253,6 +270,18 @@ public final class WeaponRegistry {
 			if (player instanceof ServerPlayer serverPlayer && level instanceof ServerLevel serverLevel) {
 				this.mod.abilities().onBlockBreak(serverPlayer, pos, state);
 				this.mod.protection().onBlockBroken(serverPlayer, serverLevel, pos, state);
+				if (state.is(net.minecraft.world.level.block.Blocks.STRUCTURE_BLOCK)) {
+					// AltarBreakCleanup: the anchor block is gone, so the altar goes too.
+					this.mod.listeners().onAnchorBroken(serverLevel, pos);
+					if (serverPlayer.isCreative()) {
+						// AltarBreakListener (both seasons): tagged parts near the break.
+						int parts = this.mod.altars().removeTaggedParts(serverLevel, pos);
+						if (parts > 0) {
+							com.altarsmp.fabric.util.Messaging.send(serverPlayer,
+									"<gray>Altar removed (" + parts + " parts).");
+						}
+					}
+				}
 			}
 		});
 

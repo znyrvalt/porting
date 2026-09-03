@@ -102,6 +102,7 @@ def extract_s1(d: str) -> list[dict]:
         # what the altar hands out
         gives = re.search(r'new ([A-Za-z0-9_]+Weapon)\(', src)
         entry["gives_class"] = gives.group(1) if gives else None
+        entry["ritual"] = extract_ritual(name[:-5], src)
         out.append(entry)
     # altars that only have a command (no interact class)
     for stem, entry in commands.items():
@@ -230,6 +231,254 @@ def extract_recipes(base: str) -> dict:
     return {"main": main, "s2": s2}
 
 
+
+# ---------------------------------------------------------------------------
+# Ritual extraction: the per-altar behaviour that the *AltarInteract classes
+# encode (title colour and subtitle, what gets handed out, faction gates,
+# sounds, chat lines, whether the altar is removed afterwards).
+# ---------------------------------------------------------------------------
+
+TITLE = re.compile(
+    r'sendTitle\(\s*ChatColor\.([A-Z_]+)\s*\+\s*(var\d+)\s*,\s*ChatColor\.([A-Z_]+)\s*\+\s*'
+    r'"((?:[^"\\]|\\.)*)"\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)')
+GATE = re.compile(
+    r'getConfig\(\)\.getBoolean\("([a-z0-9_.]+)"\s*,\s*(true|false)\)\s*&&\s*(!?)\s*'
+    r'VampireManager\.([A-Za-z]+)\(')
+SOUND = re.compile(r'playSound\((var\d+)\.getLocation\(\),\s*Sound\.([A-Z_0-9]+),\s*([\d.]+)F,\s*([\d.]+)F\)')
+BROADCAST_LOOP = re.compile(r'for \((?:Player )?(var\d+) : Bukkit\.getOnlinePlayers\(\)\)')
+GIVES_WEAPON = re.compile(r'new ([A-Za-z0-9_]+Weapon)\(')
+GIVES_GETTER = re.compile(r'get([A-Z][A-Za-z0-9_]*)\(\)\.create(Armor|Item|Weapon)\(\)')
+GIVES_STATIC = re.compile(r'\b([A-Z][A-Za-z0-9_]*)\.create([A-Z][A-Za-z0-9_]*)\(\)')
+# CopperPickaxeII var7 = this.a.getCopperPickaxeII();  ...  var7.createItem()
+GIVES_LOCAL = re.compile(r'\b([A-Z][A-Za-z0-9_]*)\s+var\d+\s*=\s*this\.[a-z]\.get[A-Z][A-Za-z0-9_]*\(\)\s*;')
+KING = re.compile(r'set(Pale|Vampire|Hyperion)King\(')
+RED_LINE = re.compile(r'sendMessage\(ChatColor\.RED \+ "((?:[^"\\]|\\.)*)"\)')
+
+SEND_MSG = re.compile(r'(var\d+)\.sendMessage\(\s*(.*?)\s*\)\s*;', re.S)
+DESER_BODY = re.compile(r'^[a-z]\.deserialize\(\s*(.*)\s*\)$', re.S)
+CHATCOLOR_BODY = re.compile(r'^ChatColor\.([A-Z_]+) \+ "((?:[^"\\]|\\.)*)"$')
+LEGACY_CONCAT = re.compile(r'^ChatColor\.([A-Z_]+) \+ ((?:"(?:[^"\\]|\\.)*"|\s|\+|[A-Za-z0-9_.()]+)+)$', re.S)
+
+# The Pale Crossbow title is built from concatenated magic/obfuscated text and a
+# 3000-character zalgo subtitle; the generic TITLE pattern cannot see it, so the
+# values are recorded here exactly as PaleCrossbowAltarInteract builds them.
+TITLE_OVERRIDES = {
+    "palecrossbow": {
+        "title_color": None,
+        "title_text_raw": 'ChatColor.DARK_GRAY + ChatColor.MAGIC + "aaaa" + ChatColor.RESET + ChatColor.GRAY + " ? " + ChatColor.MAGIC + "aaaa"',
+        "title_subtitle_color": "dark_red",
+        "title_subtitle_ref": "zalgo",
+        "title_fade_in": 20,
+        "title_stay": 100,
+        "title_fade_out": 30,
+    },
+}
+
+# Zalgo strings the interact classes keep in a static field.
+ZALGO = {}
+
+
+def _load_zalgo(base: str) -> None:
+    path = os.path.join(base, "com/altarsmp/altars/PaleCrossbowAltarInteract.java")
+    if not os.path.exists(path):
+        return
+    src = read(path)
+    m = re.search(r'private static final String c = "((?:[^"\\]|\\.)*)";', src)
+    if m:
+        ZALGO["palecrossbow"] = m.group(1)
+
+
+SPECIAL_INTERACTS = {
+    "ContagionSignalAltarInteract": "contagionsignal",
+    "PlayerTrackerAltarInteract": "playertracker",
+    "CopperPickaxeUpgradeAltarInteract": "copperpickaxeupgrade",
+    "PaleCrossbowAltarInteract": "palecrossbow",
+    "CraftingAltarInteract": "crafting",
+}
+
+
+def _color(name: str) -> str:
+    return CHATCOLOR_MAP.get(name, name.lower())
+
+
+def extract_ritual(class_name: str, src: str) -> dict:
+    """Pulls the altar ritual out of one *AltarInteract source file."""
+    ritual: dict = {}
+    m = TITLE.search(src)
+    if m:
+        ritual["title_color"] = _color(m.group(1))
+        ritual["title_subtitle_color"] = _color(m.group(3))
+        ritual["title_subtitle"] = m.group(4)
+        ritual["title_fade_in"] = int(m.group(5))
+        ritual["title_stay"] = int(m.group(6))
+        ritual["title_fade_out"] = int(m.group(7))
+
+    # what the altar hands out
+    gives = None
+    mw = GIVES_WEAPON.search(src)
+    mg = GIVES_GETTER.search(src)
+    ms = GIVES_STATIC.search(src)
+    if mw:
+        gives = {"kind": "weapon", "class": mw.group(1)}
+    elif mg:
+        kind = "armor" if mg.group(2) == "Armor" else ("weapon" if mg.group(2) == "Weapon" else "item")
+        gives = {"kind": kind, "class": mg.group(1)}
+    elif ms:
+        gives = {"kind": "item", "class": ms.group(1)}
+    else:
+        ml = GIVES_LOCAL.search(src)
+        if ml:
+            cls = ml.group(1)
+            kind = "weapon" if cls.endswith("Weapon") else ("armor" if "Armor" in cls or cls.startswith("Copper") and cls.endswith(("Helmet", "Chestplate", "Leggings", "Boots")) else "item")
+            gives = {"kind": kind, "class": cls}
+    if gives:
+        ritual["gives"] = gives
+
+    # faction gate
+    mgate = GATE.search(src)
+    if mgate:
+        tail = src[mgate.end():]
+        msg = RED_LINE.search(tail)
+        snd = SOUND.search(tail)
+        ritual["gate"] = {
+            "config": mgate.group(1),
+            "default": mgate.group(2) == "true",
+            "negated": mgate.group(3) == "!",
+            "check": mgate.group(4),
+            "message": msg.group(1) if msg else None,
+            "sound": {"sound": snd.group(2), "volume": float(snd.group(3)), "pitch": float(snd.group(4))} if snd else None,
+        }
+
+    mk = KING.search(src)
+    if mk:
+        ritual["sets_king"] = mk.group(1).lower()
+
+    # variables bound by a "for (Player vX : Bukkit.getOnlinePlayers())" loop are
+    # broadcast targets; everything else is the crafting player
+    loop_vars = set(BROADCAST_LOOP.findall(src))
+
+    # sounds, tagged with the variable they play at so the caller can tell a
+    # broadcast sound (loop variable) from one played only to the crafter
+    sounds = []
+    for sm in SOUND.finditer(src):
+        if sm.group(1) in loop_vars:
+            continue
+        sounds.append({"sound": sm.group(2), "volume": float(sm.group(3)), "pitch": float(sm.group(4)),
+                       "to": "all" if sm.group(1) in loop_vars else "self"})
+    for sm in SOUND.finditer(src):
+        if sm.group(1) not in loop_vars:
+            continue
+        entry = {"sound": sm.group(2), "volume": float(sm.group(3)), "pitch": float(sm.group(4)), "to": "all"}
+        if entry not in sounds:
+            sounds.append(entry)
+    if sounds:
+        ritual["sounds"] = sounds
+
+    # chat lines, in source order: blanks, legacy colour + text, MiniMessage
+    # markup, and (for the Contagion Signal broadcast) a concatenated expression
+    lines = []
+    for sm in SEND_MSG.finditer(src):
+        target = sm.group(1)
+        body = sm.group(2).strip()
+        entry = {"var": target, "to": "all" if target in loop_vars else "self"}
+        if body in ('""', "Component.empty()"):
+            entry["blank"] = True
+        else:
+            dm = DESER_BODY.match(body)
+            cm = CHATCOLOR_BODY.match(body)
+            lm = LEGACY_CONCAT.match(body)
+            if dm:
+                inner = dm.group(1).strip()
+                if inner.startswith('"') and inner.endswith('"') and "+" not in inner:
+                    entry["markup"] = inner[1:-1]
+                else:
+                    entry["raw"] = inner
+            elif cm:
+                entry["color"] = _color(cm.group(1))
+                entry["text"] = cm.group(2)
+            elif lm:
+                entry["color"] = _color(lm.group(1))
+                entry["raw"] = lm.group(2)
+            else:
+                entry["raw"] = body
+        lines.append((sm.start(), entry))
+    lines.sort(key=lambda pair: pair[0])
+    if lines:
+        ritual["messages"] = [entry for _, entry in lines]
+
+    # the gate sound is part of the refusal, not of a successful craft
+    if "gate" in ritual and "sounds" in ritual and ritual["gate"].get("sound"):
+        gate_sound = ritual["gate"]["sound"]
+        ritual["sounds"] = [snd for snd in ritual["sounds"]
+                            if {k: snd[k] for k in ("sound", "volume", "pitch")} != gate_sound]
+        if not ritual["sounds"]:
+            ritual.pop("sounds")
+
+    recipe = re.search(r'(?:a\.a\.[ab]|u\.a)\(\s*this\.[a-z]\s*,\s*var\d+\s*,\s*"([a-z0-9_]+)"', src)
+    if recipe and recipe.group(1) in TITLE_OVERRIDES:
+        ritual.update(TITLE_OVERRIDES[recipe.group(1)])
+        if ZALGO:
+            ritual["zalgo"] = dict(ZALGO)
+
+    ritual["removes_altar"] = bool(re.search(r'removeAltarNear\(|[^a-z]s\.a\(var\d+\.getLocation\(\)', src))
+    if class_name in SPECIAL_INTERACTS:
+        ritual["special"] = SPECIAL_INTERACTS[class_name]
+    return ritual
+
+
+# custom ingredient key -> the catalog entry that produces that item
+CATALOG_IDS = {
+    "custom_weapon_handle": {"kind": "item", "class": "WeaponHandle"},
+    "custom_warden_heart": {"kind": "item", "class": "WardenHeart"},
+    "custom_hyperion_shard": {"kind": "item", "class": "HyperionShard"},
+    "custom_nightpiercer_shard": {"kind": "item", "class": "NightpiercerShard"},
+    "custom_illusion_core": {"kind": "item", "class": "IllusionCore"},
+    "custom_vulkan_head": {"kind": "item", "class": "VulkanHead"},
+    "custom_pale_shard": {"kind": "item", "class": "PaleShard"},
+    "custom_copper_pickaxe": {"kind": "item", "class": "CopperPickaxe"},
+    "custom_copper_fragment": {"kind": "item", "class": "CopperFragment"},
+    "custom_chestplate_shard": {"kind": "item", "class": "CopperChestplateFragment"},
+    "custom_pale_crossbow": {"kind": "weapon", "class": "PaleCrossbowWeapon"},
+    "custom_hyperion": {"kind": "weapon", "class": "HyperionWeapon"},
+    "custom_nightpiercer": {"kind": "weapon", "class": "NightpiercerWeapon"},
+    "custom_soul_in_a_bottle": {"kind": "item", "class": "SoulInABottle"},
+    "custom_fragment_of_the_sea": {"kind": "item", "class": "FragmentOfTheSea"},
+    "custom_dragon_heart": {"kind": "item", "class": "DragonHeart"},
+}
+
+S2_SUPER = re.compile(
+    r'super\(\s*var\d+\s*,\s*"((?:[^"\\]|\\.)*)"\s*,\s*"([a-z0-9_]+)"\s*,\s*ChatColor\.([A-Z_]+)\s*,\s*'
+    r'([A-Za-z0-9_]+)::create\s*\)')
+
+
+def extract_s2_rituals(base: str) -> dict:
+    """display -> ritual, from the five Season 2 *AltarInteract classes."""
+    out = {}
+    d = os.path.join(base, "com/altarsmps2/altars")
+    if not os.path.isdir(d):
+        return out
+    for name in sorted(os.listdir(d)):
+        if not name.endswith("AltarInteract.java") or name == "BaseAltarInteract.java":
+            continue
+        src = read(os.path.join(d, name))
+        m = S2_SUPER.search(src)
+        if not m:
+            continue
+        out[m.group(1)] = {
+            "title_color": _color(m.group(3)),
+            "title_subtitle_color": "gray",
+            "title_subtitle": " has crafted a powerful weapon...",
+            "title_fade_in": 10,
+            "title_stay": 140,
+            "title_fade_out": 20,
+            "missing_prefix_color": _color(m.group(3)),
+            "gives": {"kind": "weapon", "class": m.group(4)},
+            "removes_altar": True,
+            "counterpart": "a.u",
+        }
+    return out
+
+
 def main() -> int:
     if not os.path.isdir(os.path.join(SRC, "com")):
         import zipfile
@@ -237,6 +486,7 @@ def main() -> int:
         with zipfile.ZipFile(os.path.join(ROOT, "Altar_SMPS1-2-sources-FRESH.jar")) as jar:
             jar.extractall(SRC)
     os.makedirs(OUT, exist_ok=True)
+    _load_zalgo(SRC)
     s1 = extract_s1(os.path.join(SRC, "com/altarsmp/altars"))
     s1 = [a for a in s1 if a.get("display")]
     s2 = extract_s2_table(SRC)
@@ -252,6 +502,12 @@ def main() -> int:
         if rid and rid in recipes["main"]:
             altar["ingredients"] = recipes["main"][rid]
     merged = s2
+    s2_rituals = extract_s2_rituals(SRC)
+    for altar in merged:
+        ritual = s2_rituals.get(altar.get("display"))
+        if ritual:
+            altar["ritual"] = ritual
+            altar["interact_class"] = ritual.get("gives", {}).get("class", "").replace("Weapon", "") + "AltarInteract"
 
     with open(os.path.join(OUT, "altars.json"), "w", encoding="utf-8") as fh:
         json.dump({"season1": s1, "season2": merged}, fh, indent=1, ensure_ascii=False)
@@ -262,6 +518,7 @@ def main() -> int:
             "custom_s1": CUSTOM_ITEM_NAMES_S1,
             "custom_s2": CUSTOM_ITEM_NAMES_S2,
             "never_consumed": NEVER_CONSUMED,
+            "catalog_ids": CATALOG_IDS,
         }, fh, indent=1, ensure_ascii=False)
 
     print("S1 altars: %d" % len(s1))

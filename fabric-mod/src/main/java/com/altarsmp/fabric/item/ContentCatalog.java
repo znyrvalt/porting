@@ -44,6 +44,8 @@ public final class ContentCatalog {
 	private static final Map<String, Map<String, Integer>> RECIPES_S2 = new LinkedHashMap<>();
 	private static final Map<String, String> CUSTOM_INGREDIENT_NAMES = new LinkedHashMap<>();
 	private static final Set<String> NEVER_CONSUMED = new LinkedHashSet<>();
+	/** custom ingredient key -&gt; the catalog entry that produces that item. */
+	private static final Map<String, String[]> CUSTOM_INGREDIENT_CATALOG = new LinkedHashMap<>();
 	private static final Set<String> PROTECTED_ITEMS = new LinkedHashSet<>();
 
 	private static boolean loaded;
@@ -280,7 +282,8 @@ public final class ContentCatalog {
 						a.has("material") ? str(a, "material") : "NETHERITE_SWORD",
 						a.has("y_offset") ? a.get("y_offset").getAsDouble() : 0.0D,
 						recipe, Collections.unmodifiableMap(ingredients),
-						str(a, "interact_class"), key.equals("season2") ? 2 : 1);
+						str(a, "interact_class"), key.equals("season2") ? 2 : 1,
+						a.has("ritual") && a.get("ritual").isJsonObject() ? a.getAsJsonObject("ritual") : null);
 				ALTARS.put(altarKey, def);
 				if (recipe != null && !recipe.equals(altarKey)) {
 					ALTARS.putIfAbsent(recipe, def);
@@ -338,6 +341,12 @@ public final class ContentCatalog {
 		if (o.has("never_consumed") && o.get("never_consumed").isJsonArray()) {
 			for (JsonElement e : o.getAsJsonArray("never_consumed")) {
 				NEVER_CONSUMED.add(e.getAsString());
+			}
+		}
+		if (o.has("catalog_ids") && o.get("catalog_ids").isJsonObject()) {
+			for (Map.Entry<String, JsonElement> e : o.getAsJsonObject("catalog_ids").entrySet()) {
+				JsonObject ref = e.getValue().getAsJsonObject();
+				CUSTOM_INGREDIENT_CATALOG.put(e.getKey(), new String[]{str(ref, "kind"), str(ref, "class")});
 			}
 		}
 	}
@@ -426,6 +435,50 @@ public final class ContentCatalog {
 		}
 		String stripped = key.startsWith("custom_") ? key.substring(7) : key;
 		return prettyMaterial(stripped);
+	}
+
+	/**
+	 * The catalog id of the item a custom ingredient key stands for, or {@code null}
+	 * when nothing in the catalog produces it. {@code a/b.java} and {@code a/u.java}
+	 * matched these by display name or predicate; the port matches by identity first
+	 * and falls back to the name.
+	 */
+	@Nullable
+	public static String customIngredientId(String key) {
+		String[] ref = CUSTOM_INGREDIENT_CATALOG.get(key);
+		return ref == null ? null : idByClass(ref[0], ref[1]);
+	}
+
+	/** The catalog id whose definition was extracted from {@code sourceClass}. */
+	@Nullable
+	public static String idByClass(String kind, String sourceClass) {
+		if (kind == null || sourceClass == null) {
+			return null;
+		}
+		switch (kind) {
+			case "weapon":
+				for (Map.Entry<String, WeaponDef> entry : WEAPONS.entrySet()) {
+					if (sourceClass.equals(entry.getValue().sourceClass())) {
+						return entry.getKey();
+					}
+				}
+				break;
+			case "armor":
+				for (Map.Entry<String, ArmorDef> entry : ARMOR.entrySet()) {
+					if (sourceClass.equals(entry.getValue().sourceClass())) {
+						return entry.getKey();
+					}
+				}
+				break;
+			default:
+				for (Map.Entry<String, ItemDef> entry : ITEMS.entrySet()) {
+					if (sourceClass.equals(entry.getValue().sourceClass())) {
+						return entry.getKey();
+					}
+				}
+				break;
+		}
+		return null;
 	}
 
 	public static boolean isNeverConsumed(String materialKey) {
@@ -523,8 +576,14 @@ public final class ContentCatalog {
 			List<EnchantSpec> enchants, @Nullable String equippableModel, List<String> lore) {
 	}
 
+	/**
+	 * @param ritual the raw {@code ritual} object from {@code altars.json}: the title
+	 *               colour and subtitle, what the altar hands out, any faction gate,
+	 *               sounds, chat lines and whether the altar is removed afterwards.
+	 *               {@code altar.AltarRegistry} turns it into typed data.
+	 */
 	public record AltarDef(String key, String display, @Nullable String color, @Nullable Integer customModelData,
 			@Nullable String material, double yOffset, @Nullable String recipeId, Map<String, Integer> ingredients,
-			@Nullable String sourceClass, int season) {
+			@Nullable String sourceClass, int season, @Nullable JsonObject ritual) {
 	}
 }

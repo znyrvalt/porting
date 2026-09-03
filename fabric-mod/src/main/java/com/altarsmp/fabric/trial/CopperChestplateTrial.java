@@ -368,7 +368,7 @@ public final class CopperChestplateTrial {
 			}
 			ResourceKey<Level> dimension = Level.OVERWORLD;
 			for (ResourceKey<Level> key : server.levelKeys()) {
-				if (key.location().toString().equals(parts[0])) {
+				if (key.identifier().toString().equals(parts[0])) {
 					dimension = key;
 					break;
 				}
@@ -387,7 +387,7 @@ public final class CopperChestplateTrial {
 	public List<String> describeIslands() {
 		List<String> records = new ArrayList<>();
 		for (Island island : this.islands) {
-			records.add(island.dimension.location() + "," + island.center.x + "," + island.center.y + ","
+			records.add(island.dimension.identifier() + "," + island.center.x + "," + island.center.y + ","
 					+ island.center.z);
 		}
 		return records;

@@ -23,5 +23,71 @@
  },
  "never_consumed": [
   "DRAGON_EGG"
- ]
+ ],
+ "catalog_ids": {
+  "custom_weapon_handle": {
+   "kind": "item",
+   "class": "WeaponHandle"
+  },
+  "custom_warden_heart": {
+   "kind": "item",
+   "class": "WardenHeart"
+  },
+  "custom_hyperion_shard": {
+   "kind": "item",
+   "class": "HyperionShard"
+  },
+  "custom_nightpiercer_shard": {
+   "kind": "item",
+   "class": "NightpiercerShard"
+  },
+  "custom_illusion_core": {
+   "kind": "item",
+   "class": "IllusionCore"
+  },
+  "custom_vulkan_head": {
+   "kind": "item",
+   "class": "VulkanHead"
+  },
+  "custom_pale_shard": {
+   "kind": "item",
+   "class": "PaleShard"
+  },
+  "custom_copper_pickaxe": {
+   "kind": "item",
+   "class": "CopperPickaxe"
+  },
+  "custom_copper_fragment": {
+   "kind": "item",
+   "class": "CopperFragment"
+  },
+  "custom_chestplate_shard": {
+   "kind": "item",
+   "class": "CopperChestplateFragment"
+  },
+  "custom_pale_crossbow": {
+   "kind": "weapon",
+   "class": "PaleCrossbowWeapon"
+  },
+  "custom_hyperion": {
+   "kind": "weapon",
+   "class": "HyperionWeapon"
+  },
+  "custom_nightpiercer": {
+   "kind": "weapon",
+   "class": "NightpiercerWeapon"
+  },
+  "custom_soul_in_a_bottle": {
+   "kind": "item",
+   "class": "SoulInABottle"
+  },
+  "custom_fragment_of_the_sea": {
+   "kind": "item",
+   "class": "FragmentOfTheSea"
+  },
+  "custom_dragon_heart": {
+   "kind": "item",
+   "class": "DragonHeart"
+  }
+ }
 }
