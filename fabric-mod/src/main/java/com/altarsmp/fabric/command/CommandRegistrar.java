@@ -139,6 +139,7 @@ public final class CommandRegistrar {
 		registerTrialCommands(dispatcher);
 		registerEventCommands(dispatcher);
 		registerUtilityCommands(dispatcher);
+		registerContentGuis(dispatcher);
 		AltarSMPMod.LOGGER.info("[AltarSMP] registered {} commands", this.registered);
 	}
 
@@ -322,8 +323,8 @@ public final class CommandRegistrar {
 					return 1;
 				})
 				.then(Commands.argument("piece", StringArgumentType.word())
-						.suggests((ctx, builder) -> SharedSuggestionFactory
-								.suggest(List.of("helmet", "chestplate", "leggings", "boots", "all"), builder))
+						.suggests((ctx, builder) -> suggest(
+								List.of("helmet", "chestplate", "leggings", "boots", "all"), builder))
 						.executes(ctx -> copperDiamond(ctx.getSource(),
 								StringArgumentType.getString(ctx, "piece")))));
 	}
@@ -1552,6 +1553,30 @@ public final class CommandRegistrar {
 				new AxisAngle4f(0.0F, 0.0F, 1.0F, 0.0F));
 	}
 
+	// ===================================================== /recipes /legendaries
+
+	/**
+	 * {@code RecipesCommand} and {@code LegendariesGUI}: the two browsing windows. Neither is an
+	 * admin command in the plugin - any player may look - and only the click that hands out an item
+	 * checks for op, which the windows do themselves.
+	 */
+	private void registerContentGuis(CommandDispatcher<CommandSourceStack> dispatcher) {
+		add(dispatcher, Commands.literal("recipes").executes(ctx -> {
+			RecipesGui.open(player(ctx.getSource()));
+			return 1;
+		}));
+		add(dispatcher, Commands.literal("legendaries").executes(ctx -> {
+			LegendariesGui.open(player(ctx.getSource()), 1);
+			return 1;
+		}));
+		// Season 2's browser refused to open while season 1 was loaded and pointed here instead;
+		// the port opens the season 2 page directly, which is what that message promised.
+		add(dispatcher, Commands.literal("legendaries2").executes(ctx -> {
+			LegendariesGui.open(player(ctx.getSource()), 2);
+			return 1;
+		}));
+	}
+
 	// ================================================================ plumbing
 
 	private void add(CommandDispatcher<CommandSourceStack> dispatcher,
@@ -1638,7 +1663,10 @@ public final class CommandRegistrar {
 				"setkillss", "bloodkills", "lock", "unlock", "controls", "ability1", "ability2", "cooldown", "trust",
 				"untrust", "trustlist", "bingo", "hotpotato", "coppertrial", "chestplatetrial", "bloodmoon", "pvp",
 				"tabcolor", "tc", "deathmatch", "nukezone", "banzone", "blueparticle", "altarconfig", "asmpconfig",
-				"altarsmpconfig", "altarsmps2reload", "s2reload"));
+				"altarsmpconfig", "altarsmps2reload", "s2reload", "omen", "ancientblade", "withersymbiote",
+				"tidebreaker", "dragonrend", "bowofdeceptionandlies", "soulinabottle", "fragmentofthesea",
+				"dragonheart", "amethystpickaxe", "amethystaxe", "blackghastsaddle", "recipes", "legendaries",
+				"legendaries2"));
 		return names;
 	}
 }
