@@ -290,13 +290,12 @@ public final class WeaponRegistry {
 
 	/** Called by the projectile mixin when an arrow/trident owned by a player lands. */
 	public void onProjectileHit(Entity projectile, @Nullable Entity hit) {
-		if (!(projectile.level() instanceof ServerLevel level)) {
+		if (!(projectile.level() instanceof ServerLevel)) {
 			return;
 		}
 		if (projectile.getOwner() instanceof ServerPlayer shooter) {
 			this.mod.abilities().onProjectileHit(shooter, projectile, hit);
 		}
-		this.mod.nukeZone().onProjectileImpact(projectile, level, hit);
 	}
 
 	public void onProjectileLaunch(Entity projectile) {

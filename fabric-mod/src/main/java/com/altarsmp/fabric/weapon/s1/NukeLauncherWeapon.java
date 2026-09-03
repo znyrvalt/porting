@@ -15,7 +15,7 @@ import com.altarsmp.fabric.weapon.WeaponBehavior;
  *
  * <p><b>Nuclear Strike</b> (F): paints a target up to
  * {@code abilities.nukelauncher.target_range} blocks away and hands it to
- * {@link com.altarsmp.fabric.nuke.NukeZoneManager}, which runs the shared
+ * {@link com.altarsmp.fabric.event.NukeZoneManager}, which runs the shared
  * countdown ({@code countdown}s of boss-bar warnings plus
  * {@code custom/nuke_incoming}), the {@code custom/nuke_explosion} blast, the
  * {@code flash_range}/{@code flash_duration} blindness flash, the
