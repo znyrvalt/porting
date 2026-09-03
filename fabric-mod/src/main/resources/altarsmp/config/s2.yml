@@ -1,0 +1,228 @@
+# AltarSMPS2 Configuration
+# Season 2 weapons, altars, and recipes.
+
+# ABILITY IMMUNITY (anti-stack)
+# Two-layer protection against ability spam.
+ability-immunity:
+  victim-immunity: true
+  victim-duration: 2     # seconds
+  attacker-cooldown: true
+  attacker-duration: 2   # seconds
+
+# WEAPON PROTECTION
+weapon-protection:
+  enabled: true
+  burn-protection: true
+  containers:
+    chest: true
+    barrel: true
+    ender_chest: true
+    other: true
+
+# ABILITIES
+abilities:
+
+  # OMEN
+  omen:
+    vault_omen:
+      cooldown: 35              # seconds
+      duration: 7               # seconds the vault lasts
+      tether_radius: 3          # block radius
+      land_triangle_size: 2     # 2-block triangle on landing
+    ominous_conjuring:
+      cooldown: 50              # seconds
+      buff_duration: 10         # seconds spear is buffed
+      spell_radius: 16          # players in this radius determine spell level
+      lvl1_speed_duration: 20   # ticks of speed on direct hit
+      lvl1_speed_amplifier: 1   # 0=Speed I, 1=Speed II, 2=Speed III
+      circle_radius: 4          # forbidden-circle radius around vault landing
+    ominous_projectile:
+      damage: 4.0               # AOE damage (4.0 = 2 hearts)
+      aoe_radius: 3.0           # AOE size on impact
+      speed: 30.0               # blocks per second
+      distance: 25.0            # max travel distance
+
+  # ANCIENT BLADE
+  ancientblade:
+    deep_connection:
+      speed_bonus: 0.25         # +25% speed on sculk
+    swift:
+      kills_required: 2
+      amplifier: 0              # 0=Speed I, 1=Speed II
+    presence:
+      cooldown: 45
+      kills_required: 3
+      mark_duration: 10         # seconds mark lasts (Darkness applied)
+      mark_amplifier: 0         # 0=Darkness I
+    tightened_grip:
+      kills_required: 4
+      amplifier: 1              # 0=Strength I, 1=Strength II
+    echolocation:
+      cooldown: 3
+      kills_required: 1
+      range: 24
+    unyielding_darkness:
+      cooldown: 60
+      kills_required: 5
+      damage: 8.0
+      sonic_count: 5
+
+  # WITHER SYMBIOTE
+  withersymbiote:
+    infection:
+      cooldown: 40
+      detonate_window: 3        # seconds between activation and forced detonation
+      spread_radius: 3          # blocks for symbiote spread
+      detonate_damage: 8.0      # damage on detonate
+      weakness_duration: 8      # seconds of weakness after expire
+      weakness_amplifier: 0     # 0=Weakness I
+      prime_glow_amplifier: 0   # caster glow on prime
+      tick_particle_interval: 5 # ticks between particle puffs
+    rampage:
+      cooldown: 120
+      duration: 30              # seconds (sustain dependent)
+      bonus_health: 6.0         # 3 hearts
+      heal_amount: 6.0
+      lifesteal: 1.0            # 0.5 hearts per hit
+      speed_bonus: 0.50
+      exit_health_loss: 6.0
+      initial_duration: 6.0       # seconds of rampage if you don't hit anything
+      max_buffer_duration: 12.0   # max seconds banked from hits (sliding window - hits always extend)
+      bar_full_seconds: 5.0       # action-bar shows full when this much time remains
+      exit_weakness_duration: 10  # seconds of weakness after rampage ends
+      exit_weakness_amplifier: 0  # 0=Weakness I
+      exit_wither_duration: 10    # seconds of wither after rampage ends
+      exit_wither_amplifier: 0    # 0=Wither I
+      sustain_per_hit: 2.0      # seconds added back per melee hit during rampage
+
+  # TIDEBREAKER
+  tidebreaker:
+    passive:
+      water_breathing_amplifier: 0       # 0=Water Breathing I
+      nautilus_buff_radius: 8            # blocks
+      nautilus_resistance_amplifier: 2   # 0=Resistance I, 2=Resistance III
+      nautilus_speed_amplifier: 4        # 0=Speed I, 4=Speed V
+    stormcall:
+      cooldown: 40
+      duration: 10              # seconds storm lasts
+      radius: 6                 # block radius
+      damage: 2.0               # damage per hit (2.0 = 1 heart)
+      hit_interval: 10          # ticks between strikes (10 ticks = 0.5s)
+      max_targets_per_tick: 2
+    rising_tide:
+      cooldown: 50
+      jet_height: 14            # blocks the player blasts up
+      shockwave_radius: 6       # landing shockwave
+      shockwave_knockback: 1.6
+      wave_distance: 25         # max blocks the staircase wave travels
+      water_damage: 2.5         # damage per hit on staircase wave
+      pull_velocity: 1.1        # speed targets are pulled toward caster on wave hit
+
+  # DRAGONREND
+  dragonrend:
+    hypersonic:
+      cooldown: 40              # seconds before next Hypersonic Slash
+      charge_duration_ms: 2000  # how long player charges before primed
+      duration_ms: 5000         # how long the primed window lasts after charge
+      strike_cooldown_ms: 1000  # ms between consecutive strikes in the window
+      damage: 4.0               # damage per slash strike (4.0 = 2 hearts)
+      detection_range: 16.0     # blocks - max range to find a target
+      detection_cone_dot: 0.91  # 1.0 = directly ahead, 0.91 ≈ 25° cone
+      teleport_offset: 1.5      # blocks behind target the caster teleports to
+    infinite_void:
+      cooldown: 60              # seconds before next Infinite Void
+      slow_radius: 6.0          # blocks - players within get tick-slowed
+
+# ALTAR DISPLAY
+altar:
+  rotation_speed: 2.0   # Degrees per tick on the floating display
+  hologram_height: 2.5
+
+# HAPPY GHAST SADDLE
+happy-ghast-saddle:
+  speed_level: 2  # 0=Speed I, 1=Speed II, 2=Speed III
+
+# AMETHYST TOOLS
+amethyst-tools:
+  pickaxe:
+    attack_damage: 6.0
+    attack_speed: 1.2
+  axe:
+    attack_damage: 10.0
+    attack_speed: 1.0
+  sound_pitch_min: 0.7
+  sound_pitch_max: 1.3
+
+# ALTAR RECIPES
+# UPPERCASE for vanilla items, custom_ prefix for plugin items.
+recipes:
+  omen:
+    OMINOUS_TRIAL_KEY: 8
+    BREEZE_ROD: 64
+    COPPER_BLOCK: 64
+    SOUL_TORCH: 32
+    TRIAL_KEY: 16
+    custom_weapon_handle: 1
+    HEAVY_CORE: 1
+    PLAYER_HEAD: 2
+
+  ancientblade:
+    SCULK_SHRIEKER: 64
+    DIAMOND_BLOCK: 32
+    ECHO_SHARD: 32
+    MUSIC_DISC_5: 1
+    custom_warden_heart: 3
+    PLAYER_HEAD: 3
+
+  withersymbiote:
+    WITHER_ROSE: 16
+    BLAZE_ROD: 64
+    GHAST_TEAR: 16
+    DRIED_GHAST: 10
+    NETHERITE_INGOT: 2
+    NETHER_STAR: 1
+    custom_soul_in_a_bottle: 1
+    PLAYER_HEAD: 3
+
+  tidebreaker:
+    HEART_OF_THE_SEA: 1
+    PRISMARINE_CRYSTALS: 64
+    LIGHTNING_ROD: 16
+    DIAMOND_BLOCK: 48
+    custom_fragment_of_the_sea: 5
+    NAUTILUS_SHELL: 4
+    PLAYER_HEAD: 3
+    TRIDENT: 1
+
+  dragonrend:
+    AMETHYST_CLUSTER: 32
+    ENDER_EYE: 64
+    CRYING_OBSIDIAN: 32
+    custom_dragon_heart: 1
+    NETHERITE_INGOT: 3
+
+# WORKBENCH RECIPE TOGGLES
+# Each season-2 workbench recipe can be disabled if it conflicts with
+# another plugin or you don't want it.
+workbench-recipes:
+  soul_in_a_bottle: true
+  weapon_handle: true        # Overrides AltarSMP's weapon_handle recipe if AltarSMP is loaded
+  cobweb: true
+  golden_apple: true
+  amethyst_pickaxe: true
+  amethyst_axe: true
+  black_ghast_saddle: true
+  firework: true              # 8 gunpowder + 1 paper (3x3) -> 16 rockets, flight 3
+  long_strength_splash: true  # Strength II potion + gunpowder -> 8-min Strength II splash
+
+# Ender Dragon in The End spawns with this max HP. Whoever deals the most
+# damage when it dies receives a Dragon Heart.
+ender-dragon:
+  max-hp: 25000
+
+# Bow of Deception and Lies. When false, /bowofdeceptionandlies refuses, the
+# melee ability + eat handler + imposter TNT all go inert, and any existing
+# bows behave as regular bows. The bow itself is always droppable/stashable
+# regardless of this flag.
+bow-of-deception:
+  enabled: false

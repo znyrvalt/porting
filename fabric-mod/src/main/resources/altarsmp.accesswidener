@@ -1,0 +1,80 @@
+accessWidener v2 official
+
+# ---------------------------------------------------------------------------
+# Why this file exists
+#
+# The original plugin was a Paper plugin: Bukkit's entity API exposes
+# Display/ArmorStand/TextDisplay setters that vanilla Minecraft keeps private
+# (they are normally only reachable through NBT). This port has no Bukkit, so
+# the handful of private vanilla members it genuinely needs are widened here
+# instead of being re-implemented with reflection or fake wrappers.
+#
+# Every entry below was verified against Mojang-mapped sources
+# (net/minecraft/world/entity/Display.java, ArmorStand.java) - names and
+# descriptors are the real ones, not guesses.
+# ---------------------------------------------------------------------------
+
+# --- net.minecraft.world.entity.Display -------------------------------------
+accessible method net/minecraft/world/entity/Display setTransformation (Lcom/mojang/math/Transformation;)V
+accessible method net/minecraft/world/entity/Display setTransformationInterpolationDuration (I)V
+accessible method net/minecraft/world/entity/Display setTransformationInterpolationDelay (I)V
+accessible method net/minecraft/world/entity/Display setPosRotInterpolationDuration (I)V
+accessible method net/minecraft/world/entity/Display setBillboardConstraints (Lnet/minecraft/world/entity/Display$BillboardConstraints;)V
+accessible method net/minecraft/world/entity/Display setBrightnessOverride (Lnet/minecraft/util/Brightness;)V
+accessible method net/minecraft/world/entity/Display setViewRange (F)V
+accessible method net/minecraft/world/entity/Display setShadowRadius (F)V
+accessible method net/minecraft/world/entity/Display setShadowStrength (F)V
+accessible method net/minecraft/world/entity/Display setWidth (F)V
+accessible method net/minecraft/world/entity/Display setHeight (F)V
+accessible method net/minecraft/world/entity/Display setGlowColorOverride (I)V
+
+# --- Display.ItemDisplay ----------------------------------------------------
+accessible method net/minecraft/world/entity/Display$ItemDisplay setItemStack (Lnet/minecraft/world/item/ItemStack;)V
+accessible method net/minecraft/world/entity/Display$ItemDisplay setItemTransform (Lnet/minecraft/world/item/ItemDisplayContext;)V
+
+# --- Display.BlockDisplay ---------------------------------------------------
+accessible method net/minecraft/world/entity/Display$BlockDisplay setBlockState (Lnet/minecraft/world/level/block/state/BlockState;)V
+
+# --- Display.TextDisplay ----------------------------------------------------
+accessible method net/minecraft/world/entity/Display$TextDisplay setText (Lnet/minecraft/network/chat/Component;)V
+accessible method net/minecraft/world/entity/Display$TextDisplay setLineWidth (I)V
+accessible method net/minecraft/world/entity/Display$TextDisplay setTextOpacity (B)V
+accessible method net/minecraft/world/entity/Display$TextDisplay setBackgroundColor (I)V
+accessible method net/minecraft/world/entity/Display$TextDisplay setFlags (B)V
+
+# --- net.minecraft.world.entity.decoration.ArmorStand -----------------------
+# The altar totems are invisible marker armour stands (Bukkit: setMarker(true)).
+accessible method net/minecraft/world/entity/decoration/ArmorStand setMarker (Z)V
+accessible method net/minecraft/world/entity/decoration/ArmorStand setSmall (Z)V
+accessible method net/minecraft/world/entity/decoration/ArmorStand setShowArms (Z)V
+accessible method net/minecraft/world/entity/decoration/ArmorStand setNoBasePlate (Z)V
+accessible method net/minecraft/world/entity/decoration/ArmorStand setInvisible (Z)V
+
+# --- net.minecraft.world.food.FoodData --------------------------------------
+# Wither Symbiote's Rampage burns 0.5 saturation every 10 ticks while it is
+# sustained (Bukkit: player.setSaturation(player.getSaturation() - 0.5F)).
+# FoodData only exposes a getter and addExhaustion(), which would drain four
+# times slower than the original, so the field itself is widened instead.
+accessible field net/minecraft/world/food/FoodData saturationLevel F
+
+# --- net.minecraft.world.entity.monster.Creeper -----------------------------
+# The Copper Chestplate's Static Shock charges every creeper in the ring (Bukkit:
+# creeper.setPowered(true)). Vanilla only powers creepers through thunderHit(),
+# which also sets them on fire, so the synched-data key is widened and set
+# directly instead.
+accessible field net/minecraft/world/entity/monster/Creeper DATA_IS_POWERED Lnet/minecraft/network/syncher/EntityDataAccessor;
+
+# --- net.minecraft.world.entity.Interaction ---------------------------------
+# The Contagion Signal's hitbox is a 2.5x2.5 responsive Interaction (Bukkit:
+# setInteractionWidth/setInteractionHeight/setResponsive). Those three setters are
+# private in 26.x, so the synched-data keys they write are widened and set
+# directly, exactly like the Creeper's powered flag below.
+accessible field net/minecraft/world/entity/Interaction DATA_WIDTH_ID Lnet/minecraft/network/syncher/EntityDataAccessor;
+accessible field net/minecraft/world/entity/Interaction DATA_HEIGHT_ID Lnet/minecraft/network/syncher/EntityDataAccessor;
+accessible field net/minecraft/world/entity/Interaction DATA_RESPONSE_ID Lnet/minecraft/network/syncher/EntityDataAccessor;
+
+# --- net.minecraft.server.level.ChunkMap --------------------------------------
+# /destroyaltars all|allworlds sweeps every loaded chunk for altar structure
+# blocks (DestroyAltarsCommand iterated World#getLoadedChunks). The chunk stream
+# is package-private in 26.x, so it is widened rather than reimplemented.
+accessible method net/minecraft/server/level/ChunkMap allChunksWithAtLeastStatus (Lnet/minecraft/world/level/chunk/status/ChunkStatus;)Ljava/util/stream/Stream;

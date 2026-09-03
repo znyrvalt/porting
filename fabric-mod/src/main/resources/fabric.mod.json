@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "altarsmp",
+  "version": "${version}",
+  "name": "AltarSMP (Fabric)",
+  "description": "Complete 1:1 Fabric port of the AltarSMP Season 1 + Season 2 server implementation: altar crafting, 30 legendary weapons with real abilities, factions (Human/Vampire/Pale/Hyperion + Kings), Blood Moon, the four Copper Trials, weapon protection, kill counters and the full AltarSMP/MythicWeapons resource pack.",
+  "authors": [
+    "Kuragami",
+    "Standzz",
+    "AltarSMP Fabric port"
+  ],
+  "contact": {
+    "sources": "https://github.com/znyrvalt/porting"
+  },
+  "license": "ARR - ported with permission from the original AltarSMP plugin",
+  "icon": "assets/altarsmp/icon.png",
+  "environment": "*",
+  "accessWidener": "altarsmp.accesswidener",
+  "entrypoints": {
+    "main": [
+      "com.altarsmp.fabric.AltarSMPMod"
+    ]
+  },
+  "mixins": [
+    "altarsmp.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "~${minecraft_version}",
+    "java": ">=25",
+    "fabric-api": ">=${fabric_api_version}"
+  },
+  "suggests": {
+    "geyser-fabric": "*"
+  },
+  "custom": {
+    "altarsmp": {
+      "sourcePlugin": "AltarSMP 1.2 (Paper, Seasons 1+2)",
+      "portTarget": "Minecraft ${minecraft_version} / Fabric Loader ${loader_version}"
+    }
+  }
+}
