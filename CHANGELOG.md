@@ -51,7 +51,7 @@ at startup.
 minimal YAML reader (no SnakeYAML in the jar), with `s2.yml` falling back to
 `config.yml` and then to the code defaults the plugin passed to Bukkit.
 
-**Commands.** 106 of the 107 commands the plugin declared, as Brigadier trees in
+**Commands.** All 107 commands the plugin declared, as Brigadier trees in
 `CommandRegistrar`, each calling the same game-side code its executor called.
 `docs/commands.md` is generated from `plugin.yml` and cross-checked against the
 registrar.
@@ -60,6 +60,15 @@ registrar.
 grids), `/legendaries` and `/legendaries2` (both pages of the item browser), and
 `/legendaryconfig` / `/legendaryconfig2` (the live stat editor, with 198 editable
 values in 32 tables read straight out of the plugin's field declarations).
+
+**`/spawnaltarrandom`.** The last unregistered command: `altar/RandomAltarSpawner`
+transliterates all 948 lines of `SpawnAltarRandomCommand` — the dressed 15-block
+disc, the cleared 11 × 36 × 11 column, the six per-type pillar builders with their
+palettes, chances, corner columns and chains, the deck at +31 with its 70% ring,
+corner lanterns and iron-bars railings, and the enchanting table, ender chest and
+bookshelves on it. Five pillars are placed inside `altar-spawn.default-range` (or
+the range given on the command line) over a hundred candidate columns, each one
+tested for solid, water-free ground as the plugin did.
 
 **Resource pack.** The committed pack is unpacked into the jar at build time, so
 models, textures, sounds, tooltip sprites and the vanilla item definitions that
@@ -113,14 +122,19 @@ Bugs carried by the plugin that the port does not repeat:
   showed. They appear in `/legendaryconfig`.
 - `/copperdiamond`'s suggestion lambda called `SharedSuggestionFactory#suggest`,
   which 26.x removed; it uses the registrar's own helper like every other node.
+- The altar registry had 34 of the plugin's 35 altars. The Pale Shard is in it
+  now, with `recipes.paleshard`'s six ingredients and the ritual the other five
+  crafting-component altars have. `tools/extract_altars.py` reads
+  `AltarSpawnCommand`'s own table for altars that have no interact class, so the
+  registry cannot lose one again.
+- Pillar altars were decoration upstream: `SpawnAltarRandomCommand` finished each
+  pillar with an invisible armour stand whose name tag carried the recipe lines,
+  and nothing recorded it, so clicking it did nothing and `/destroyaltars` never
+  saw it. `/spawnaltarrandom` now puts a real altar on each deck through
+  `AltarManager#createAltarAt` — recorded, craftable, swept with the rest.
 
 ### Known gaps
 
-- **`/spawnaltarrandom` is not registered.** It is the one command in
-  `plugin.yml` with no Brigadier tree: 948 lines of themed pillar structures, one
-  builder per altar type, that have not been ported yet. Tracked in
-  `docs/limitations.md`; the altars themselves are fully functional through
-  `/altar`.
 - **Nothing here has been compiled or run.** The sandbox this port was written in
   has no JDK and no Minecraft, so verification was static: every API signature
   was checked against the 26.2 Mojang-mapped sources, every import resolved by

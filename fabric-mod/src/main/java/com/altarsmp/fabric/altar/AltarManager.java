@@ -140,9 +140,28 @@ public final class AltarManager {
 			Messaging.send(player, "<red>Look at a block within 10 blocks to place the altar.");
 			return false;
 		}
+		if (!createAltarAt(level, hit.getBlockPos().above(), spec, player)) {
+			Messaging.send(player, "<red>Error creating altar. Look at a block within 3 blocks.");
+			return false;
+		}
+		Messaging.send(player, "<green>Altar for " + spec.display() + " created!");
+		return true;
+	}
+
+	/**
+	 * Builds an altar at an exact position: the structure-block anchor, the rotating item
+	 * display, the invisible name stand and the hologram lines, and then records it.
+	 *
+	 * <p>{@code /altar} reaches this through the raycast above. {@code /spawnaltarrandom}
+	 * picks its own positions and calls it directly, so a pillar altar is a real, recorded,
+	 * craftable altar that {@code /destroyaltars} can sweep - not a decoration that says
+	 * "left-click to craft" and does nothing.
+	 *
+	 * @param owner who to credit in the record, or null when the server placed it
+	 */
+	public boolean createAltarAt(ServerLevel level, BlockPos anchor, AltarRegistry.Spec spec,
+			@Nullable ServerPlayer owner) {
 		try {
-			BlockPos target = hit.getBlockPos();
-			BlockPos anchor = target.above();
 			level.setBlock(anchor, Blocks.STRUCTURE_BLOCK.defaultBlockState(), 3);
 			Vec3 anchorCenter = Vec3.atLowerCornerOf(anchor);
 			boolean seasonTwo = spec.season() == 2;
@@ -205,12 +224,10 @@ public final class AltarManager {
 				offset -= 0.25D;
 			}
 
-			recordAltar(spec, level, anchor, stand, player);
-			Messaging.send(player, "<green>Altar for " + spec.display() + " created!");
+			recordAltar(spec, level, anchor, stand, owner);
 			return true;
 		} catch (RuntimeException e) {
 			AltarSMPMod.LOGGER.error("[AltarSMP] failed to create the altar for '{}'", spec.display(), e);
-			Messaging.send(player, "<red>Error creating altar. Look at a block within 3 blocks.");
 			return false;
 		}
 	}
@@ -242,11 +259,11 @@ public final class AltarManager {
 	}
 
 	private void recordAltar(AltarRegistry.Spec spec, ServerLevel level, BlockPos anchor, ArmorStand stand,
-			ServerPlayer player) {
+			@Nullable ServerPlayer player) {
 		AltarRecord record = new AltarRecord(stand.getStringUUID(), spec.key(),
 				level.dimension().identifier().toString(), anchor.getX() + 0.5D, anchor.getY(), anchor.getZ() + 0.5D);
 		record.recipeId(spec.recipeId() == null ? "" : spec.recipeId());
-		record.spawnedBy(player.getGameProfile().getName());
+		record.spawnedBy(player == null ? "server" : player.getGameProfile().getName());
 		this.mod.store().putAltar(record);
 		this.mod.store().markDirty();
 	}

@@ -1,6 +1,6 @@
 # Commands
 
-The plugin declared 107 commands in `plugin.yml`; the port registers 106 of them in `CommandRegistrar`, one Brigadier tree per name.
+The plugin declared 107 commands in `plugin.yml`; the port registers 107 of them in `CommandRegistrar`, one Brigadier tree per name.
 
 Two mechanical differences apply to every row and are not repeated in the table:
 
@@ -69,7 +69,7 @@ Commands are admin interfaces only: every one of them calls the same game-side c
 | `/sethuman` | Set a player to human | `altarsmp.admin` | `/sethuman <player>` | yes |  |
 | `/altar` | Spawn any altar by name (tab-completable) | `altarsmp.admin` | `/altar <altar_name>` | yes | AltarRegistry + AltarManager#createAltar |
 | `/altarspawn` | Alias for /altar | `altarsmp.admin` | `/altarspawn <altar_name>` | yes | alias of altar |
-| `/spawnaltarrandom` | Spawn a crafting item altar at a random location with themed structure | `altarsmp.admin` | `/spawnaltarrandom <type> [range]` | **no** | **not ported yet** - see docs/limitations.md |
+| `/spawnaltarrandom` | Spawn a crafting item altar at a random location with themed structure | `altarsmp.admin` | `/spawnaltarrandom <type> [range]` | yes | RandomAltarSpawner raises five pillars around the sender; each deck carries a real, craftable altar |
 | `/destroyaltars` | Destroy all altars within a radius | `altarsmp.admin` | `/destroyaltars [radius]` | yes | radius, `all` or `allworlds` through AltarManager#sweep |
 | `/contagionstop` | Force-stop an active Contagion Signal ritual | `altarsmp.admin` | `/contagionstop` | yes | ContagionSignalManager |
 | `/setbloodlust` | Set a player's bloodlust level (1-5) | `altarsmp.admin` | `/setbloodlust <player> <1-5>` | yes | stored kill count |
@@ -118,9 +118,3 @@ Commands are admin interfaces only: every one of them calls the same game-side c
 | `/bowofdeceptionandlies` | Give the Bow of Deception and Lies | `altarsmps2.admin` | `/bowofdeceptionandlies` | yes |  |
 | `/altarsmps2reload` | Reload the AltarSMPS2 config.yml | `altarsmps2.admin` | `/altarsmps2reload` | yes | reloads both documents |
 | `/setkillss` | Set kill counter on a held weapon (Ancient Blade) | `altarsmps2.admin` | `/setkillss ancientblade <player> <kills>` | yes | writes the Ancient Blade counter on the held blade and in the record |
-
-## Not registered
-
-These names are declared in `plugin.yml` and have no Brigadier tree in the port:
-
-- `/spawnaltarrandom`

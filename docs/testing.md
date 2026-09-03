@@ -95,9 +95,8 @@ python3 tools/generate_command_doc.py
 
 Parses the plugin's `plugin.yml` (107 commands with their descriptions, usages
 and permission nodes) and cross-checks each name against `CommandRegistrar`,
-writing `docs/commands.md`. Current result: **107 declared, 106 registered, 1
-missing** — `/spawnaltarrandom`, listed in `docs/limitations.md`. The check found
-no other gap; names registered through helper methods (`curse(…)`,
+writing `docs/commands.md`. Current result: **107 declared, 107 registered, 0
+missing**. Names registered through helper methods (`curse(…)`,
 `configEditor(…)`) and through the give-command tables are all detected.
 
 ### 6. The stat tables, generated rather than retyped
@@ -144,7 +143,7 @@ The order below puts the cheapest, most informative failures first.
 2. **Load.** `./gradlew runServer` (or `runClient`). Expect, in order: the config
    loaded from `config/altarsmp/` with its key counts, the content catalogue
    initialised, the recorded-altar summary, and
-   `[AltarSMP] registered <n> commands`, where n is 106 plugin.yml names plus the
+   `[AltarSMP] registered <n> commands`, where n is 107 plugin.yml names plus the
    aliases (`tc`, `altarspawn`, `asmpconfig`, `altarsmpconfig`, `s2reload`). Any
    mixin failure stops the load with a
    Mixin apply error naming the target — fix that before anything else.

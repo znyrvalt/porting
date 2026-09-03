@@ -37,6 +37,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.permissions.Permissions;
 import net.minecraft.sounds.SoundEvents;
@@ -50,6 +51,7 @@ import net.minecraft.world.scores.Scoreboard;
 import com.altarsmp.fabric.AltarSMPMod;
 import com.altarsmp.fabric.ability.Displays;
 import com.altarsmp.fabric.altar.AltarManager;
+import com.altarsmp.fabric.altar.RandomAltarSpawner;
 import com.altarsmp.fabric.altar.AltarRegistry;
 import com.altarsmp.fabric.config.ConfigFields;
 import com.altarsmp.fabric.data.PlayerRecord;
@@ -985,6 +987,20 @@ public final class CommandRegistrar {
 						.suggests((ctx, builder) -> SharedSuggestionFactory
 								.suggest(seasonTwoAltarNames(), builder))
 						.executes(ctx -> spawnAltar(ctx.getSource(), StringArgumentType.getString(ctx, "name")))));
+		add(dispatcher, admin("spawnaltarrandom")
+				.executes(ctx -> {
+					spawnAltarRandomUsage(ctx.getSource());
+					return 1;
+				})
+				.then(Commands.argument("type", StringArgumentType.word())
+						.suggests((ctx, builder) -> SharedSuggestionFactory
+								.suggest(RandomAltarSpawner.TYPES, builder))
+						.executes(ctx -> spawnAltarRandom(ctx.getSource(),
+								StringArgumentType.getString(ctx, "type"), 0))
+						.then(Commands.argument("range", IntegerArgumentType.integer(1, 100000))
+								.executes(ctx -> spawnAltarRandom(ctx.getSource(),
+										StringArgumentType.getString(ctx, "type"),
+										IntegerArgumentType.getInteger(ctx, "range"))))));
 		add(dispatcher, admin("destroyaltars")
 				.executes(ctx -> destroyAltars(ctx.getSource(), 10))
 				.then(Commands.argument("scope", StringArgumentType.word())
@@ -1047,6 +1063,75 @@ public final class CommandRegistrar {
 		String color = spec.color() == null ? "white" : spec.color();
 		Messaging.send(player, "<green>Spawned <" + color + ">" + spec.plainDisplay() + "<green> altar!");
 		return 1;
+	}
+
+	/** {@code SpawnAltarRandomCommand#onCommand} with no arguments (:47-51). */
+	private void spawnAltarRandomUsage(CommandSourceStack source) {
+		tell(source, "<red>Usage: /spawnaltarrandom <type> [range]");
+		tell(source, "<gray>Types: " + String.join(", ", RandomAltarSpawner.TYPES));
+		tell(source, "<gray>Spawns " + RandomAltarSpawner.PILLARS + " altars of the selected type with 30-block "
+				+ "pillar structures.");
+	}
+
+	/**
+	 * {@code SpawnAltarRandomCommand#onCommand:52-101} - up to five pillars of one type on
+	 * solid, dry ground inside {@code range} blocks of the sender, tried over a hundred
+	 * columns. The pillar itself is built by {@link RandomAltarSpawner}; the altar on its deck
+	 * is a real one, so {@code /destroyaltars} sweeps these too.
+	 *
+	 * @param range 0 to take it from {@code altar-spawn.default-range}, as the plugin did
+	 */
+	private int spawnAltarRandom(CommandSourceStack source, String type, int range) throws CommandSyntaxException {
+		ServerPlayer player = player(source);
+		String key = Identity.normalise(type).toLowerCase(Locale.ROOT);
+		RandomAltarSpawner spawner = this.mod.randomAltars();
+		if (!spawner.supports(key)) {
+			tell(source, "<red>Invalid type! Valid types: " + String.join(", ", RandomAltarSpawner.TYPES));
+			return 1;
+		}
+		int search = range > 0 ? range : this.mod.config().getInt("altar-spawn.default-range", 500);
+		ServerLevel level = player.serverLevel();
+		RandomSource rand = RandomSource.create();
+		BlockPos origin = player.blockPosition();
+		int spawned = 0;
+		for (int attempt = 0; attempt < RandomAltarSpawner.ATTEMPTS && spawned < RandomAltarSpawner.PILLARS;
+				attempt++) {
+			int x = origin.getX() + rand.nextInt(search * 2) - search;
+			int z = origin.getZ() + rand.nextInt(search * 2) - search;
+			BlockPos site = RandomAltarSpawner.findSite(level, x, z);
+			if (site == null) {
+				continue;
+			}
+			if (spawner.spawnAt(level, site, key, rand)) {
+				spawned++;
+				continue;
+			}
+			// The pillar went up but its altar did not; spawnAt logged why, and the sender is
+			// told rather than being handed a count that claims otherwise.
+			tell(source, "<red>Built a pillar at " + site.getX() + " " + site.getY() + " " + site.getZ()
+					+ " but could not place its altar - see the server log.");
+		}
+		if (spawned > 0) {
+			AltarRegistry.Spec spec = this.mod.altarRegistry().byKey(key);
+			String name = spec == null ? key : spec.plainDisplay();
+			tell(source, "<green>Spawned " + spawned + "x <" + pillarColor(key) + ">" + name
+					+ "<green> pillar altars within " + search + " blocks!");
+		} else {
+			tell(source, "<red>Could not find suitable locations. Try increasing the range.");
+		}
+		return 1;
+	}
+
+	/** {@code SpawnAltarRandomCommand#f(String):920-931} - the colour the pillar name is announced in. */
+	private static String pillarColor(String type) {
+		return switch (type) {
+			case "hyperionshard" -> "gold";
+			case "nightpiercershard", "vulkanhead" -> "dark_red";
+			case "illusioncore" -> "dark_purple";
+			case "weaponhandle" -> "red";
+			case "paleshard" -> "gray";
+			default -> "white";
+		};
 	}
 
 	private int destroyAltars(CommandSourceStack source, int radius) throws CommandSyntaxException {

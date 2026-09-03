@@ -4,36 +4,63 @@ Everything the port could not carry over unchanged, and everything it does not d
 yet. Nothing here is a silent difference: each entry names the plugin behaviour,
 what the mod does instead, and why.
 
-## Not ported
+## Deliberate differences
 
-### `/spawnaltarrandom`
+### `/spawnaltarrandom` puts a real altar on each pillar
 
-The one command in `plugin.yml` with no Brigadier tree.
+`SpawnAltarRandomCommand` is 948 lines: it picks up to five surface positions
+inside a radius, and at each one builds a themed structure — a 15-block decorated
+disc, a cleared 11 × 36 × 11 column, a 30-block pillar whose blocks come from a
+per-type palette, one of six builders chosen by altar type, a deck at +31 with a
+70% ring, corner lanterns and iron-bars railings, and an enchanting table, an
+ender chest and two bookshelves on it. `altar/RandomAltarSpawner.java`
+transliterates all of it, position for position and chance for chance, and the
+command keeps the plugin's messages, its `altar-spawn.default-range` config key,
+its five-pillar limit and its hundred candidate columns.
 
-`SpawnAltarRandomCommand` is 948 lines: it picks five surface positions inside a
-radius, and at each one builds a themed structure — a 15-block decorated disc, a
-30-block pillar whose blocks come from a per-type palette, one of thirteen
-builder variants (`b` through `m`) chosen by altar type, and a hologram 32 blocks
-up. The palettes are real content:
+The last step is the one thing it does differently. The plugin finished each
+pillar by spawning an invisible armour stand whose name tag carried the recipe
+lines (`a(Location, String):846`): nothing recorded that stand, clicking it did
+nothing, and `/destroyaltars` never saw it, so a pillar altar was decoration that
+read like an altar. The port hands the same position — the stand's feet were at
+base + 32.5 — to `AltarManager#createAltarAt`, which puts the same altar object
+`/altar <type>` places: recorded in the altar store, craftable from its config
+recipe, swept by `/destroyaltars` like every other altar.
 
-| Type | Palette |
-| --- | --- |
-| `hyperionshard` | yellow/orange concrete, yellow terracotta, glowstone |
-| `nightpiercershard` | obsidian, crying obsidian, purple concrete, end stone |
-| `vulkanhead` | netherrack, magma block, red concrete, crimson nylium |
-| `illusioncore` | moss block, copper block, oxidised copper, tuff |
-| `weaponhandle` | yellow/light-blue/orange concrete, yellow terracotta |
-| `paleshard` | sculk, grey/light-grey concrete, bone block |
+The palettes are the plugin's, unchanged:
 
-Porting it means transliterating all thirteen builders block by block; doing it
-from a summary rather than from the source would produce structures that are not
-the plugin's, which is the one thing this port is not allowed to do. It is
-outstanding work, not a design decision.
+| Type | Pillar palette | Ground palette |
+| --- | --- | --- |
+| `hyperionshard` | cobblestone, mossy/stone bricks, deepslate family; glowstone every 4th | yellow/orange concrete, yellow terracotta, glowstone |
+| `nightpiercershard` | same stone family; crying obsidian and obsidian by chance | obsidian, crying obsidian, purple concrete, end stone |
+| `vulkanhead` | netherrack, nether/red nether bricks, blackstone family, magma, basalt | netherrack, magma block, red concrete, crimson nylium |
+| `illusioncore` | copper in four oxidation states by height, tuff family | moss block, copper block, oxidised copper, tuff |
+| `weaponhandle` | yellow/light-blue/orange concrete, polished blackstone, iron, copper | yellow/light-blue/orange concrete, yellow terracotta |
+| `paleshard` | sculk, deepslate family, grey/light-grey concrete, tuff | sculk, grey/light-grey concrete, bone block |
 
-**What still works without it:** the altars themselves. `/altar <type>` places
-any altar from the registry with its hologram, rotation and recorded state;
-`/altars2` does the same for the Season 2 set; `/destroyaltars` sweeps them. Only
-the randomised themed *decoration* around five surface positions is missing.
+Three of the plugin's pillar builders are not ported: `c()` (an ice tower),
+`d()` (an obsidian and nether-brick tower) and `f()` (a reinforced-deepslate and
+sculk-catalyst tower). The type switch never selected them, so nothing could
+reach them in the plugin either. They are dead code, not a missing feature.
+
+### The Pale Shard altar can be crafted from
+
+The plugin offered 35 altars through `/altar` but only 33 of them have a dedicated
+interact class. The Pale Shard would have gone through the generic
+`CraftingAltarInteract`, and that class is empty: its list of craftable names is
+`Arrays.asList()` and its item switch is only `default: return null`. So
+`/altar paleshard` and the `paleshard` pillar both produced an altar nothing could
+craft from. `config.yml` does define `recipes.paleshard` — bone block 16, cobweb
+32, phantom membrane 8, candle 16, soul lantern 4, moss block 64 — and the Pale
+Shard item exists in the content catalogue, so the port registers the altar with
+the same ritual shape the other five crafting-component altars have, and it gives
+the Pale Shard.
+
+The plugin's 35th `/altar` entry, `wardenheart`, is deliberately not registered.
+It pointed at `recipes.wardenheart`, which `config.yml` does not define — the
+config has `recipes.wardenhead`, the Warden Head altar, which the port does
+register and which crafts from netherite ingots, wither skeleton skulls and the
+custom warden heart. `/wardenheart`, the command that gives the item, is ported.
 
 ## Mechanism changes
 

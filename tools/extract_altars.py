@@ -479,6 +479,73 @@ def extract_s2_rituals(base: str) -> dict:
     return out
 
 
+SPAWN_COMMAND_ENTRY = re.compile(
+    r'b\.put\("([a-z0-9_]+)",\s*new AltarSpawnCommand\.a\("([^"]+)",\s*ChatColor\.([A-Z_]+),\s*(\d+),\s*'
+    r'"([a-z0-9_]+)"(?:,\s*Material\.([A-Z_]+))?\)\);')
+
+
+def add_spawn_command_altars(s1, path, recipes):
+    """Adds the altars only /altar's own table declares.
+
+    The plugin offered 35 altars through AltarSpawnCommand, but only 33 of them have a
+    dedicated *AltarInteract class, which is what extract_s1 reads. The Pale Shard was
+    placed by the command and crafted through the generic CraftingAltarInteract like any
+    other recorded altar, so reading the command's table keeps it from going missing.
+
+    An entry whose recipe the config does not define is skipped and reported: the
+    plugin's `wardenheart` altar pointed at `recipes.wardenheart`, which config.yml never
+    had (it defines `recipes.wardenhead`, the Warden Head altar), so that entry could
+    never show ingredients or craft. Reproducing it would add an altar that does nothing.
+    """
+    have = {a.get("recipe") for a in s1} | {a.get("key") for a in s1}
+    added, skipped = [], []
+    text = open(path, encoding="utf-8", errors="replace").read()
+    for key, display, color, cmd, recipe, material in SPAWN_COMMAND_ENTRY.findall(text):
+        if recipe in have or key in have:
+            continue
+        if recipe not in recipes:
+            skipped.append("%s (recipe %s is not in config.yml)" % (key, recipe))
+            continue
+        added.append({
+            "key": key,
+            "display": display,
+            "color": color.lower(),
+            "cmd": int(cmd),
+            "material": material or "NETHERITE_SWORD",
+            "material_is_default": material is None,
+            "y_offset": 0.0,
+            "recipe": recipe,
+            "command_class": None,
+            "interact_class": "CraftingAltarInteract",
+            "season": 1,
+            "gives_class": None,
+            # CraftingAltarInteract is the class these altars would have been crafted
+            # through, and it is empty in the plugin: its name list is Arrays.asList() and
+            # its item switch is only `default: return null`, so the Pale Shard pillar was
+            # decoration you could not craft from. config.yml does define recipes.paleshard
+            # and the item exists, so the ritual is written out the way the other five
+            # crafting-component altars have theirs rather than shipping a dead altar.
+            "ritual": {
+                "title_color": "gray",
+                "title_subtitle_color": "gray",
+                "title_subtitle": " has crafted a crafting component...",
+                "title_fade_in": 10,
+                "title_stay": 140,
+                "title_fade_out": 20,
+                "gives": {"kind": "item", "class": display.replace(" ", "")},
+                "messages": [
+                    {"var": "var9", "to": "self", "color": "red",
+                     "text": "Missing items to craft %s:" % display},
+                    {"var": "var9", "to": "self", "raw": "var11"},
+                ],
+                "removes_altar": False,
+            },
+        })
+    for entry in skipped:
+        print("   skipped /altar %s" % entry)
+    return s1 + added
+
+
 def main() -> int:
     if not os.path.isdir(os.path.join(SRC, "com")):
         import zipfile
@@ -491,6 +558,8 @@ def main() -> int:
     s1 = [a for a in s1 if a.get("display")]
     s2 = extract_s2_table(SRC)
     recipes = extract_recipes(SRC)
+    s1 = add_spawn_command_altars(s1, os.path.join(SRC, "com/altarsmp/altars/AltarSpawnCommand.java"),
+                                  recipes["main"])
     for altar in s2:
         table = recipes["s2"].get(altar["recipe"]) or recipes["main"].get(altar["recipe"])
         if table:

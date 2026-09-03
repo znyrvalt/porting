@@ -25,7 +25,7 @@ NOTES = {
     "legendaries2": "the item browser, season 2 page",
     "legendaryconfig": "the stat editor plus `set <entry> <path> <value>` (ConfigFields)",
     "legendaryconfig2": "the season 2 stat editor",
-    "spawnaltarrandom": "**not ported yet** - see docs/limitations.md",
+    "spawnaltarrandom": "RandomAltarSpawner raises five pillars around the sender; each deck carries a real, craftable altar",
     "copperdiamondarmor": "takes helmet|chestplate|leggings|boots|all",
     "minorcrazyslots": "takes a player or `addpool`",
     "knightfallmax": "runs the held blade through KnightfallWeapon#applyKills",

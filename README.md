@@ -139,7 +139,7 @@ contain and what therefore cannot be reproduced.
   disk and reloaded on restart.
 - **Configuration** — both documents, read live and writable in place through
   `/legendaryconfig`, keeping the file's comments.
-- **Commands** — 106 of the 107 the plugin declared; see `docs/commands.md`.
+- **Commands** — all 107 the plugin declared; see `docs/commands.md`.
 
 ## Documentation
 

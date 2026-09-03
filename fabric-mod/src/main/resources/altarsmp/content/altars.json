@@ -1745,6 +1745,54 @@
     "WITHER_SKELETON_SKULL": 12,
     "PLAYER_HEAD": 6
    }
+  },
+  {
+   "key": "paleshard",
+   "display": "Pale Shard",
+   "color": "gray",
+   "cmd": 25,
+   "material": "ECHO_SHARD",
+   "material_is_default": false,
+   "y_offset": 0.0,
+   "recipe": "paleshard",
+   "command_class": null,
+   "interact_class": "CraftingAltarInteract",
+   "season": 1,
+   "gives_class": null,
+   "ritual": {
+    "title_color": "gray",
+    "title_subtitle_color": "gray",
+    "title_subtitle": " has crafted a crafting component...",
+    "title_fade_in": 10,
+    "title_stay": 140,
+    "title_fade_out": 20,
+    "gives": {
+     "kind": "item",
+     "class": "PaleShard"
+    },
+    "messages": [
+     {
+      "var": "var9",
+      "to": "self",
+      "color": "red",
+      "text": "Missing items to craft Pale Shard:"
+     },
+     {
+      "var": "var9",
+      "to": "self",
+      "raw": "var11"
+     }
+    ],
+    "removes_altar": false
+   },
+   "ingredients": {
+    "BONE_BLOCK": 16,
+    "COBWEB": 32,
+    "PHANTOM_MEMBRANE": 8,
+    "CANDLE": 16,
+    "SOUL_LANTERN": 4,
+    "MOSS_BLOCK": 64
+   }
   }
  ],
  "season2": [

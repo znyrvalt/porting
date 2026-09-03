@@ -17,6 +17,7 @@ import com.altarsmp.fabric.ability.AbilityImmunity;
 import com.altarsmp.fabric.ability.CooldownManager;
 import com.altarsmp.fabric.altar.AltarManager;
 import com.altarsmp.fabric.altar.AltarRegistry;
+import com.altarsmp.fabric.altar.RandomAltarSpawner;
 import com.altarsmp.fabric.command.CommandRegistrar;
 import com.altarsmp.fabric.config.AltarConfig;
 import com.altarsmp.fabric.data.AltarStore;
@@ -66,6 +67,7 @@ public final class AltarSMPMod implements ModInitializer {
 	private WeaponRegistry weapons;
 	private AltarRegistry altarRegistry;
 	private AltarManager altars;
+	private RandomAltarSpawner randomAltars;
 	private RecipeRegistry recipes;
 	private FactionManager factions;
 	private BloodMoonManager bloodMoon;
@@ -114,6 +116,7 @@ public final class AltarSMPMod implements ModInitializer {
 		this.recipes = new RecipeRegistry(this);
 		this.recipes.registerAll();
 		this.altars = new AltarManager(this);
+		this.randomAltars = new RandomAltarSpawner(this.altarRegistry, this.altars);
 
 		this.factions = new FactionManager(this);
 		this.bloodMoon = new BloodMoonManager(this);
@@ -250,6 +253,8 @@ public final class AltarSMPMod implements ModInitializer {
 	public WeaponRegistry weapons() { return this.weapons; }
 	public AltarRegistry altarRegistry() { return this.altarRegistry; }
 	public AltarManager altars() { return this.altars; }
+	/** The pillar altars {@code /spawnaltarrandom} raises. */
+	public RandomAltarSpawner randomAltars() { return this.randomAltars; }
 	public RecipeRegistry recipes() { return this.recipes; }
 	public FactionManager factions() { return this.factions; }
 	public BloodMoonManager bloodMoon() { return this.bloodMoon; }
