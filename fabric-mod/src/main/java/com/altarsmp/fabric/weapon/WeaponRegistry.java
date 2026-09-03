@@ -284,7 +284,7 @@ public final class WeaponRegistry {
 		this.mod.factions().onDeath(victim, level, source, killer);
 		this.mod.trials().onDeath(victim, level, source, killer);
 		this.mod.contagion().onDeath(victim, level, source, killer);
-		this.mod.deathmatch().onDeath(victim, level, source, killer);
+		this.mod.banZone().onDeath(victim, level, source, killer);
 		this.mod.listeners().onDeath(victim, level, source, killer);
 	}
 

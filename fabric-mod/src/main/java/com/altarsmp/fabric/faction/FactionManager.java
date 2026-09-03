@@ -325,7 +325,11 @@ public final class FactionManager {
 		if (isPaleKing(player)) {
 			colour = null;
 		} else if (isPale(player)) {
-			colour = this.mod.bloodMoon().isActive() ? ChatFormatting.YELLOW : null;
+			// Upstream coloured pales yellow twice during a Blood Moon: here through
+			// the display name and there through the bloodmoon_pale team. A Fabric
+			// player can only sit in one team, so BloodMoonManager owns the yellow
+			// while the moon is up and this pass claims nothing.
+			colour = null;
 		} else if (isVampireKing(player)) {
 			colour = ChatFormatting.DARK_RED;
 		} else if (isVampire(player)) {

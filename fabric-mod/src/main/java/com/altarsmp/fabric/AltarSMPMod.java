@@ -178,6 +178,7 @@ public final class AltarSMPMod implements ModInitializer {
 
 	private void onServerStarted(MinecraftServer server) {
 		this.bloodMoon.resumeIfActive();
+		this.deathmatch.resumeIfActive();
 		this.trials.resumeActiveTrials();
 		this.altars.rebuildDisplays();
 		printStartupReport(server);
