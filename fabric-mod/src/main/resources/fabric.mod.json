@@ -19,17 +19,10 @@
   "entrypoints": {
     "main": [
       "com.altarsmp.fabric.AltarSMPMod"
-    ],
-    "client": [
-      "com.altarsmp.fabric.client.AltarSMPClient"
     ]
   },
   "mixins": [
-    "altarsmp.mixins.json",
-    {
-      "config": "altarsmp.client.mixins.json",
-      "environment": "client"
-    }
+    "altarsmp.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",

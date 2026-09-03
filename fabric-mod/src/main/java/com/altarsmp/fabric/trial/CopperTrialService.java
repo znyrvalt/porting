@@ -11,6 +11,7 @@ import javax.annotation.Nullable;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.permissions.Permissions;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -417,7 +418,7 @@ public final class CopperTrialService {
 	 * @return Brigadier's success count
 	 */
 	public int onCommand(CommandSourceStack source, String trial, String action) {
-		if (!source.hasPermission(2)) {
+		if (!source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER)) {
 			tell(source, "<red>You don't have permission to use this command.");
 			return 0;
 		}
@@ -438,7 +439,7 @@ public final class CopperTrialService {
 
 	/** {@code CopperTrialEvent#onCommand}'s usage line. */
 	public int onCommandNoArgs(CommandSourceStack source) {
-		if (!source.hasPermission(2)) {
+		if (!source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER)) {
 			tell(source, "<red>You don't have permission to use this command.");
 			return 0;
 		}

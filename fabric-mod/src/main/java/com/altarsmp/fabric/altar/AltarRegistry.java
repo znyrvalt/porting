@@ -705,7 +705,14 @@ public final class AltarRegistry {
 	 */
 	public boolean onRightClick(ServerPlayer player, Entity target) {
 		Spec spec = byStand(target);
-		if (spec == null || !this.collectibleNames.contains(spec.plainDisplay())) {
+		if (spec == null) {
+			return false;
+		}
+		if (this.mod.altars().isLocked()) {
+			// LockAltarsCommand cancelled the interact event outright, without a word.
+			return true;
+		}
+		if (!this.collectibleNames.contains(spec.plainDisplay())) {
 			return false;
 		}
 		ItemStack output = output(spec);

@@ -72,3 +72,9 @@ accessible field net/minecraft/world/entity/monster/Creeper DATA_IS_POWERED Lnet
 accessible field net/minecraft/world/entity/Interaction DATA_WIDTH_ID Lnet/minecraft/network/syncher/EntityDataAccessor;
 accessible field net/minecraft/world/entity/Interaction DATA_HEIGHT_ID Lnet/minecraft/network/syncher/EntityDataAccessor;
 accessible field net/minecraft/world/entity/Interaction DATA_RESPONSE_ID Lnet/minecraft/network/syncher/EntityDataAccessor;
+
+# --- net.minecraft.server.level.ChunkMap --------------------------------------
+# /destroyaltars all|allworlds sweeps every loaded chunk for altar structure
+# blocks (DestroyAltarsCommand iterated World#getLoadedChunks). The chunk stream
+# is package-private in 26.x, so it is widened rather than reimplemented.
+accessible method net/minecraft/server/level/ChunkMap allChunksWithAtLeastStatus (Lnet/minecraft/world/level/chunk/status/ChunkStatus;)Ljava/util/stream/Stream;

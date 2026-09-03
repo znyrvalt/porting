@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
@@ -18,6 +19,7 @@ import com.mojang.math.Transformation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ChunkHolder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Brightness;
@@ -32,6 +34,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.level.chunk.LevelChunkSection;
+import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -97,11 +102,24 @@ public final class AltarManager {
 	private static final long RESCAN_PERIOD_TICKS = 600L;
 	/** Name fragments {@code removeAltarNear} treats as altar parts. */
 	private static final String[] NEAR_NAME_HINTS = {"Block", "Star", "Head", "Heart", "Handle", "Shard", "Core"};
+	/**
+	 * {@code DestroyAltarsCommand}'s much wider name net: the sweep is meant to clean up
+	 * altars left behind by older builds, so it matches on the words their stands carried.
+	 */
+	private static final String[] DESTROY_NAME_HINTS = {"Altar", "Block", "Star", "Head", "Heart", "Handle",
+			"Shard", "Core", "Bloodlust", "Bone Blade", "Hyperion", "Nightpiercer", "Vulcan", "Vulkan",
+			"Wand of Illusion", "Frost Scythe", "Crafting", "Pure Blade", "Earth Gauntlet", "Paladin", "Cutlass",
+			"Crazy Slots", "Ice Shard", "Fire Shard", "Pale Shard", "Weapon Handle", "Warden Head",
+			"Illusion Core", "Left-click", "Right-click", "x "};
+	/** The tag MythicWeapons' altars carried; the sweep removes them too. */
+	private static final String TAG_MYTHIC = "mythic_altar";
 
 	private final AltarSMPMod mod;
 	private final Set<UUID> rotatingDisplays = new HashSet<>();
 	private float angle;
 	private long tickCount;
+	/** {@code LockAltarsCommand#isLocked} - the admin kill-switch for altar interaction. */
+	private volatile boolean locked;
 
 	public AltarManager(AltarSMPMod mod) {
 		this.mod = mod;
@@ -571,5 +589,173 @@ public final class AltarManager {
 			names.add(spec.plainDisplay().toLowerCase(Locale.ROOT));
 		}
 		return names;
+	}
+
+	// ------------------------------------------------------------------- lock
+
+	/** {@code LockAltarsCommand#isLocked}: while locked, altar stands ignore right clicks. */
+	public boolean isLocked() {
+		return this.locked;
+	}
+
+	/** {@code /lockaltars} flips the switch and reports which way it went. */
+	public boolean toggleLock() {
+		this.locked = !this.locked;
+		return this.locked;
+	}
+
+	// ---------------------------------------------------------- destroy sweep
+
+	/** {@code DestroyAltarsCommand}'s five tallies. */
+	public record Sweep(int stands, int legacyItems, int displays, int holograms, int blocks) {
+		public int total() {
+			return this.stands + this.legacyItems + this.displays + this.holograms + this.blocks;
+		}
+	}
+
+	/**
+	 * {@code DestroyAltarsCommand}: removes every altar part, and every structure block,
+	 * either within {@code radius} of {@code center} or across the whole level when
+	 * {@code center} is null. The stand rule is the plugin's wide one - a name from
+	 * {@link #DESTROY_NAME_HINTS}, an {@code altarsmps2_stand}/{@code mythic_altar} tag,
+	 * or plain invisibility - because the sweep exists to clean up after older builds.
+	 *
+	 * @param center the player's block, or null for a whole-level sweep
+	 * @param radius the cube half-extent, ignored when {@code center} is null
+	 */
+	public Sweep sweep(ServerLevel level, @Nullable BlockPos center, int radius) {
+		int stands = 0;
+		int legacyItems = 0;
+		int displays = 0;
+		int holograms = 0;
+		Iterable<Entity> found = center == null ? level.getAllEntities()
+				: nearby(level, Vec3.atCenterOf(center), radius, radius);
+		for (Entity entity : found) {
+			if (entity instanceof ArmorStand stand && looksLikeAltarStand(stand)) {
+				forget(entity);
+				entity.discard();
+				stands++;
+			} else if (entity instanceof ItemEntity item && isLegacyDisplayItem(item)) {
+				entity.discard();
+				legacyItems++;
+			} else if (isAltarDisplay(entity)) {
+				forget(entity);
+				entity.discard();
+				displays++;
+			} else if (isAltarHologram(entity)) {
+				entity.discard();
+				holograms++;
+			}
+		}
+		int blocks;
+		if (center == null) {
+			blocks = 0;
+			Stream<ChunkHolder> holders = level.getChunkSource().chunkMap.allChunksWithAtLeastStatus(ChunkStatus.FULL);
+			for (ChunkHolder holder : holders.toList()) {
+				LevelChunk chunk = holder.getTickingChunk();
+				if (chunk != null) {
+					blocks += clearStructureBlocks(level, chunk);
+				}
+			}
+		} else {
+			blocks = 0;
+			for (int dx = -radius; dx <= radius; dx++) {
+				for (int dy = -radius; dy <= radius; dy++) {
+					for (int dz = -radius; dz <= radius; dz++) {
+						BlockPos pos = center.offset(dx, dy, dz);
+						if (level.getBlockState(pos).is(Blocks.STRUCTURE_BLOCK)) {
+							level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+							blocks++;
+						}
+					}
+				}
+			}
+		}
+		return new Sweep(stands, legacyItems, displays, holograms, blocks);
+	}
+
+	/** {@code DestroyAltarsCommand#a(ArmorStand)}: hinted name, altar tag, or invisible. */
+	private static boolean looksLikeAltarStand(ArmorStand stand) {
+		if (isTagged(stand, TAG_S2_STAND, TAG_MYTHIC) || stand.isInvisible()) {
+			return true;
+		}
+		Component name = stand.getCustomName();
+		if (name == null) {
+			return false;
+		}
+		String plain = TextFx.strip(name.getString());
+		for (String hint : DESTROY_NAME_HINTS) {
+			if (plain.contains(hint)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/** Floating item entities named {@code *_DISPLAY} / {@code *_ALTAR_ITEM} by older builds. */
+	private static boolean isLegacyDisplayItem(ItemEntity item) {
+		Component name = item.getCustomName();
+		if (name == null) {
+			return false;
+		}
+		String plain = TextFx.strip(name.getString());
+		return plain.contains("_DISPLAY") || plain.contains("_ALTAR_ITEM");
+	}
+
+	/**
+	 * Explosions. {@code AltarBreakListener} walked {@code EntityExplodeEvent}'s block list
+	 * and tore down every altar whose structure block appeared in it. 26.x has no
+	 * block-explode event to subscribe to, so the explosion mixin reports the centre and the
+	 * power instead: every recorded altar within blast range is checked, and any whose anchor
+	 * is no longer a structure block comes down exactly the way a mined anchor does.
+	 *
+	 * @param center the explosion's position
+	 * @param power the explosion's power, which bounds how far blocks could have been removed
+	 */
+	public void onExplosion(ServerLevel level, Vec3 center, float power) {
+		double radius = Math.max(4.0D, power * 2.0D);
+		String dimension = level.dimension().identifier().toString();
+		for (AltarRecord record : recorded()) {
+			if (!record.dimension().equals(dimension)) {
+				continue;
+			}
+			Vec3 anchor = new Vec3(record.x(), record.y(), record.z());
+			if (anchor.distanceTo(center) > radius) {
+				continue;
+			}
+			BlockPos pos = BlockPos.containing(anchor);
+			if (!level.getBlockState(pos).is(Blocks.STRUCTURE_BLOCK)) {
+				int removed = removeAt(level, pos);
+				AltarSMPMod.LOGGER.info("[AltarSMP] explosion at {} {} {} removed altar {} ({} parts)", center.x,
+						center.y, center.z, record.altarId(), removed);
+			}
+		}
+	}
+
+	/** Airs every structure block in one loaded chunk, skipping sections that are all air. */
+	private static int clearStructureBlocks(ServerLevel level, LevelChunk chunk) {
+		int cleared = 0;
+		LevelChunkSection[] sections = chunk.getSections();
+		for (int index = 0; index < sections.length; index++) {
+			LevelChunkSection section = sections[index];
+			if (section == null || section.hasOnlyAir()) {
+				continue;
+			}
+			int baseY = level.getSectionYFromSectionIndex(index) << 4;
+			int minX = chunk.getPos().getMinBlockX();
+			int minZ = chunk.getPos().getMinBlockZ();
+			for (int y = 0; y < 16; y++) {
+				for (int x = 0; x < 16; x++) {
+					for (int z = 0; z < 16; z++) {
+						BlockPos pos = new BlockPos(minX + x, baseY + y, minZ + z);
+						if (level.getBlockState(pos).is(Blocks.STRUCTURE_BLOCK)) {
+							level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+							cleared++;
+						}
+					}
+				}
+			}
+		}
+		return cleared;
 	}
 }

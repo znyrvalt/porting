@@ -3,13 +3,18 @@
   "package": "com.altarsmp.fabric.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "ContainerMixin",
+    "BundleItemMixin",
+    "CombatTrackerMixin",
     "HopperBlockEntityMixin",
     "ItemEntityMixin",
     "ItemFrameMixin",
     "LivingEntityMixin",
-    "PlayerListMixin",
-    "ServerPlayerMixin"
+    "ProjectileMixin",
+    "ServerLevelMixin",
+    "ServerPlayerMixin",
+    "SlotMixin",
+    "SwingPacketMixin",
+    "VaultBlockEntityServerMixin"
   ],
   "injectors": {
     "defaultRequire": 0
