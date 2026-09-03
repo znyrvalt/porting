@@ -44,6 +44,12 @@ public final class CombatHooks {
 		ServerPlayer attacker = attackerEntity instanceof ServerPlayer serverAttacker ? serverAttacker : null;
 		ServerPlayer victimPlayer = victim instanceof ServerPlayer serverVictim ? serverVictim : null;
 
+		// 0. the Contagion Signal's hitbox: every hit on it is cancelled and charged
+		// to the ritual's health instead (Bukkit: onSignalDamage).
+		if (mod.contagion().onSignalDamage(victim, source, amount)) {
+			return true;
+		}
+
 		// 1. stunned players cannot attack (BoneBlade cage)
 		if (attacker != null && Stun.isStunned(attacker)) {
 			tellStunned(attacker);
