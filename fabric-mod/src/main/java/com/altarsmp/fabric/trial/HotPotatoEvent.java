@@ -28,6 +28,7 @@ import net.minecraft.world.scores.criteria.ObjectiveCriteria;
 
 import com.altarsmp.fabric.AltarSMPMod;
 import com.altarsmp.fabric.ability.Effects;
+import com.altarsmp.fabric.data.WorldRecord;
 import com.altarsmp.fabric.item.Identity;
 import com.altarsmp.fabric.util.Fx;
 import com.altarsmp.fabric.util.Messaging;
@@ -199,6 +200,100 @@ public final class HotPotatoEvent {
 	public void stopForShutdown() {
 		if (this.running) {
 			stop();
+		}
+	}
+
+	// ------------------------------------------------------------- persistence
+
+	/**
+	 * Writes the live trial into its world record. {@code CopperTrialService} calls
+	 * this on every autosave and at shutdown, so a restart in the middle of the 45
+	 * minutes picks the trial back up instead of silently dropping it - the Bukkit
+	 * plugin kept this in memory only and lost an in-flight trial on every restart.
+	 */
+	public void writeTo(WorldRecord.TrialState state) {
+		state.active(this.running);
+		state.endsAt(this.endsAt);
+		state.holder(this.holder == null ? "" : this.holder.toString());
+		state.data().put("lastAnnounce", Long.toString(this.lastAnnounce));
+		state.numbers().clear();
+		for (Map.Entry<UUID, Long> entry : this.holdTimes.entrySet()) {
+			state.numbers().put(entry.getKey().toString(), entry.getValue());
+		}
+	}
+
+	/** {@code CopperTrialService#resumeActiveTrials} - rebuilds an interrupted trial. */
+	public boolean restoreFrom(WorldRecord.TrialState state) {
+		if (this.running || !state.active()) {
+			return false;
+		}
+		long now = System.currentTimeMillis();
+		if (state.endsAt() <= now) {
+			return false;
+		}
+		MinecraftServer server = this.mod.server();
+		if (server == null) {
+			return false;
+		}
+		this.running = true;
+		this.endsAt = state.endsAt();
+		this.lastAnnounce = now;
+		this.holdTimes.clear();
+		for (Map.Entry<String, Long> entry : state.numbers().entrySet()) {
+			UUID uuid = parseUuid(entry.getKey());
+			if (uuid != null) {
+				this.holdTimes.put(uuid, entry.getValue());
+			}
+		}
+		this.holder = parseUuid(state.holder());
+
+		this.bar = Messaging.bossBar("<red><bold>COPPER CORE TRIAL</bold> <gray>- <yellow>"
+						+ formatTime(Math.max(0L, (this.endsAt - now) / 1000L)),
+				BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS);
+		this.bar.setProgress((float) (this.endsAt - now) / (float) DURATION_MILLIS);
+		for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+			Messaging.showBossBar(this.bar, player);
+		}
+		setupScoreboard(server);
+
+		ServerPlayer current = holder();
+		if (current == null) {
+			spawnHotPotato(server);
+		} else {
+			// The core survives the restart inside the holder's own inventory, so only
+			// hand out a fresh one if it is genuinely gone.
+			this.holdStarts.put(current.getUUID(), now);
+			if (!carriesPotato(current)) {
+				ItemStack potato = createHotPotato();
+				if (!current.getInventory().add(potato)) {
+					current.drop(potato, false);
+				}
+			}
+			Effects.apply(current, "GLOWING", Integer.MAX_VALUE, 0, false, false, false);
+		}
+		Messaging.broadcast(server, "<gray>The Copper Core Trial resumed after a server restart.");
+		return true;
+	}
+
+	private static boolean carriesPotato(ServerPlayer player) {
+		for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+			if (isHotPotato(player.getInventory().getItem(slot))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Nullable
+	private static UUID parseUuid(String raw) {
+		if (raw == null || raw.isEmpty()) {
+			return null;
+		}
+		try {
+			return UUID.fromString(raw);
+		} catch (IllegalArgumentException ex) {
+			AltarSMPMod.LOGGER.warn("[AltarSMP] Copper Core Trial record holds an unreadable player id '{}'", raw);
+			return null;
 		}
 	}
 

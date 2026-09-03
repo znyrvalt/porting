@@ -252,7 +252,6 @@ public final class WeaponRegistry {
 		PlayerBlockBreakEvents.AFTER.register((level, player, pos, state, blockEntity) -> {
 			if (player instanceof ServerPlayer serverPlayer && level instanceof ServerLevel serverLevel) {
 				this.mod.abilities().onBlockBreak(serverPlayer, pos, state);
-				this.mod.trials().onBlockBroken(serverPlayer, serverLevel, pos, state);
 				this.mod.protection().onBlockBroken(serverPlayer, serverLevel, pos, state);
 			}
 		});
@@ -269,6 +268,7 @@ public final class WeaponRegistry {
 		ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
 			ServerPlayer player = handler.getPlayer();
 			this.mod.abilities().onPlayerQuit(player);
+			this.mod.trials().onPlayerQuit(player);
 			TooltipStyleEnforcer.clear(player);
 			CooldownBars.clear(player);
 			Stun.release(player);
@@ -282,7 +282,6 @@ public final class WeaponRegistry {
 			this.mod.abilities().onKill(killer, victim);
 		}
 		this.mod.factions().onDeath(victim, level, source, killer);
-		this.mod.trials().onDeath(victim, level, source, killer);
 		this.mod.banZone().onDeath(victim, level, source, killer);
 		this.mod.listeners().onDeath(victim, level, source, killer);
 	}

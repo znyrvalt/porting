@@ -78,6 +78,12 @@ public final class CombatHooks {
 				&& mod.abilities().onAttack(attacker, victim, amount, isCritical(attacker))) {
 			return true;
 		}
+
+		// 6. non-cancelling notification: the Copper Core moves to whoever lands the
+		// hit (HotPotatoEvent#onPlayerDamage).
+		if (attacker != null && victim != attacker) {
+			mod.trials().onPlayerHit(attacker, victim);
+		}
 		return false;
 	}
 
