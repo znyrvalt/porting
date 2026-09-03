@@ -1,0 +1,363 @@
+{
+ "main": {
+  "hyperion": {
+   "custom_hyperion_shard": 5,
+   "PLAYER_HEAD": 1,
+   "custom_weapon_handle": 1
+  },
+  "frostscythe": {
+   "custom_weapon_handle": 1,
+   "custom_warden_heart": 1,
+   "PACKED_ICE": 64,
+   "BLUE_ICE": 64,
+   "PRISMARINE_SHARD": 32,
+   "DIAMOND_BLOCK": 4,
+   "HEART_OF_THE_SEA": 1,
+   "TRIDENT": 1
+  },
+  "nightpiercer": {
+   "custom_nightpiercer_shard": 5,
+   "PLAYER_HEAD": 1,
+   "custom_weapon_handle": 1
+  },
+  "boneblade": {
+   "BONE_BLOCK": 64,
+   "custom_weapon_handle": 1,
+   "custom_warden_heart": 1,
+   "IRON_BLOCK": 64,
+   "COPPER_BLOCK": 64,
+   "SKELETON_SKULL": 6,
+   "WITHER_SKELETON_SKULL": 6,
+   "PLAYER_HEAD": 3
+  },
+  "pureblade": {
+   "custom_warden_heart": 2,
+   "SCULK_SHRIEKER": 64,
+   "SOUL_LANTERN": 64,
+   "SOUL_SOIL": 64,
+   "NETHERITE_BLOCK": 1,
+   "IRON_BLOCK": 64,
+   "PLAYER_HEAD": 3
+  },
+  "earthgauntlet": {
+   "FIRE_CHARGE": 48,
+   "COPPER_BLOCK": 64,
+   "RESIN_BLOCK": 16,
+   "MUD_BRICK_SLAB": 64,
+   "MUD_BRICK_STAIRS": 64,
+   "MUD": 64,
+   "MUD_BRICKS": 64,
+   "MUD_BRICK_WALL": 64,
+   "PLAYER_HEAD": 2
+  },
+  "cutlass": {
+   "HEART_OF_THE_SEA": 3,
+   "NAUTILUS_SHELL": 8,
+   "PRISMARINE_BRICKS": 64,
+   "GOLD_BLOCK": 64,
+   "DRIED_KELP_BLOCK": 64,
+   "WAXED_CUT_COPPER_STAIRS": 64,
+   "PLAYER_HEAD": 2
+  },
+  "vulcan": {
+   "ANCIENT_DEBRIS": 64,
+   "MAGMA_CREAM": 64,
+   "custom_warden_heart": 1,
+   "custom_vulkan_head": 1,
+   "BLAZE_ROD": 64,
+   "TNT": 64,
+   "PLAYER_HEAD": 3
+  },
+  "paladinbattleaxe": {
+   "NETHERITE_INGOT": 6,
+   "PUFFERFISH": 2,
+   "NETHER_STAR": 1,
+   "RAW_GOLD_BLOCK": 64,
+   "ENCHANTED_GOLDEN_APPLE": 5,
+   "HEAVY_CORE": 1,
+   "DRAGON_HEAD": 4,
+   "END_CRYSTAL": 8,
+   "TOTEM_OF_UNDYING": 1
+  },
+  "bloodlust": {
+   "custom_weapon_handle": 1,
+   "GOLD_BLOCK": 48,
+   "custom_warden_heart": 1,
+   "REDSTONE_BLOCK": 64,
+   "NETHER_STAR": 3,
+   "PLAYER_HEAD": 6
+  },
+  "wandofillusion": {
+   "GOLD_BLOCK": 32,
+   "custom_warden_heart": 1,
+   "TOTEM_OF_UNDYING": 6,
+   "custom_illusion_core": 1,
+   "AMETHYST_BLOCK": 64,
+   "ENCHANTED_GOLDEN_APPLE": 1,
+   "PLAYER_HEAD": 2
+  },
+  "crazyslots": {
+   "DRAGON_EGG": 1
+  },
+  "palecrossbow": {
+   "custom_pale_shard": 5,
+   "CROSSBOW": 1,
+   "ECHO_SHARD": 16
+  },
+  "contagionsignal": {
+   "custom_pale_crossbow": 1,
+   "custom_hyperion": 1,
+   "custom_nightpiercer": 1
+  },
+  "weaponhandle": {
+   "GOLD_BLOCK": 32,
+   "DIAMOND_BLOCK": 16,
+   "NETHERITE_INGOT": 1
+  },
+  "copperhelmet": {
+   "custom_copper_fragment": 5
+  },
+  "copperchestplate": {
+   "custom_chestplate_shard": 2
+  },
+  "copperpickaxeupgrade": {
+   "custom_copper_pickaxe": 1,
+   "COPPER_BLOCK": 64,
+   "LIGHTNING_ROD": 32,
+   "AMETHYST_BLOCK": 16,
+   "NETHER_STAR": 1
+  },
+  "hyperionshard": {
+   "BLAZE_POWDER": 1,
+   "GOLD_BLOCK": 16,
+   "FIRE_CHARGE": 8
+  },
+  "nightpiercershard": {
+   "ENDER_PEARL": 32,
+   "OBSIDIAN": 16,
+   "FERMENTED_SPIDER_EYE": 8,
+   "CRIMSON_FUNGUS": 16,
+   "NETHER_WART_BLOCK": 8,
+   "CRYING_OBSIDIAN": 4
+  },
+  "paleshard": {
+   "BONE_BLOCK": 16,
+   "COBWEB": 32,
+   "PHANTOM_MEMBRANE": 8,
+   "CANDLE": 16,
+   "SOUL_LANTERN": 4,
+   "MOSS_BLOCK": 64
+  },
+  "illusioncore": {
+   "FERMENTED_SPIDER_EYE": 16,
+   "NETHER_WART": 16,
+   "GHAST_TEAR": 8,
+   "RABBIT_FOOT": 4
+  },
+  "vulkanhead": {
+   "WITHER_SKELETON_SKULL": 5,
+   "NETHERITE_INGOT": 3,
+   "PLAYER_HEAD": 3
+  },
+  "playertracker": {
+   "NETHERITE_INGOT": 2,
+   "HEAVY_CORE": 1,
+   "ENDER_EYE": 8,
+   "FERMENTED_SPIDER_EYE": 4
+  },
+  "witherbone": {
+   "GOLD_BLOCK": 64,
+   "NETHER_STAR": 2,
+   "WITHER_SKELETON_SKULL": 12,
+   "PLAYER_HEAD": 6
+  },
+  "windweaver": {
+   "IRON_BLOCK": 32,
+   "ENCHANTED_GOLDEN_APPLE": 2,
+   "BREEZE_ROD": 64,
+   "HEAVY_CORE": 1,
+   "OMINOUS_TRIAL_KEY": 2,
+   "PLAYER_HEAD": 2
+  },
+  "shadowblade": {
+   "DRAGON_BREATH": 4,
+   "DISC_FRAGMENT_5": 12,
+   "DRAGON_EGG": 1,
+   "ECHO_SHARD": 16,
+   "BLACK_CANDLE": 24,
+   "PLAYER_HEAD": 2
+  },
+  "eclipsesword": {
+   "NETHERITE_INGOT": 3,
+   "CLOCK": 1,
+   "FIRE_CHARGE": 64,
+   "IRON_BLOCK": 64,
+   "NETHER_STAR": 2,
+   "ENCHANTED_GOLDEN_APPLE": 4,
+   "CLOSED_EYEBLOSSOM": 16,
+   "OPEN_EYEBLOSSOM": 16
+  },
+  "knightfall": {
+   "NETHERITE_INGOT": 4,
+   "HEAVY_CORE": 1,
+   "BREEZE_ROD": 32,
+   "IRON_BLOCK": 64,
+   "GOLD_BLOCK": 32,
+   "PLAYER_HEAD": 4,
+   "DIAMOND": 16,
+   "ENCHANTED_GOLDEN_APPLE": 2
+  },
+  "striker": {
+   "NETHERITE_INGOT": 2,
+   "TNT": 64,
+   "GUNPOWDER": 64,
+   "BLAZE_ROD": 32,
+   "FIRE_CHARGE": 32,
+   "NETHER_STAR": 1,
+   "PLAYER_HEAD": 3,
+   "IRON_BLOCK": 32
+  },
+  "nukelauncher": {
+   "NETHERITE_INGOT": 3,
+   "TNT": 128,
+   "NETHER_STAR": 3,
+   "FIRE_CHARGE": 64,
+   "BLAZE_ROD": 64,
+   "GUNPOWDER": 128,
+   "PLAYER_HEAD": 5,
+   "HEAVY_CORE": 2
+  },
+  "echo": {
+   "NETHERITE_INGOT": 3,
+   "ECHO_SHARD": 32,
+   "SCULK_CATALYST": 16,
+   "SCULK_SHRIEKER": 8,
+   "PLAYER_HEAD": 4,
+   "DIAMOND": 16,
+   "NETHER_STAR": 2,
+   "DISC_FRAGMENT_5": 8
+  },
+  "fireslash": {
+   "NETHERITE_INGOT": 2,
+   "BLAZE_ROD": 64,
+   "FIRE_CHARGE": 64,
+   "MAGMA_CREAM": 32,
+   "NETHER_STAR": 1,
+   "PLAYER_HEAD": 2,
+   "LAVA_BUCKET": 8,
+   "MAGMA_BLOCK": 32
+  },
+  "wardenhead": {
+   "NETHERITE_INGOT": 2,
+   "WITHER_SKELETON_SKULL": 5,
+   "custom_warden_heart": 2
+  },
+  "copperpickaxe": {
+   "COPPER_BLOCK": 100,
+   "FIRE_CHARGE": 16,
+   "NETHERITE_PICKAXE": 1
+  },
+  "omen": {
+   "OMINOUS_TRIAL_KEY": 8,
+   "BREEZE_ROD": 64,
+   "COPPER_BLOCK": 64,
+   "SOUL_TORCH": 32,
+   "TRIAL_KEY": 16,
+   "custom_weapon_handle": 1,
+   "HEAVY_CORE": 1,
+   "PLAYER_HEAD": 2
+  },
+  "ancientblade": {
+   "SCULK_SHRIEKER": 64,
+   "DIAMOND_BLOCK": 32,
+   "ECHO_SHARD": 32,
+   "MUSIC_DISC_5": 1,
+   "custom_warden_heart": 3,
+   "PLAYER_HEAD": 3
+  },
+  "withersymbiote": {
+   "WITHER_ROSE": 16,
+   "BLAZE_ROD": 64,
+   "GHAST_TEAR": 16,
+   "DRIED_GHAST": 10,
+   "NETHERITE_INGOT": 2,
+   "NETHER_STAR": 1,
+   "custom_soul_in_a_bottle": 1,
+   "PLAYER_HEAD": 3
+  },
+  "tidebreaker": {
+   "HEART_OF_THE_SEA": 1,
+   "PRISMARINE_CRYSTALS": 64,
+   "LIGHTNING_ROD": 16,
+   "DIAMOND_BLOCK": 48,
+   "custom_fragment_of_the_sea": 5,
+   "NAUTILUS_SHELL": 4,
+   "PLAYER_HEAD": 3,
+   "TRIDENT": 1
+  },
+  "dragonrend": {
+   "AMETHYST_CLUSTER": 32,
+   "ENDER_EYE": 64,
+   "CRYING_OBSIDIAN": 32,
+   "custom_dragon_heart": 1,
+   "NETHERITE_INGOT": 3
+  },
+  "bowofdeception": {
+   "BOW": 1,
+   "custom_weapon_handle": 1,
+   "ECHO_SHARD": 32,
+   "FERMENTED_SPIDER_EYE": 32,
+   "ENDER_EYE": 16,
+   "PHANTOM_MEMBRANE": 24,
+   "NETHERITE_INGOT": 2,
+   "PLAYER_HEAD": 2
+  }
+ },
+ "s2": {
+  "omen": {
+   "OMINOUS_TRIAL_KEY": 8,
+   "BREEZE_ROD": 64,
+   "COPPER_BLOCK": 64,
+   "SOUL_TORCH": 32,
+   "TRIAL_KEY": 16,
+   "custom_weapon_handle": 1,
+   "HEAVY_CORE": 1,
+   "PLAYER_HEAD": 2
+  },
+  "ancientblade": {
+   "SCULK_SHRIEKER": 64,
+   "DIAMOND_BLOCK": 32,
+   "ECHO_SHARD": 32,
+   "MUSIC_DISC_5": 1,
+   "custom_warden_heart": 3,
+   "PLAYER_HEAD": 3
+  },
+  "withersymbiote": {
+   "WITHER_ROSE": 16,
+   "BLAZE_ROD": 64,
+   "GHAST_TEAR": 16,
+   "DRIED_GHAST": 10,
+   "NETHERITE_INGOT": 2,
+   "NETHER_STAR": 1,
+   "custom_soul_in_a_bottle": 1,
+   "PLAYER_HEAD": 3
+  },
+  "tidebreaker": {
+   "HEART_OF_THE_SEA": 1,
+   "PRISMARINE_CRYSTALS": 64,
+   "LIGHTNING_ROD": 16,
+   "DIAMOND_BLOCK": 48,
+   "custom_fragment_of_the_sea": 5,
+   "NAUTILUS_SHELL": 4,
+   "PLAYER_HEAD": 3,
+   "TRIDENT": 1
+  },
+  "dragonrend": {
+   "AMETHYST_CLUSTER": 32,
+   "ENDER_EYE": 64,
+   "CRYING_OBSIDIAN": 32,
+   "custom_dragon_heart": 1,
+   "NETHERITE_INGOT": 3
+  }
+ }
+}

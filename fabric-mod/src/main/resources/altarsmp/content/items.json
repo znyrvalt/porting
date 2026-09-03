@@ -1,0 +1,366 @@
+[
+ {
+  "class": "CopperChestplateFragment",
+  "base_material": "COPPER_BLOCK",
+  "custom_model_data": null,
+  "display_name": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<gray>A powerful shard imbued",
+   "<gray>with the essence of thunder.",
+   "",
+   "<yellow>Obtained from the Chestplate Shard Event",
+   "<red>Holding this makes you glow!"
+  ],
+  "pdc_keys": [],
+  "package": "altarsmp"
+ },
+ {
+  "class": "CopperFragment",
+  "base_material": "COPPER_INGOT",
+  "custom_model_data": null,
+  "display_name": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<gray>A strange copper fragment that",
+   "<gray>emits a faint tracking signal.",
+   "",
+   "<red>Warning: <dark_red>Leaks your location!",
+   "<dark_gray>Coordinates broadcast every 3 minutes"
+  ],
+  "pdc_keys": [],
+  "package": "altarsmp"
+ },
+ {
+  "class": "CopperPickaxe",
+  "base_material": null,
+  "custom_model_data": null,
+  "display_name": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [],
+  "pdc_keys": [],
+  "package": "altarsmp"
+ },
+ {
+  "class": "CopperPickaxeII",
+  "base_material": "NETHERITE_PICKAXE",
+  "custom_model_data": 1,
+  "display_name": "<gold>Copper Pickaxe <yellow>II",
+  "tooltip_style": "copper_armor/copper_armor",
+  "rarity": null,
+  "lore": [
+   "<gold>5x5x5 Mining <dark_gray>| <yellow>Shift+F to Toggle",
+   "",
+   "<aqua>Allay Buddy <gray>[RMB] <dark_gray>- <gray>3x3x3, 50 blocks, 5s cd",
+   "<light_purple>Lightning Drill <gray>[Shift+RMB] <dark_gray>- <gray>5x5x5, 100 blocks, 7s cd"
+  ],
+  "pdc_keys": [],
+  "package": "altarsmp"
+ },
+ {
+  "class": "HyperionShard",
+  "base_material": "GOLD_NUGGET",
+  "custom_model_data": 8,
+  "display_name": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<gray>A fragment of holy light,",
+   "<gray>used to forge the Hyperion.",
+   "",
+   "<red>Crafting Material"
+  ],
+  "pdc_keys": [],
+  "package": "altarsmp"
+ },
+ {
+  "class": "IllusionCore",
+  "base_material": "HEAVY_CORE",
+  "custom_model_data": null,
+  "display_name": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<gray>A mystical core pulsing",
+   "<gray>with illusory energy.",
+   "",
+   "<red>Crafting Material"
+  ],
+  "pdc_keys": [],
+  "package": "altarsmp"
+ },
+ {
+  "class": "NightpiercerShard",
+  "base_material": "IRON_NUGGET",
+  "custom_model_data": 9,
+  "display_name": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<gray>A fragment of vampiric power,",
+   "<gray>used to forge the Nightpiercer.",
+   "",
+   "<red>Crafting Material"
+  ],
+  "pdc_keys": [],
+  "package": "altarsmp"
+ },
+ {
+  "class": "PaleShard",
+  "base_material": "ECHO_SHARD",
+  "custom_model_data": 22,
+  "display_name": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<dark_gray>A fragment touched by the pale.",
+   "",
+   "<red>Crafting Material"
+  ],
+  "pdc_keys": [],
+  "package": "altarsmp"
+ },
+ {
+  "class": "PlayerTrackerItem",
+  "base_material": "RECOVERY_COMPASS",
+  "custom_model_data": 2000,
+  "display_name": "<gradient:#FF0000:#FF6600>Player Tracker</gradient>",
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<dark_gray>A mysterious device that can",
+   "<dark_gray>locate any player on the server.",
+   "",
+   "<yellow>Right-click to open tracking menu",
+   "",
+   "<gray>Select a player to track them.",
+   "<gray>The target will glow for 10 minutes.",
+   "<gray>A red particle line will guide you",
+   "<gray>to them for 15 minutes.",
+   "",
+   "<red>Single use item"
+  ],
+  "pdc_keys": [],
+  "package": "altarsmp"
+ },
+ {
+  "class": "VulkanHead",
+  "base_material": "CLAY_BALL",
+  "custom_model_data": 10,
+  "display_name": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<gray>The skull of the fire god Vulcan,",
+   "<gray>radiating intense heat.",
+   "",
+   "<red>Crafting Material"
+  ],
+  "pdc_keys": [],
+  "package": "altarsmp"
+ },
+ {
+  "class": "WardenHead",
+  "base_material": "ECHO_SHARD",
+  "custom_model_data": 11,
+  "display_name": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<gray>The skull of a fallen Warden,",
+   "<gray>still echoing with sonic power.",
+   "",
+   "<dark_aqua>Crafting Material"
+  ],
+  "pdc_keys": [],
+  "package": "altarsmp"
+ },
+ {
+  "class": "WardenHeart",
+  "base_material": "CLAY_BALL",
+  "custom_model_data": 9,
+  "display_name": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<gray>The beating heart of a Warden,",
+   "<gray>still pulsing with dark energy.",
+   "",
+   "<dark_green>Crafting Material"
+  ],
+  "pdc_keys": [],
+  "package": "altarsmp"
+ },
+ {
+  "class": "WeaponHandle",
+  "base_material": "BREEZE_ROD",
+  "custom_model_data": 1,
+  "display_name": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<gray>A handle used for crafting",
+   "<gray>legendary weapons at altars.",
+   "",
+   "<red>Crafting Material"
+  ],
+  "pdc_keys": [],
+  "package": "altarsmp"
+ },
+ {
+  "class": "WitherHeart",
+  "base_material": "NETHER_STAR",
+  "custom_model_data": 20,
+  "display_name": "",
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<gray>A heart forged from wither essence.",
+   "<gray>Radiates with dark power.",
+   "",
+   "<red>Crafting Material"
+  ],
+  "pdc_keys": [],
+  "package": "altarsmp"
+ },
+ {
+  "class": "AmethystAxe",
+  "base_material": "NETHERITE_AXE",
+  "custom_model_data": 3,
+  "display_name": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<light_purple>Passive <gray>| Veinmines logs & leaves",
+   "<light_purple>Passive <gray>| Automatically put broken items into inventory",
+   "",
+   "<gray>When in Main Hand:",
+   "<green> {cfg:amethyst-tools.axe.attack_damage|10.0} Attack Damage",
+   "<green> {cfg:amethyst-tools.axe.attack_speed|1.0} Attack Speed",
+   "<light_purple>Unbreakable"
+  ],
+  "pdc_keys": [
+   "amethyst_axe_dmg",
+   "amethyst_axe_spd"
+  ],
+  "package": "altarsmps2"
+ },
+ {
+  "class": "AmethystPickaxe",
+  "base_material": "NETHERITE_PICKAXE",
+  "custom_model_data": 3,
+  "display_name": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<light_purple>Passive <gray>| Veinmines ores & autosmelts blocks",
+   "<light_purple>Passive <gray>| Automatically put broken items into inventory",
+   "",
+   "<gray>When in Main Hand:",
+   "<green> {cfg:amethyst-tools.pickaxe.attack_damage|6.0} Attack Damage",
+   "<green> {cfg:amethyst-tools.pickaxe.attack_speed|1.2} Attack Speed",
+   "<light_purple>Unbreakable"
+  ],
+  "pdc_keys": [
+   "amethyst_pick_dmg",
+   "amethyst_pick_spd"
+  ],
+  "package": "altarsmps2"
+ },
+ {
+  "class": "BlackGhastSaddle",
+  "base_material": "SADDLE",
+  "custom_model_data": 1,
+  "display_name": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<aqua>Passive <gray>| Happy Ghast gains double health,",
+   "<gray>and increased fly speed.",
+   "",
+   "<aqua>Protection IV"
+  ],
+  "pdc_keys": [],
+  "package": "altarsmps2"
+ },
+ {
+  "class": "DragonHeart",
+  "base_material": "DRAGON_HEAD",
+  "custom_model_data": 1,
+  "display_name": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<gray>Pulled from the chest of an Ender Dragon.",
+   "",
+   "<light_purple>Crafting Material"
+  ],
+  "pdc_keys": [],
+  "package": "altarsmps2"
+ },
+ {
+  "class": "FragmentOfTheSea",
+  "base_material": "NAUTILUS_SHELL",
+  "custom_model_data": null,
+  "display_name": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<gray>A shard of ancient ocean power.",
+   "",
+   "<aqua>Crafting Material"
+  ],
+  "pdc_keys": [],
+  "package": "altarsmps2"
+ },
+ {
+  "class": "SoulInABottle",
+  "base_material": "CLAY_BALL",
+  "custom_model_data": 15,
+  "display_name": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<gray>A captured soul, sealed in glass.",
+   "",
+   "<aqua>Crafting Material"
+  ],
+  "pdc_keys": [],
+  "package": "altarsmps2"
+ },
+ {
+  "class": "WardenHeart",
+  "base_material": "CLAY_BALL",
+  "custom_model_data": 9,
+  "display_name": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<gray>The beating heart of a Warden,",
+   "<gray>still pulsing with dark energy.",
+   "",
+   "<dark_green>Crafting Material"
+  ],
+  "pdc_keys": [],
+  "package": "altarsmps2"
+ },
+ {
+  "class": "WeaponHandle",
+  "base_material": "BREEZE_ROD",
+  "custom_model_data": 1,
+  "display_name": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "lore": [
+   "<gray>A handle used for crafting",
+   "<gray>legendary weapons at altars.",
+   "",
+   "<red>Crafting Material"
+  ],
+  "pdc_keys": [],
+  "package": "altarsmps2"
+ }
+]

@@ -1,0 +1,27 @@
+{
+ "custom_s1": {
+  "custom_weapon_handle": "Weapon Handle",
+  "custom_warden_heart": "Warden's Heart",
+  "custom_hyperion_shard": "Hyperion Shard",
+  "custom_nightpiercer_shard": "Nightpiercer Shard",
+  "custom_illusion_core": "Illusion Core",
+  "custom_vulkan_head": "Vulkan Head",
+  "custom_pale_shard": "Pale Shard",
+  "custom_copper_pickaxe": "Copper Pickaxe",
+  "custom_copper_fragment": "Copper Fragment",
+  "custom_chestplate_shard": "Chestplate Shard",
+  "custom_pale_crossbow": "Pale Crossbow",
+  "custom_hyperion": "Hyperion",
+  "custom_nightpiercer": "Nightpiercer"
+ },
+ "custom_s2": {
+  "custom_weapon_handle": "Weapon Handle",
+  "custom_warden_heart": "Warden's Heart",
+  "custom_soul_in_a_bottle": "Soul In A Bottle",
+  "custom_fragment_of_the_sea": "Fragment of the Sea",
+  "custom_dragon_heart": "Dragon Heart"
+ },
+ "never_consumed": [
+  "DRAGON_EGG"
+ ]
+}

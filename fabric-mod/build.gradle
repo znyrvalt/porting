@@ -1,0 +1,90 @@
+plugins {
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+	id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
+
+repositories {
+	mavenCentral()
+}
+
+loom {
+	// Split sources: server/common code in src/main, client-only code in src/client.
+	splitEnvironmentSourceSets()
+
+	// Widens the private vanilla Display/ArmourStand setters the original Bukkit
+	// plugin reached through Paper's entity API (see the file header for details).
+	accessWidenerPath = file("src/main/resources/altarsmp.accesswidener")
+
+	mods {
+		"altarsmp" {
+			sourceSet sourceSets.main
+			sourceSet sourceSets.client
+		}
+	}
+
+	// Ship the vanilla-compatible resource pack inside the mod jar as well so the
+	// pack is applied automatically for every player that joins a server with the
+	// mod installed (see src/main/resources/assets/**).
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+}
+
+processResources {
+	def version = project.version
+	inputs.property "version", version
+	inputs.property "minecraft_version", project.minecraft_version
+	inputs.property "loader_version", project.loader_version
+	inputs.property "fabric_api_version", project.fabric_api_version
+
+	filesMatching("fabric.mod.json") {
+		expand([
+			"version": version,
+			"minecraft_version": project.minecraft_version,
+			"loader_version": project.loader_version,
+			"fabric_api_version": project.fabric_api_version
+		])
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+	it.options.encoding = 'UTF-8'
+}
+
+java {
+	withSourcesJar()
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}
+
+jar {
+	def projectName = project.name
+	inputs.property "projectName", projectName
+	from("LICENSE") {
+		rename { "${it}_$projectName" }
+	}
+}
+
+// `./gradlew build` -> build/libs/altarsmp-fabric-<version>.jar
+// `./gradlew releaseBundle` -> dist/ (jar + resource pack + source zip + checksums)
+tasks.register('releaseBundle', Copy) {
+	dependsOn 'build'
+	group = 'altarsmp'
+	description = 'Assembles the AltarSMP release bundle into ../dist'
+	from("${project.buildDir}/libs") {
+		include '*.jar'
+		exclude '*-sources.jar'
+	}
+	into "${rootDir.parentFile}/dist"
+}

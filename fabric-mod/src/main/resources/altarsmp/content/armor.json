@@ -1,0 +1,93 @@
+[
+ {
+  "class": "CopperBoots",
+  "base_material": "NETHERITE_BOOTS",
+  "custom_model_data": 1,
+  "display_name": "<gold>Copper Boots",
+  "tooltip_style": "copper_armor/copper_armor",
+  "rarity": "epic",
+  "lore": [
+   "<gold>BLAZING TRAIL <yellow>(Passive)",
+   "<gray>Run at Superspeed",
+   "",
+   "<gold>STATIC SHOCK <yellow>(Passive)",
+   "<gray>Running on Copper allows you to run faster",
+   "",
+   "<blue>When on Feet:",
+   "<blue>+3 Armor",
+   "<blue>+3 Armor Toughness",
+   "<blue>+1 Knockback Resistance",
+   "<blue>+1 Water Movement Efficiency",
+   "<blue>Unbreakable"
+  ],
+  "pdc_keys": []
+ },
+ {
+  "class": "CopperChestplate",
+  "base_material": "NETHERITE_CHESTPLATE",
+  "custom_model_data": 1,
+  "display_name": "<gold>Copper Chestplate",
+  "tooltip_style": "copper_armor/copper_armor",
+  "rarity": "epic",
+  "lore": [
+   "<gold>STATIC SHOCK <yellow>(Passive)",
+   "<gray>Upon attacking players, a ring of Lightning",
+   "<gray>will occur every 7 Hits.",
+   "",
+   "<green>Lightning Immunity",
+   "<green>Infinite Resistance",
+   "",
+   "<blue>When on Chest:",
+   "<blue>+8 Armor",
+   "<blue>+3 Armor Toughness",
+   "<blue>+1 Knockback Resistance",
+   "<blue>Unbreakable"
+  ],
+  "pdc_keys": []
+ },
+ {
+  "class": "CopperHelmet",
+  "base_material": "NETHERITE_HELMET",
+  "custom_model_data": 1,
+  "display_name": "<gold>Copper Helmet",
+  "tooltip_style": "copper_armor/copper_armor",
+  "rarity": "epic",
+  "lore": [
+   "<gold>COPPER VISION <yellow>[Hold Shift] <dark_gray>- <white>⏱30s",
+   "<gray>Hold Shift to grant players Glowing.",
+   "",
+   "<green>Infinite Water Breathing",
+   "",
+   "<blue>When on Head:",
+   "<blue>+3 Armor",
+   "<blue>+3 Armor Toughness",
+   "<blue>+1 Knockback Resistance",
+   "<blue>+3 Oxygen Bonus",
+   "<blue>+400% Submerged Mining Speed",
+   "<blue>Unbreakable"
+  ],
+  "pdc_keys": []
+ },
+ {
+  "class": "CopperLeggings",
+  "base_material": "NETHERITE_LEGGINGS",
+  "custom_model_data": 1,
+  "display_name": "<gold>Copper Leggings",
+  "tooltip_style": "copper_armor/copper_armor",
+  "rarity": "epic",
+  "lore": [
+   "<gold>SHOCKWAVE <yellow>(Passive)",
+   "<gray>Falling from heights creates a Shockwave.",
+   "<gray>1❤ at 5 blocks, 1.5❤ at 10, +0.5❤ per 5 blocks.",
+   "",
+   "<green>Fall Damage Immunity",
+   "",
+   "<blue>When on Legs:",
+   "<blue>+6 Armor",
+   "<blue>+3 Armor Toughness",
+   "<blue>+1 Knockback Resistance",
+   "<blue>Unbreakable"
+  ],
+  "pdc_keys": []
+ }
+]

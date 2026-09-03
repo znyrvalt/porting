@@ -1,0 +1,758 @@
+{
+ "season1": [
+  {
+   "display": "Bloodlust",
+   "color": "red",
+   "cmd": 3,
+   "material": "NETHERITE_SWORD",
+   "y_offset": 0.0,
+   "recipe": "bloodlust",
+   "command_class": "BloodAltarCommand",
+   "interact_class": "BloodAltarInteract",
+   "season": 1,
+   "gives_class": "BloodlustWeapon",
+   "ingredients": {
+    "custom_weapon_handle": 1,
+    "GOLD_BLOCK": 48,
+    "custom_warden_heart": 1,
+    "REDSTONE_BLOCK": 64,
+    "NETHER_STAR": 3,
+    "PLAYER_HEAD": 6
+   }
+  },
+  {
+   "display": "Bone Blade",
+   "color": "white",
+   "cmd": 1,
+   "material": "NETHERITE_SWORD",
+   "y_offset": 0.0,
+   "recipe": "boneblade",
+   "command_class": "BoneAltarCommand",
+   "interact_class": "BoneAltarInteract",
+   "season": 1,
+   "gives_class": "BoneBladeWeapon",
+   "ingredients": {
+    "BONE_BLOCK": 64,
+    "custom_weapon_handle": 1,
+    "custom_warden_heart": 1,
+    "IRON_BLOCK": 64,
+    "COPPER_BLOCK": 64,
+    "SKELETON_SKULL": 6,
+    "WITHER_SKELETON_SKULL": 6,
+    "PLAYER_HEAD": 3
+   }
+  },
+  {
+   "display": "Contagion Signal",
+   "color": "dark_gray",
+   "cmd": 1026,
+   "material": "TOTEM_OF_UNDYING",
+   "y_offset": 0.0,
+   "recipe": "contagionsignal",
+   "command_class": "ContagionSignalAltarCommand",
+   "interact_class": "ContagionSignalAltarInteract",
+   "season": 1,
+   "gives_class": "ContagionSignalWeapon",
+   "ingredients": {
+    "custom_pale_crossbow": 1,
+    "custom_hyperion": 1,
+    "custom_nightpiercer": 1
+   }
+  },
+  {
+   "display": "Copper Chestplate",
+   "color": "gold",
+   "cmd": 10,
+   "material": "NETHERITE_SWORD",
+   "y_offset": 0.0,
+   "recipe": "copperchestplate",
+   "command_class": "CopperChestplateAltarCommand",
+   "interact_class": "CopperChestplateAltarInteract",
+   "season": 1,
+   "gives_class": null,
+   "ingredients": {
+    "custom_chestplate_shard": 2
+   }
+  },
+  {
+   "display": "Copper Helmet",
+   "color": "gold",
+   "cmd": 10,
+   "material": "NETHERITE_SWORD",
+   "y_offset": 0.0,
+   "recipe": "copperhelmet",
+   "command_class": "CopperHelmetAltarCommand",
+   "interact_class": "CopperHelmetAltarInteract",
+   "season": 1,
+   "gives_class": null,
+   "ingredients": {
+    "custom_copper_fragment": 5
+   }
+  },
+  {
+   "display": "Copper Pickaxe",
+   "color": "gold",
+   "cmd": 1,
+   "material": "NETHERITE_PICKAXE",
+   "y_offset": 0.0,
+   "recipe": "copperpickaxe",
+   "command_class": "CopperPickaxeAltarCommand",
+   "interact_class": "CopperPickaxeAltarInteract",
+   "season": 1,
+   "gives_class": null,
+   "ingredients": {
+    "COPPER_BLOCK": 100,
+    "FIRE_CHARGE": 16,
+    "NETHERITE_PICKAXE": 1
+   }
+  },
+  {
+   "display": "Copper Pickaxe Upgrade",
+   "color": "gold",
+   "cmd": 0,
+   "material": "NETHERITE_PICKAXE",
+   "y_offset": 0.0,
+   "recipe": "copperpickaxeupgrade",
+   "command_class": "CopperPickaxeUpgradeAltarCommand",
+   "interact_class": "CopperPickaxeUpgradeAltarInteract",
+   "season": 1,
+   "gives_class": null,
+   "ingredients": {
+    "custom_copper_pickaxe": 1,
+    "COPPER_BLOCK": 64,
+    "LIGHTNING_ROD": 32,
+    "AMETHYST_BLOCK": 16,
+    "NETHER_STAR": 1
+   }
+  },
+  {
+   "display": "Crazy Slots",
+   "color": "light_purple",
+   "cmd": 18,
+   "material": "CLAY_BALL",
+   "y_offset": 2.0,
+   "recipe": "crazyslots",
+   "command_class": "CrazySlotsAltarCommand",
+   "interact_class": "CrazySlotsAltarInteract",
+   "season": 1,
+   "gives_class": "CrazySlotsWeapon",
+   "ingredients": {
+    "DRAGON_EGG": 1
+   }
+  },
+  {
+   "display": "Cutlass",
+   "color": "aqua",
+   "cmd": 12,
+   "material": "NETHERITE_SWORD",
+   "y_offset": 0.0,
+   "recipe": "cutlass",
+   "command_class": "CutlassAltarCommand",
+   "interact_class": "CutlassAltarInteract",
+   "season": 1,
+   "gives_class": "CutlassWeapon",
+   "ingredients": {
+    "HEART_OF_THE_SEA": 3,
+    "NAUTILUS_SHELL": 8,
+    "PRISMARINE_BRICKS": 64,
+    "GOLD_BLOCK": 64,
+    "DRIED_KELP_BLOCK": 64,
+    "WAXED_CUT_COPPER_STAIRS": 64,
+    "PLAYER_HEAD": 2
+   }
+  },
+  {
+   "display": "Earth Gauntlet",
+   "color": "gold",
+   "cmd": 8,
+   "material": "NETHERITE_SWORD",
+   "y_offset": 0.0,
+   "recipe": "earthgauntlet",
+   "command_class": "EarthGauntletAltarCommand",
+   "interact_class": "EarthGauntletAltarInteract",
+   "season": 1,
+   "gives_class": "EarthGauntletWeapon",
+   "ingredients": {
+    "FIRE_CHARGE": 48,
+    "COPPER_BLOCK": 64,
+    "RESIN_BLOCK": 16,
+    "MUD_BRICK_SLAB": 64,
+    "MUD_BRICK_STAIRS": 64,
+    "MUD": 64,
+    "MUD_BRICKS": 64,
+    "MUD_BRICK_WALL": 64,
+    "PLAYER_HEAD": 2
+   }
+  },
+  {
+   "display": "Echo",
+   "color": "dark_purple",
+   "cmd": 13,
+   "material": "NETHERITE_SWORD",
+   "y_offset": 0.0,
+   "recipe": "echo",
+   "command_class": "EchoAltarCommand",
+   "interact_class": "EchoAltarInteract",
+   "season": 1,
+   "gives_class": "EchoWeapon",
+   "ingredients": {
+    "NETHERITE_INGOT": 3,
+    "ECHO_SHARD": 32,
+    "SCULK_CATALYST": 16,
+    "SCULK_SHRIEKER": 8,
+    "PLAYER_HEAD": 4,
+    "DIAMOND": 16,
+    "NETHER_STAR": 2,
+    "DISC_FRAGMENT_5": 8
+   }
+  },
+  {
+   "display": "Eclipse",
+   "color": "dark_purple",
+   "cmd": 14,
+   "material": "NETHERITE_SWORD",
+   "y_offset": 0.0,
+   "recipe": "eclipsesword",
+   "command_class": "EclipseSwordAltarCommand",
+   "interact_class": "EclipseSwordAltarInteract",
+   "season": 1,
+   "gives_class": "EclipseSwordWeapon",
+   "ingredients": {
+    "NETHERITE_INGOT": 3,
+    "CLOCK": 1,
+    "FIRE_CHARGE": 64,
+    "IRON_BLOCK": 64,
+    "NETHER_STAR": 2,
+    "ENCHANTED_GOLDEN_APPLE": 4,
+    "CLOSED_EYEBLOSSOM": 16,
+    "OPEN_EYEBLOSSOM": 16
+   }
+  },
+  {
+   "display": "Fire Slash",
+   "color": "red",
+   "cmd": 0,
+   "material": "NETHERITE_SWORD",
+   "y_offset": 0.0,
+   "recipe": "fireslash",
+   "command_class": "FireSlashAltarCommand",
+   "interact_class": "FireSlashAltarInteract",
+   "season": 1,
+   "gives_class": "FireSlashWeapon",
+   "ingredients": {
+    "NETHERITE_INGOT": 2,
+    "BLAZE_ROD": 64,
+    "FIRE_CHARGE": 64,
+    "MAGMA_CREAM": 32,
+    "NETHER_STAR": 1,
+    "PLAYER_HEAD": 2,
+    "LAVA_BUCKET": 8,
+    "MAGMA_BLOCK": 32
+   }
+  },
+  {
+   "display": "Frost Scythe",
+   "color": "aqua",
+   "cmd": 4,
+   "material": "NETHERITE_SWORD",
+   "y_offset": 0.0,
+   "recipe": "frostscythe",
+   "command_class": "FrostScytheAltarCommand",
+   "interact_class": "FrostScytheAltarInteract",
+   "season": 1,
+   "gives_class": "FrostScytheWeapon",
+   "ingredients": {
+    "custom_weapon_handle": 1,
+    "custom_warden_heart": 1,
+    "PACKED_ICE": 64,
+    "BLUE_ICE": 64,
+    "PRISMARINE_SHARD": 32,
+    "DIAMOND_BLOCK": 4,
+    "HEART_OF_THE_SEA": 1,
+    "TRIDENT": 1
+   }
+  },
+  {
+   "display": "Hyperion",
+   "color": "gold",
+   "cmd": 6,
+   "material": "NETHERITE_SWORD",
+   "y_offset": 0.0,
+   "recipe": "hyperion",
+   "command_class": "HyperionAltarCommand",
+   "interact_class": "HyperionAltarInteract",
+   "season": 1,
+   "gives_class": "HyperionWeapon",
+   "ingredients": {
+    "custom_hyperion_shard": 5,
+    "PLAYER_HEAD": 1,
+    "custom_weapon_handle": 1
+   }
+  },
+  {
+   "display": "Hyperion Shard",
+   "color": "gold",
+   "cmd": 101,
+   "material": "GOLD_NUGGET",
+   "y_offset": 0.0,
+   "recipe": "hyperionshard",
+   "command_class": "HyperionShardAltarCommand",
+   "interact_class": "HyperionShardAltarInteract",
+   "season": 1,
+   "gives_class": null,
+   "ingredients": {
+    "BLAZE_POWDER": 1,
+    "GOLD_BLOCK": 16,
+    "FIRE_CHARGE": 8
+   }
+  },
+  {
+   "display": "Illusion Core",
+   "color": "dark_purple",
+   "cmd": 103,
+   "material": "ENDER_EYE",
+   "y_offset": 0.0,
+   "recipe": "illusioncore",
+   "command_class": "IllusionCoreAltarCommand",
+   "interact_class": "IllusionCoreAltarInteract",
+   "season": 1,
+   "gives_class": null,
+   "ingredients": {
+    "FERMENTED_SPIDER_EYE": 16,
+    "NETHER_WART": 16,
+    "GHAST_TEAR": 8,
+    "RABBIT_FOOT": 4
+   }
+  },
+  {
+   "display": "Knightfall",
+   "color": "dark_gray",
+   "cmd": 15,
+   "material": "MACE",
+   "y_offset": 0.0,
+   "recipe": "knightfall",
+   "command_class": "KnightfallAltarCommand",
+   "interact_class": "KnightfallAltarInteract",
+   "season": 1,
+   "gives_class": "KnightfallWeapon",
+   "ingredients": {
+    "NETHERITE_INGOT": 4,
+    "HEAVY_CORE": 1,
+    "BREEZE_ROD": 32,
+    "IRON_BLOCK": 64,
+    "GOLD_BLOCK": 32,
+    "PLAYER_HEAD": 4,
+    "DIAMOND": 16,
+    "ENCHANTED_GOLDEN_APPLE": 2
+   }
+  },
+  {
+   "display": "Nightpiercer",
+   "color": "dark_red",
+   "cmd": 5,
+   "material": "NETHERITE_SWORD",
+   "y_offset": 0.0,
+   "recipe": "nightpiercer",
+   "command_class": "NightpiercerAltarCommand",
+   "interact_class": "NightpiercerAltarInteract",
+   "season": 1,
+   "gives_class": "NightpiercerWeapon",
+   "ingredients": {
+    "custom_nightpiercer_shard": 5,
+    "PLAYER_HEAD": 1,
+    "custom_weapon_handle": 1
+   }
+  },
+  {
+   "display": "Nightpiercer Shard",
+   "color": "dark_red",
+   "cmd": 102,
+   "material": "FLINT",
+   "y_offset": 0.0,
+   "recipe": "nightpiercershard",
+   "command_class": "NightpiercerShardAltarCommand",
+   "interact_class": "NightpiercerShardAltarInteract",
+   "season": 1,
+   "gives_class": null,
+   "ingredients": {
+    "ENDER_PEARL": 32,
+    "OBSIDIAN": 16,
+    "FERMENTED_SPIDER_EYE": 8,
+    "CRIMSON_FUNGUS": 16,
+    "NETHER_WART_BLOCK": 8,
+    "CRYING_OBSIDIAN": 4
+   }
+  },
+  {
+   "display": "Nuke Launcher",
+   "color": "red",
+   "cmd": 4,
+   "material": "AMETHYST_SHARD",
+   "y_offset": 0.0,
+   "recipe": "nukelauncher",
+   "command_class": "NukeLauncherAltarCommand",
+   "interact_class": "NukeLauncherAltarInteract",
+   "season": 1,
+   "gives_class": "NukeLauncherWeapon",
+   "ingredients": {
+    "NETHERITE_INGOT": 3,
+    "TNT": 128,
+    "NETHER_STAR": 3,
+    "FIRE_CHARGE": 64,
+    "BLAZE_ROD": 64,
+    "GUNPOWDER": 128,
+    "PLAYER_HEAD": 5,
+    "HEAVY_CORE": 2
+   }
+  },
+  {
+   "display": "Paladin's Battle Axe",
+   "color": "gold",
+   "cmd": 3,
+   "material": "NETHERITE_AXE",
+   "y_offset": 0.0,
+   "recipe": "paladinbattleaxe",
+   "command_class": "PaladinBattleAxeAltarCommand",
+   "interact_class": "PaladinBattleAxeAltarInteract",
+   "season": 1,
+   "gives_class": "PaladinBattleAxeWeapon",
+   "ingredients": {
+    "NETHERITE_INGOT": 6,
+    "PUFFERFISH": 2,
+    "NETHER_STAR": 1,
+    "RAW_GOLD_BLOCK": 64,
+    "ENCHANTED_GOLDEN_APPLE": 5,
+    "HEAVY_CORE": 1,
+    "DRAGON_HEAD": 4,
+    "END_CRYSTAL": 8,
+    "TOTEM_OF_UNDYING": 1
+   }
+  },
+  {
+   "display": "Pale Crossbow",
+   "color": "gray",
+   "cmd": 2,
+   "material": "CROSSBOW",
+   "y_offset": 0.0,
+   "recipe": "palecrossbow",
+   "command_class": "PaleCrossbowAltarCommand",
+   "interact_class": "PaleCrossbowAltarInteract",
+   "season": 1,
+   "gives_class": null,
+   "ingredients": {
+    "custom_pale_shard": 5,
+    "CROSSBOW": 1,
+    "ECHO_SHARD": 16
+   }
+  },
+  {
+   "display": "Player Tracker",
+   "color": "red",
+   "cmd": 2000,
+   "material": "RECOVERY_COMPASS",
+   "y_offset": 0.0,
+   "recipe": "playertracker",
+   "command_class": "PlayerTrackerAltarCommand",
+   "interact_class": "PlayerTrackerAltarInteract",
+   "season": 1,
+   "gives_class": null,
+   "ingredients": {
+    "NETHERITE_INGOT": 2,
+    "HEAVY_CORE": 1,
+    "ENDER_EYE": 8,
+    "FERMENTED_SPIDER_EYE": 4
+   }
+  },
+  {
+   "display": "Pure Blade",
+   "color": "white",
+   "cmd": 7,
+   "material": "NETHERITE_SWORD",
+   "y_offset": 0.0,
+   "recipe": "pureblade",
+   "command_class": "PureBladeAltarCommand",
+   "interact_class": "PureBladeAltarInteract",
+   "season": 1,
+   "gives_class": "PureBladeWeapon",
+   "ingredients": {
+    "custom_warden_heart": 2,
+    "SCULK_SHRIEKER": 64,
+    "SOUL_LANTERN": 64,
+    "SOUL_SOIL": 64,
+    "NETHERITE_BLOCK": 1,
+    "IRON_BLOCK": 64,
+    "PLAYER_HEAD": 3
+   }
+  },
+  {
+   "display": "Shadow Blade",
+   "color": "dark_gray",
+   "cmd": 10,
+   "material": "NETHERITE_SWORD",
+   "y_offset": 0.0,
+   "recipe": "shadowblade",
+   "command_class": "ShadowBladeAltarCommand",
+   "interact_class": "ShadowBladeAltarInteract",
+   "season": 1,
+   "gives_class": "ShadowBladeWeapon",
+   "ingredients": {
+    "DRAGON_BREATH": 4,
+    "DISC_FRAGMENT_5": 12,
+    "DRAGON_EGG": 1,
+    "ECHO_SHARD": 16,
+    "BLACK_CANDLE": 24,
+    "PLAYER_HEAD": 2
+   }
+  },
+  {
+   "display": "Striker",
+   "color": "aqua",
+   "cmd": 1,
+   "material": "BOW",
+   "y_offset": 0.0,
+   "recipe": "striker",
+   "command_class": "StrikerAltarCommand",
+   "interact_class": "StrikerAltarInteract",
+   "season": 1,
+   "gives_class": "StrikerWeapon",
+   "ingredients": {
+    "NETHERITE_INGOT": 2,
+    "TNT": 64,
+    "GUNPOWDER": 64,
+    "BLAZE_ROD": 32,
+    "FIRE_CHARGE": 32,
+    "NETHER_STAR": 1,
+    "PLAYER_HEAD": 3,
+    "IRON_BLOCK": 32
+   }
+  },
+  {
+   "display": "Vulcan's Crossbow",
+   "color": "dark_red",
+   "cmd": 1,
+   "material": "CROSSBOW",
+   "y_offset": 0.0,
+   "recipe": "vulcan",
+   "command_class": "VulcanAltarCommand",
+   "interact_class": "VulcanAltarInteract",
+   "season": 1,
+   "gives_class": "VulcansCrossbowWeapon",
+   "ingredients": {
+    "ANCIENT_DEBRIS": 64,
+    "MAGMA_CREAM": 64,
+    "custom_warden_heart": 1,
+    "custom_vulkan_head": 1,
+    "BLAZE_ROD": 64,
+    "TNT": 64,
+    "PLAYER_HEAD": 3
+   }
+  },
+  {
+   "display": "Vulkan Head",
+   "color": "dark_red",
+   "cmd": 10,
+   "material": "CLAY_BALL",
+   "y_offset": 0.0,
+   "recipe": "vulkanhead",
+   "command_class": "VulkanHeadAltarCommand",
+   "interact_class": "VulkanHeadAltarInteract",
+   "season": 1,
+   "gives_class": null,
+   "ingredients": {
+    "WITHER_SKELETON_SKULL": 5,
+    "NETHERITE_INGOT": 3,
+    "PLAYER_HEAD": 3
+   }
+  },
+  {
+   "display": "Wand of Illusion",
+   "color": "dark_purple",
+   "cmd": 2,
+   "material": "NETHERITE_SWORD",
+   "y_offset": 0.0,
+   "recipe": "wandofillusion",
+   "command_class": "WandAltarCommand",
+   "interact_class": "WandAltarInteract",
+   "season": 1,
+   "gives_class": "WandOfIllusionWeapon",
+   "ingredients": {
+    "GOLD_BLOCK": 32,
+    "custom_warden_heart": 1,
+    "TOTEM_OF_UNDYING": 6,
+    "custom_illusion_core": 1,
+    "AMETHYST_BLOCK": 64,
+    "ENCHANTED_GOLDEN_APPLE": 1,
+    "PLAYER_HEAD": 2
+   }
+  },
+  {
+   "display": "Warden Head",
+   "color": "dark_aqua",
+   "cmd": 11,
+   "material": "ECHO_SHARD",
+   "y_offset": 0.0,
+   "recipe": "wardenhead",
+   "command_class": "WardenHeadAltarCommand",
+   "interact_class": "WardenHeadAltarInteract",
+   "season": 1,
+   "gives_class": null,
+   "ingredients": {
+    "NETHERITE_INGOT": 2,
+    "WITHER_SKELETON_SKULL": 5,
+    "custom_warden_heart": 2
+   }
+  },
+  {
+   "display": "Weapon Handle",
+   "color": "red",
+   "cmd": 100,
+   "material": "BREEZE_ROD",
+   "y_offset": 0.0,
+   "recipe": "weaponhandle",
+   "command_class": "WeaponHandleAltarCommand",
+   "interact_class": "WeaponHandleAltarInteract",
+   "season": 1,
+   "gives_class": null,
+   "ingredients": {
+    "GOLD_BLOCK": 32,
+    "DIAMOND_BLOCK": 16,
+    "NETHERITE_INGOT": 1
+   }
+  },
+  {
+   "display": "Windweaver",
+   "color": "aqua",
+   "cmd": 1,
+   "material": "NETHERITE_SWORD",
+   "y_offset": 0.0,
+   "recipe": "windweaver",
+   "command_class": "WindweaverAltarCommand",
+   "interact_class": "WindweaverAltarInteract",
+   "season": 1,
+   "gives_class": "WindweaverWeapon",
+   "ingredients": {
+    "IRON_BLOCK": 32,
+    "ENCHANTED_GOLDEN_APPLE": 2,
+    "BREEZE_ROD": 64,
+    "HEAVY_CORE": 1,
+    "OMINOUS_TRIAL_KEY": 2,
+    "PLAYER_HEAD": 2
+   }
+  },
+  {
+   "display": "Withered Blade",
+   "color": "dark_gray",
+   "cmd": 1,
+   "material": "NETHERITE_SWORD",
+   "y_offset": 0.0,
+   "recipe": "witherbone",
+   "command_class": "WitherboneAltarCommand",
+   "interact_class": "WitherboneAltarInteract",
+   "season": 1,
+   "gives_class": "WitherboneWeapon",
+   "ingredients": {
+    "GOLD_BLOCK": 64,
+    "NETHER_STAR": 2,
+    "WITHER_SKELETON_SKULL": 12,
+    "PLAYER_HEAD": 6
+   }
+  }
+ ],
+ "season2": [
+  {
+   "season": 2,
+   "key": "omen",
+   "display": "Omen",
+   "color": "aqua",
+   "cmd": 1,
+   "recipe": "omen",
+   "material": "MACE",
+   "material_is_default": true,
+   "ingredients": {
+    "OMINOUS_TRIAL_KEY": 8,
+    "BREEZE_ROD": 64,
+    "COPPER_BLOCK": 64,
+    "SOUL_TORCH": 32,
+    "TRIAL_KEY": 16,
+    "custom_weapon_handle": 1,
+    "HEAVY_CORE": 1,
+    "PLAYER_HEAD": 2
+   }
+  },
+  {
+   "season": 2,
+   "key": "ancientblade",
+   "display": "Ancient Blade",
+   "color": "aqua",
+   "cmd": 25,
+   "recipe": "ancientblade",
+   "material": "NETHERITE_SWORD",
+   "material_is_default": false,
+   "ingredients": {
+    "SCULK_SHRIEKER": 64,
+    "DIAMOND_BLOCK": 32,
+    "ECHO_SHARD": 32,
+    "MUSIC_DISC_5": 1,
+    "custom_warden_heart": 3,
+    "PLAYER_HEAD": 3
+   }
+  },
+  {
+   "season": 2,
+   "key": "withersymbiote",
+   "display": "Wither Symbiote",
+   "color": "dark_green",
+   "cmd": 27,
+   "recipe": "withersymbiote",
+   "material": "NETHERITE_SWORD",
+   "material_is_default": false,
+   "ingredients": {
+    "WITHER_ROSE": 16,
+    "BLAZE_ROD": 64,
+    "GHAST_TEAR": 16,
+    "DRIED_GHAST": 10,
+    "NETHERITE_INGOT": 2,
+    "NETHER_STAR": 1,
+    "custom_soul_in_a_bottle": 1,
+    "PLAYER_HEAD": 3
+   }
+  },
+  {
+   "season": 2,
+   "key": "tidebreaker",
+   "display": "Tidebreaker",
+   "color": "aqua",
+   "cmd": 1,
+   "recipe": "tidebreaker",
+   "material": "TRIDENT",
+   "material_is_default": false,
+   "ingredients": {
+    "HEART_OF_THE_SEA": 1,
+    "PRISMARINE_CRYSTALS": 64,
+    "LIGHTNING_ROD": 16,
+    "DIAMOND_BLOCK": 48,
+    "custom_fragment_of_the_sea": 5,
+    "NAUTILUS_SHELL": 4,
+    "PLAYER_HEAD": 3,
+    "TRIDENT": 1
+   }
+  },
+  {
+   "season": 2,
+   "key": "dragonrend",
+   "display": "Dragonrend",
+   "color": "light_purple",
+   "cmd": 26,
+   "recipe": "dragonrend",
+   "material": "NETHERITE_SWORD",
+   "material_is_default": false,
+   "ingredients": {
+    "AMETHYST_CLUSTER": 32,
+    "ENDER_EYE": 64,
+    "CRYING_OBSIDIAN": 32,
+    "custom_dragon_heart": 1,
+    "NETHERITE_INGOT": 3
+   }
+  }
+ ]
+}
