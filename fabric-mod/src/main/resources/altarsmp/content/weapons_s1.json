@@ -1,0 +1,1132 @@
+[
+ {
+  "id": "bloodlust",
+  "class": "BloodlustWeapon",
+  "season": 1,
+  "display_name": "<gradient:#8B0000:#FF0000:#8B0000>Bloodlust</gradient>",
+  "base_material": "NETHERITE_SWORD",
+  "custom_model_data": 3,
+  "tooltip_style": "bloodlust/bloodlust",
+  "rarity": "uncommon",
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "config": "enchants.bloodlust.sharpness",
+    "default": 5
+   },
+   {
+    "enchant": "looting",
+    "config": "enchants.bloodlust.looting",
+    "default": 5
+   },
+   {
+    "enchant": "sweeping_edge",
+    "config": "enchants.bloodlust.sweeping_edge",
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "config": "enchants.bloodlust.unbreaking",
+    "default": 10
+   },
+   {
+    "enchant": "mending",
+    "config": "enchants.bloodlust.mending",
+    "default": 1
+   }
+  ],
+  "lore": [
+   "<dark_gray>A powerful blade made with solid blood.",
+   "<dark_gray>The more you kill with it, the stronger you",
+   "<dark_gray>become.",
+   "",
+   "<red>Kills<dark_gray>: <gray>tracked while held",
+   "",
+   "<red><bold>ɪɴғᴇᴄᴛɪᴏɴ</bold> <dark_gray>| <dark_red>0 ᴋɪʟʟs",
+   "<dark_gray>⏱ 15s",
+   "<gray>15% chance to bleed an enemy on hit.",
+   "",
+   "<red><bold>sᴘᴇᴇᴅ</bold> <dark_gray>| <dark_red>1 ᴋɪʟʟ",
+   "<gray>Gain permanent <white>Speed II <gray>while",
+   "<gray>holding Bloodlust.",
+   "",
+   "<red><bold>ʙʟᴏᴏᴅ ᴛʀᴀᴄᴋᴇʀ</bold> <dark_gray>| <dark_red>2 ᴋɪʟʟs",
+   "<gray>Track the blood of nearby players.",
+   "<gray>Only you can see the particles.",
+   "",
+   "<red><bold>ʙʟᴏᴏᴅ ᴛʀᴀɪʟ</bold> <dark_gray>| <dark_red>3 ᴋɪʟʟs",
+   "<dark_gray>⏱ {cfg:abilities.bloodlust.trail_cooldown|60}s <dark_red>Shift-Offhand",
+   "<gray>Submerge yourself in a puddle of blood.",
+   "",
+   "<red><bold>sᴛʀᴇɴɢᴛʜ</bold> <dark_gray>| <dark_red>4 ᴋɪʟʟs",
+   "<gray>Gain permanent <white>Strength I <gray>while",
+   "<gray>holding Bloodlust.",
+   "",
+   "<red><bold>ʙʟᴏᴏᴅ ʜᴏᴏᴋ</bold> <dark_gray>| <dark_red>5 ᴋɪʟʟs",
+   "<dark_gray>⏱ {cfg:abilities.bloodlust.hook_cooldown|30}s <dark_red>Offhand",
+   "<gray>Throw a blood chain in front of you,",
+   "<gray>pulling anything it touches towards you."
+  ]
+ },
+ {
+  "id": "boneblade",
+  "class": "BoneBladeWeapon",
+  "season": 1,
+  "display_name": "<gradient:#FFD700:#FFA500:#FFD700>Bone Blade</gradient>",
+  "base_material": "NETHERITE_SWORD",
+  "custom_model_data": 1,
+  "tooltip_style": "bone_blade/bone_blade",
+  "rarity": "uncommon",
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "config": "enchants.boneblade.sharpness",
+    "default": 5
+   },
+   {
+    "enchant": "looting",
+    "config": "enchants.boneblade.looting",
+    "default": 5
+   },
+   {
+    "enchant": "sweeping_edge",
+    "config": "enchants.boneblade.sweeping_edge",
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "config": "enchants.boneblade.unbreaking",
+    "default": 10
+   },
+   {
+    "enchant": "mending",
+    "config": "enchants.boneblade.mending",
+    "default": 1
+   }
+  ],
+  "lore": [
+   "<dark_gray>A blade made from the oldest",
+   "<dark_gray>bones known to mankind.",
+   "<dark_gray>Some say the bones are still alive.",
+   "",
+   "<yellow><bold>sᴋᴇʟᴇᴛᴀʟ ʟᴇᴀᴘ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.boneblade.leap_cooldown|30}s <gold>Offhand",
+   "<gray>Leap in the direction you're looking,",
+   "<gray>gaining <white>Speed III <gray>for a few seconds.",
+   "",
+   "<yellow><bold>ʙᴏɴᴇ ᴄᴀɢᴇ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.boneblade.cage_cooldown|60}s <gold>Shift-Offhand",
+   "<gray>Throw a fast-moving projectile in front of",
+   "<gray>you that stuns any player hit for",
+   "<gray><white>{cfg:abilities.boneblade.stun_duration|4} seconds<gray>."
+  ]
+ },
+ {
+  "id": "contagionsignal",
+  "class": "ContagionSignalWeapon",
+  "season": 1,
+  "display_name": "<gradient:#FF0000:#808080:#FFFFFF>Contagion Signal</gradient>",
+  "base_material": "STRIPPED_CRIMSON_HYPHAE",
+  "custom_model_data": 1,
+  "tooltip_style": "contagion_signal/contagion_signal",
+  "rarity": "epic",
+  "unbreakable": true,
+  "enchants": [],
+  "lore": [
+   "<dark_gray><italic>A piece of unfathomable technology that can change the world as we know it.",
+   "",
+   "<gray>Defend the Contagion Signal for <white>10 minutes <gray>to complete the ritual.",
+   "<gray>After the 10 minutes is over, there is no going back.",
+   "",
+   "<green><underlined>Left-Click an Altar to commence the ritual."
+  ]
+ },
+ {
+  "id": "crazyslots",
+  "class": "CrazySlotsWeapon",
+  "season": 1,
+  "display_name": "<rainbow>Crazy Slots</rainbow>",
+  "base_material": "CLAY_BALL",
+  "custom_model_data": 4,
+  "tooltip_style": "crazy_slots/crazy_slots",
+  "rarity": "common",
+  "unbreakable": true,
+  "enchants": [],
+  "lore": [
+   "<dark_gray>A rigged relic of impossible luck.",
+   "<dark_gray>Every pull whispers a different legend.",
+   "",
+   "<rainbow><bold>ᴄʀᴀᴢʏ sʟᴏᴛs</bold></rainbow>",
+   "<dark_gray>⏱ 30s <gold>Right-Click",
+   "<gray>Spin for a random legendary or relic weapon,",
+   "<gray>borrowing its real lore and power for",
+   "<white>30 seconds<gray>.",
+   "",
+   "<dark_gray>Includes S1, S2, bows, axes,",
+   "<dark_gray>and every new legendary in the pool."
+  ]
+ },
+ {
+  "id": "cutlass",
+  "class": "CutlassWeapon",
+  "season": 1,
+  "display_name": "<gradient:#65CFF5:#98DFF8:#CCEFFC>Cutlass</gradient>",
+  "base_material": "NETHERITE_SWORD",
+  "custom_model_data": 11,
+  "tooltip_style": "cutlass/cutlass",
+  "rarity": "uncommon",
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "config": "enchants.cutlass.sharpness",
+    "default": 5
+   },
+   {
+    "enchant": "looting",
+    "config": "enchants.cutlass.looting",
+    "default": 5
+   },
+   {
+    "enchant": "sweeping_edge",
+    "config": "enchants.cutlass.sweeping_edge",
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "config": "enchants.cutlass.unbreaking",
+    "default": 10
+   },
+   {
+    "enchant": "mending",
+    "default": 1
+   }
+  ],
+  "lore": [
+   "<dark_gray>A legendary cutlass sharpened by",
+   "<dark_gray>countless duels and perfect footwork.",
+   "",
+   "<aqua><bold>ᴛʜᴏᴜsᴀɴᴅ ᴄᴜᴛs</bold>",
+   "<dark_gray>⏱ {cfg:abilities.cutlass.cuts_cooldown|15}s <dark_aqua>Offhand",
+   "<gray>Unleash a flurry of slashes in front of you,",
+   "<gray>then lunge forward with a final stab.",
+   "<gray>Targets are afflicted with <white>Slowness II <gray>for 3s.",
+   "",
+   "<aqua><bold>ᴘᴀʀʀʏ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.cutlass.parry_cooldown|30}s <dark_aqua>Shift-Offhand",
+   "<gray>Enter a stance that blocks up to",
+   "<gray>three projectiles or melee attacks,",
+   "<gray>knocking enemies backwards in return."
+  ]
+ },
+ {
+  "id": "earthgauntlet",
+  "class": "EarthGauntletWeapon",
+  "season": 1,
+  "display_name": "<gradient:#B87333:#CD853F:#B87333>Earth Gauntlet</gradient>",
+  "base_material": "NETHERITE_SWORD",
+  "custom_model_data": 8,
+  "tooltip_style": "earth_gauntlet/earth_gauntlet",
+  "rarity": "common",
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "config": "enchants.earthgauntlet.sharpness",
+    "default": 5
+   },
+   {
+    "enchant": "looting",
+    "config": "enchants.earthgauntlet.looting",
+    "default": 5
+   },
+   {
+    "enchant": "sweeping_edge",
+    "config": "enchants.earthgauntlet.sweeping_edge",
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "config": "enchants.earthgauntlet.unbreaking",
+    "default": 10
+   },
+   {
+    "enchant": "mending",
+    "default": 1
+   }
+  ],
+  "lore": [
+   "<dark_gray>A gauntlet socketed with a living gem.",
+   "<dark_gray>The earth answers every clenched fist.",
+   "",
+   "<#B87333><bold>ᴍᴇᴛᴇᴏʀ sᴛʀɪᴋᴇ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.earthgauntlet.meteor_cooldown|30}s <#CD853F>Offhand",
+   "<gray>Charge your next punch with crushing",
+   "<gray>damage and knockback, concussing the target.",
+   "",
+   "<#B87333><bold>ᴍᴜᴅsʟɪᴅᴇ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.earthgauntlet.mudslide_cooldown|18}s <#CD853F>Shift-Offhand",
+   "<gray>Throw a mud projectile where you face.",
+   "<gray>Enemies hit become <white>Muddied <gray>for 4s,",
+   "<gray>letting you pull them in or leave them buried."
+  ]
+ },
+ {
+  "id": "echo",
+  "class": "EchoWeapon",
+  "season": 1,
+  "display_name": "<gradient:#00E5FF:#0B6B7A:#00FFC8>Echo</gradient>",
+  "base_material": "NETHERITE_SWORD",
+  "custom_model_data": 13,
+  "tooltip_style": "echo/echo",
+  "rarity": "epic",
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "config": "enchants.echo.sharpness",
+    "default": 5
+   },
+   {
+    "enchant": "sweeping_edge",
+    "config": "enchants.echo.sweeping_edge",
+    "default": 3
+   },
+   {
+    "enchant": "looting",
+    "config": "enchants.echo.looting",
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "config": "enchants.echo.unbreaking",
+    "default": 10
+   },
+   {
+    "enchant": "mending",
+    "config": "enchants.echo.mending",
+    "default": 1
+   }
+  ],
+  "lore": [
+   "<dark_gray>A blade humming with sealed resonance.",
+   "<dark_gray>Every swing remembers where sound has been.",
+   "",
+   "<gray><bold>sᴏɴɪᴄ ʙʟᴀsᴛ</bold>",
+   "<dark_gray>⏱ 40s <white>Offhand",
+   "<gray>After a short delay, fire a piercing",
+   "<gray>line of force where you are looking.",
+   "<gray>It damages players and tears through terrain.",
+   "",
+   "<gray><bold>ᴇᴄʜᴏ sʜʀɪᴇᴋ</bold>",
+   "<dark_gray>⏱ 60s <white>Shift-Offhand",
+   "<gray>Players within <white>7 blocks <gray>gain <white>Slowness II",
+   "<gray>and <white>Darkness <gray>for 10s.",
+   "<gray>Players within <white>12 blocks <gray>lose invisibility",
+   "<gray>and disguises."
+  ]
+ },
+ {
+  "id": "eclipsesword",
+  "class": "EclipseSwordWeapon",
+  "season": 1,
+  "display_name": "<gradient:#f5a623:#c0392b:#8e44ad>Eclipse Sword</gradient>",
+  "base_material": "NETHERITE_SWORD",
+  "custom_model_data": 14,
+  "tooltip_style": "eclipse_sword/eclipse_sword",
+  "rarity": null,
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "default": 5
+   },
+   {
+    "enchant": "unbreaking",
+    "default": 10
+   },
+   {
+    "enchant": "mending",
+    "default": 1
+   }
+  ],
+  "lore": [
+   "<dark_gray>A blade caught between sun and moon.",
+   "<dark_gray>Its power changes with the sky above.",
+   "",
+   "<gold><bold>ᴅᴀʏᴛɪᴍᴇ</bold> <dark_gray>| <yellow>Solar Form",
+   "",
+   "<gold><bold>sᴏʟᴀʀ ɪɴғᴇʀɴᴏ</bold>",
+   "<dark_gray>⏱ 35s <yellow>Offhand",
+   "<gray>Unleash a sphere of fire around yourself,",
+   "<gray>creating a real explosion.",
+   "",
+   "<gold><bold>sᴏʟᴀʀ ʟᴇᴀᴘ</bold>",
+   "<dark_gray>⏱ 15-30s <yellow>Shift-Offhand",
+   "<gray>Launch where you look and deal",
+   "<gray>area damage when you land.",
+   "",
+   "<aqua><bold>ɴɪɢʜᴛᴛɪᴍᴇ</bold> <dark_gray>| <dark_aqua>Lunar Form",
+   "",
+   "<aqua><bold>ᴍᴏᴏɴʟɪᴛ sᴛᴀʀs</bold>",
+   "<dark_gray>⏱ 40s <dark_aqua>Offhand",
+   "<gray>Fire a piercing ray of starlight forward,",
+   "<gray>dealing true damage to the first entity hit.",
+   "",
+   "<aqua><bold>ᴍᴏᴏɴʟɪᴛ sʜᴀᴅᴏᴡs</bold>",
+   "<dark_gray>⏱ 30s <dark_aqua>Shift-Offhand",
+   "<gray>Cloak yourself in shadow, gaining",
+   "<white>True Invisibility <gray>for <white>4 seconds<gray>.",
+   "",
+   "<blue>Unbreakable"
+  ]
+ },
+ {
+  "id": "fire_slash",
+  "class": "FireSlashWeapon",
+  "season": 1,
+  "display_name": "Fire Slash",
+  "base_material": "NETHERITE_SWORD",
+  "custom_model_data": 0,
+  "tooltip_style": "fire_slash/fire_slash",
+  "rarity": "epic",
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "default": 5
+   },
+   {
+    "enchant": "unbreaking",
+    "default": 3
+   },
+   {
+    "enchant": "mending",
+    "default": 1
+   }
+  ],
+  "lore": [
+   "<dark_gray>A blade wreathed in living flame.",
+   "<dark_gray>Its edge burns even after the swing ends.",
+   "",
+   "<red><bold>ғɪʀᴇ sʟᴀsʜ</bold>",
+   "<dark_gray>Melee",
+   "<gray>Hit an enemy to ignite them and",
+   "<gray>unleash a diagonal fire slash.",
+   "",
+   "<red><bold>ғʟᴀᴍᴇ ᴡᴀᴠᴇ</bold>",
+   "<dark_gray>⏱ 12s <dark_red>Offhand",
+   "<gray>Launch fire forward, dealing",
+   "<red>8 true damage <gray>on impact.",
+   "",
+   "<white>Passive <dark_gray>| <red>Lava on Impact"
+  ]
+ },
+ {
+  "id": "frost_scythe",
+  "class": "FrostScytheWeapon",
+  "season": 1,
+  "display_name": "<gradient:#00BFFF:#87CEEB:#00BFFF>Frost Scythe</gradient>",
+  "base_material": "NETHERITE_SWORD",
+  "custom_model_data": 4,
+  "tooltip_style": "frost_scythe/frost_scythe",
+  "rarity": "rare",
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "config": "enchants.frostscythe.sharpness",
+    "default": 5
+   },
+   {
+    "enchant": "looting",
+    "config": "enchants.frostscythe.looting",
+    "default": 5
+   },
+   {
+    "enchant": "sweeping_edge",
+    "config": "enchants.frostscythe.sweeping_edge",
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "config": "enchants.frostscythe.unbreaking",
+    "default": 10
+   },
+   {
+    "enchant": "mending",
+    "config": "enchants.frostscythe.mending",
+    "default": 1
+   }
+  ],
+  "lore": [
+   "<dark_gray>An ancient scythe used to harvest",
+   "<dark_gray>seas of ice. The scythe is cool to",
+   "<dark_gray>the touch.",
+   "",
+   "<aqua><bold>ᴄᴏᴍᴍᴀɴᴅ ᴏғ ɪᴄᴇ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.frostscythe.command_cooldown|45}s <dark_aqua>Shift-Offhand",
+   "<gray>Summon three blocks of ice above your",
+   "<gray>head, followed by throwing themselves",
+   "<gray>in any direction you look.",
+   "",
+   "<aqua><bold>sᴄʏᴛʜᴇ ᴛʜʀᴏᴡ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.frostscythe.throw_cooldown|30}s <dark_aqua>Offhand",
+   "<gray>Throw your Frost Scythe in the",
+   "<gray>direction you're looking, slowing",
+   "<gray>down anything hit by it."
+  ]
+ },
+ {
+  "id": "hyperion",
+  "class": "HyperionWeapon",
+  "season": 1,
+  "display_name": "<gradient:#FFD700:#FFA500:#FFD700>Hyperion</gradient>",
+  "base_material": "NETHERITE_SWORD",
+  "custom_model_data": 6,
+  "tooltip_style": "hyperion/hyperion",
+  "rarity": "uncommon",
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "config": "enchants.hyperion.sharpness",
+    "default": 5
+   },
+   {
+    "enchant": "looting",
+    "config": "enchants.hyperion.looting",
+    "default": 5
+   },
+   {
+    "enchant": "sweeping_edge",
+    "config": "enchants.hyperion.sweeping_edge",
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "config": "enchants.hyperion.unbreaking",
+    "default": 10
+   },
+   {
+    "enchant": "mending",
+    "config": "enchants.hyperion.mending",
+    "default": 1
+   }
+  ],
+  "lore": [
+   "<dark_gray><italic>Do not go gentle into that good night.",
+   "<dark_gray><italic>Rage, rage against the dying of the light.",
+   "",
+   "<white>Passive <dark_gray>| <gray>Gain permanent Fire Resistance when held.",
+   "",
+   "<gold><bold>ʜᴏʟʏ ʟᴀɴᴄᴇ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.hyperion.holy_lance_cooldown|60}s <yellow>Offhand",
+   "<gray>Summon a powerful beam of light where you look,",
+   "<gray>dealing a large amount of damage to non-humans.",
+   "",
+   "<gold><bold>sᴄᴏʀᴄʜɪɴɢ ʙʟᴀᴅᴇ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.hyperion.scorching_cooldown|30}s <yellow>Shift-Offhand",
+   "<gray>Power your next swing with a holy fire,",
+   "<gray>launching a blade of flames towards your enemy."
+  ]
+ },
+ {
+  "id": "knightfall",
+  "class": "KnightfallWeapon",
+  "season": 1,
+  "display_name": "<white><bold>Knightfall</bold></white>",
+  "base_material": "MACE",
+  "custom_model_data": 15,
+  "tooltip_style": "knightfall/knightfall",
+  "rarity": null,
+  "unbreakable": false,
+  "enchants": [],
+  "lore": []
+ },
+ {
+  "id": "minor_crazy_slots",
+  "class": "MinorCrazySlotsWeapon",
+  "season": 1,
+  "display_name": "<gradient:#ffcf40:#ff7a18:#ffcf40>Minor Crazy Slots</gradient>",
+  "base_material": "CLAY_BALL",
+  "custom_model_data": 4,
+  "tooltip_style": null,
+  "rarity": "common",
+  "unbreakable": true,
+  "enchants": [],
+  "lore": [
+   "<dark_gray>A smaller rigged relic of impossible luck.",
+   "<dark_gray>Its prize table is chosen by the server.",
+   "",
+   "<gold><bold>ᴍɪɴᴏʀ ᴄʀᴀᴢʏ sʟᴏᴛs</bold>",
+   "<dark_gray>⏱ One Use <gold>Right-Click",
+   "<gray>Spin the minor roulette for a random",
+   "<gray>legendary or item from the manual pool.",
+   "",
+   "<gray>The prize is kept <white>permanently<gray>.",
+   "<dark_gray>Minor Crazy Slots vanishes after rolling."
+  ]
+ },
+ {
+  "id": "nightpiercer",
+  "class": "NightpiercerWeapon",
+  "season": 1,
+  "display_name": "<gradient:#8B0000:#FF0000:#8B0000>Nightpiercer</gradient>",
+  "base_material": "NETHERITE_SWORD",
+  "custom_model_data": 5,
+  "tooltip_style": "nightpiercer/nightpiercer",
+  "rarity": "epic",
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "config": "enchants.nightpiercer.sharpness",
+    "default": 5
+   },
+   {
+    "enchant": "looting",
+    "config": "enchants.nightpiercer.looting",
+    "default": 5
+   },
+   {
+    "enchant": "sweeping_edge",
+    "config": "enchants.nightpiercer.sweeping_edge",
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "config": "enchants.nightpiercer.unbreaking",
+    "default": 10
+   },
+   {
+    "enchant": "mending",
+    "config": "enchants.nightpiercer.mending",
+    "default": 1
+   }
+  ],
+  "lore": [
+   "<dark_gray><italic>Vampiri sunt praedatores noctis ultimi.",
+   "",
+   "<white>Passive <dark_gray>| <gray>Gain permanent Regeneration while held at night.",
+   "",
+   "<red><bold>ᴄʀɪᴍsᴏɴ ʙɪᴛᴇ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.nightpiercer.bite_cooldown|30}s <dark_red>Offhand",
+   "<gray>Slash your sword in the form of a bite.",
+   "<gray>Non-vampires hit temporarily lose <white>2 hearts",
+   "<gray>and you gain <white>2 hearts <gray>for 10 seconds.",
+   "",
+   "<red><bold>ᴛʀᴀɴsғᴏʀᴍᴀᴛɪᴏɴ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.nightpiercer.transform_cooldown|60}s <dark_red>Shift-Offhand",
+   "<gray>Temporarily turn into a cloud of bats",
+   "<gray>that flies in the direction you look."
+  ]
+ },
+ {
+  "id": "nuke_launcher",
+  "class": "NukeLauncherWeapon",
+  "season": 1,
+  "display_name": "<gradient:#FF4500:#8B0000>Nuke Launcher</gradient>",
+  "base_material": "AMETHYST_SHARD",
+  "custom_model_data": 4,
+  "tooltip_style": "nuke_launcher/nuke_launcher",
+  "rarity": "epic",
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "unbreaking",
+    "config": "enchants.nuke_launcher.unbreaking",
+    "default": 10
+   },
+   {
+    "enchant": "mending",
+    "config": "enchants.nuke_launcher.mending",
+    "default": 1
+   }
+  ],
+  "lore": [
+   "<dark_gray>A forbidden launcher built to end terrain.",
+   "<dark_gray>The warning comes long before mercy does.",
+   "",
+   "<red><bold>ɴᴜᴄʟᴇᴀʀ sᴛʀɪᴋᴇ</bold>",
+   "<dark_gray>⏱ 5m <dark_red>Offhand",
+   "<gray>Lock onto a location and launch a strike.",
+   "<gray>After a <white>30 second <gray>countdown,",
+   "<gray>the impact detonates in a massive blast."
+  ]
+ },
+ {
+  "id": "paladinbattleaxe",
+  "class": "PaladinBattleAxeWeapon",
+  "season": 1,
+  "display_name": "<gradient:#FFD700:#FFA500:#FFD700>Paladin's Battle Axe</gradient>",
+  "base_material": "NETHERITE_AXE",
+  "custom_model_data": 2,
+  "tooltip_style": "paladin_axe/paladin_axe",
+  "rarity": "uncommon",
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "config": "enchants.paladinbattleaxe.sharpness",
+    "default": 5
+   },
+   {
+    "enchant": "looting",
+    "config": "enchants.paladinbattleaxe.looting",
+    "default": 5
+   },
+   {
+    "enchant": "sweeping_edge",
+    "config": "enchants.paladinbattleaxe.sweeping_edge",
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "config": "enchants.paladinbattleaxe.unbreaking",
+    "default": 10
+   },
+   {
+    "enchant": "mending",
+    "config": "enchants.paladinbattleaxe.mending",
+    "default": 1
+   },
+   {
+    "enchant": "efficiency",
+    "config": "enchants.paladinbattleaxe.efficiency",
+    "default": 5
+   }
+  ],
+  "lore": [
+   "<dark_gray>With an <gold>indomitable burning spirit<dark_gray>.",
+   "<dark_gray><italic>\"Never quench thy flame, noble one.\"",
+   "",
+   "<gold><bold>ᴇᴀʀᴛʜsʜᴀᴛᴛᴇʀ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.paladinbattleaxe.shatter_cooldown|45}s <yellow>Offhand",
+   "<gray>Summon a spectral axe where you look,",
+   "<gray>creating a massive ground shockwave.",
+   "<gray>You swing faster while holding the axe.",
+   "",
+   "<gold><bold>sᴛᴀʟᴡᴀʀᴛ ᴀʙsᴏʀᴘᴛɪᴏɴ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.paladinbattleaxe.stalwart_cooldown|45}s <yellow>Shift-Offhand",
+   "<gray>For 5 seconds, negate damage and",
+   "<gray>store half of it for a returning shockwave.",
+   "<gray>Gain <white>Resistance I <gray>while active."
+  ]
+ },
+ {
+  "id": "palecrossbow",
+  "class": "PaleCrossbowWeapon",
+  "season": 1,
+  "display_name": "<dark_gray><obfuscated>||||||||||||</obfuscated></dark_gray>",
+  "base_material": "CROSSBOW",
+  "custom_model_data": 2,
+  "tooltip_style": "pale_crossbow/pale_crossbow",
+  "rarity": "common",
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "unbreaking",
+    "config": "enchants.palecrossbow.unbreaking",
+    "default": 10
+   },
+   {
+    "enchant": "mending",
+    "config": "enchants.palecrossbow.mending",
+    "default": 1
+   },
+   {
+    "enchant": "multishot",
+    "config": "enchants.palecrossbow.multishot",
+    "default": 0
+   },
+   {
+    "enchant": "piercing",
+    "config": "enchants.palecrossbow.piercing",
+    "default": 0
+   }
+  ],
+  "lore": [
+   "<dark_gray><italic>A powerful handcannon made from the",
+   "<dark_gray><italic>wood of the Pale Gardens.",
+   "",
+   "<gold><bold>ᴘᴀʟᴇ ᴄᴀɴɴᴏɴ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.palecrossbow.shoot_cooldown|5}s <yellow>Shoot",
+   "<gray>All projectiles inserted turn into a",
+   "<gray>powerful cannon shot.",
+   "",
+   "<gold><bold>ᴘᴀʟᴇ ʀᴏᴏᴛs</bold>",
+   "<dark_gray>⏱ {cfg:abilities.palecrossbow.pale_roots.cooldown|45}s <yellow>Offhand",
+   "<gray>Summon a line of pale roots, curving towards",
+   "<gray>where you look and harming enemies that touch it."
+  ]
+ },
+ {
+  "id": "pureblade",
+  "class": "PureBladeWeapon",
+  "season": 1,
+  "display_name": "<gradient:#708090:#C0C0C0:#708090>Pure Blade</gradient>",
+  "base_material": "NETHERITE_SWORD",
+  "custom_model_data": 7,
+  "tooltip_style": "pure_blade/pure_blade",
+  "rarity": "rare",
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "config": "enchants.pureblade.sharpness",
+    "default": 5
+   },
+   {
+    "enchant": "looting",
+    "config": "enchants.pureblade.looting",
+    "default": 5
+   },
+   {
+    "enchant": "sweeping_edge",
+    "config": "enchants.pureblade.sweeping_edge",
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "config": "enchants.pureblade.unbreaking",
+    "default": 10
+   },
+   {
+    "enchant": "mending",
+    "config": "enchants.pureblade.mending",
+    "default": 1
+   }
+  ],
+  "lore": [
+   "<dark_gray>Crafted in the outskirts of the City of Tears,",
+   "<dark_gray>this blade carries void and perfect form.",
+   "",
+   "<gray><bold>sʜᴀᴅᴇ sᴏᴜʟ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.pureblade.shade_soul_cooldown|30}s <white>Offhand",
+   "<gray>Conjure a shadow that flies forward,",
+   "<gray>piercing enemies and walls in its path.",
+   "<gray>Enemies hit glow and suffer <white>Slowness II <gray>for 5s.",
+   "",
+   "<gray><bold>ᴄʏᴄʟᴏɴᴇ sʟᴀsʜ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.pureblade.cyclone_cooldown|60}s <white>Shift-Offhand",
+   "<gray>Unleash a focused spinning attack,",
+   "<gray>cutting down enemies caught around you."
+  ]
+ },
+ {
+  "id": "shadowblade",
+  "class": "ShadowBladeWeapon",
+  "season": 1,
+  "display_name": "<gradient:#1a1a1a:#424242:#6a6a6a>Shadow Blade</gradient>",
+  "base_material": "NETHERITE_SWORD",
+  "custom_model_data": 10,
+  "tooltip_style": "shadow_blade/shadow_blade",
+  "rarity": "epic",
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "config": "enchants.shadowblade.sharpness",
+    "default": 5
+   },
+   {
+    "enchant": "looting",
+    "config": "enchants.shadowblade.looting",
+    "default": 3
+   },
+   {
+    "enchant": "sweeping_edge",
+    "config": "enchants.shadowblade.sweeping_edge",
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "config": "enchants.shadowblade.unbreaking",
+    "default": 10
+   },
+   {
+    "enchant": "mending",
+    "config": "enchants.shadowblade.mending",
+    "default": 1
+   }
+  ],
+  "lore": [
+   "<dark_gray>A blade that vanishes between heartbeats.",
+   "<dark_gray>It strikes hardest from where nobody looks.",
+   "",
+   "<gray><bold>sʜᴀᴅᴏᴡ ᴅᴀɢɢᴇʀs</bold>",
+   "<dark_gray>⏱ {cfg:abilities.shadowblade.dagger_cooldown|15}s <white>Offhand",
+   "<gray>Throw three daggers where you look,",
+   "<gray>inflicting <white>Slowness II <gray>and <white>Blindness<gray>.",
+   "",
+   "<gray><bold>sʜᴀᴅᴏᴡ ʟᴇᴀᴘ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.shadowblade.leap_cooldown|30}s <white>Shift-Offhand",
+   "<gray>Plunge into shadow and steer your teleport",
+   "<gray>by looking. Press Offhand again to arrive early.",
+   "",
+   "<white>Passive <dark_gray>| <gray>Backstabs can pull enemies.",
+   "<white>Passive <dark_gray>| <gray>Gain permanent Speed II while held."
+  ]
+ },
+ {
+  "id": "striker",
+  "class": "StrikerWeapon",
+  "season": 1,
+  "display_name": "<gradient:#00DCE6:#0060A0>Striker</gradient>",
+  "base_material": "BOW",
+  "custom_model_data": 1,
+  "tooltip_style": "striker/striker",
+  "rarity": "common",
+  "unbreakable": true,
+  "enchants": [],
+  "lore": [
+   "<dark_gray>A bow wired to falling stars.",
+   "<dark_gray>Cyan sparks follow every drawn shot.",
+   "",
+   "<aqua><bold>PASSIVE | Explosive Arrow</bold>",
+   "<gray>Shoots normal arrows.",
+   "<gray>Every <white>10th <gray>shot explodes on impact,",
+   "<gray>dealing <white>+1 heart <gray>true damage.",
+   "<dark_gray>Explosion does not break blocks.",
+   "",
+   "<aqua><bold>sᴛʀɪᴋᴇ sʜᴏᴛ</bold>",
+   "<dark_gray>⏱ 60s <dark_aqua>Offhand",
+   "<gray>Summon a red column that grows and spins,",
+   "<gray>then detonates in a massive explosion,",
+   "<gray>dealing true damage without breaking blocks."
+  ],
+  "conditional_lore": [
+   {
+    "when_all": [
+     {
+      "path": "eclipse-revamp.enabled",
+      "equals": false
+     },
+     {
+      "path": "eclipse-revamp.striker-nuke-shot",
+      "equals": true
+     }
+    ],
+    "lines": [
+     "",
+     "<aqua><bold>ɴᴜʚᴇ sʜᴏᴛ</bold>",
+     "<dark_gray>⏱ {cfg:eclipse-revamp.starfall.striker-cooldown|60}s <dark_aqua>Shift-Offhand",
+     "<gray>Call down a barrage of star impacts,",
+     "<gray>dealing true damage without breaking blocks."
+    ]
+   }
+  ]
+ },
+ {
+  "id": "vulcanscrossbow",
+  "class": "VulcansCrossbowWeapon",
+  "season": 1,
+  "display_name": "<gradient:#ff421c:#ff601c:#ff601c:#ff421c>Vulcan's Crossbow</gradient>",
+  "base_material": "CROSSBOW",
+  "custom_model_data": 1,
+  "tooltip_style": "vulcans_crossbow/vulcans_crossbow",
+  "rarity": "common",
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "unbreaking",
+    "config": "enchants.vulcanscrossbow.unbreaking",
+    "default": 10
+   },
+   {
+    "enchant": "mending",
+    "config": "enchants.vulcanscrossbow.mending",
+    "default": 1
+   },
+   {
+    "enchant": "multishot",
+    "config": "enchants.vulcanscrossbow.multishot",
+    "default": 0
+   },
+   {
+    "enchant": "piercing",
+    "config": "enchants.vulcanscrossbow.piercing",
+    "default": 0
+   }
+  ],
+  "lore": [
+   "<dark_gray>The Legendary crossbow of Vulcan.",
+   "",
+   "<dark_gray><italic>All projectiles inserted in it seem to gain",
+   "<dark_gray><italic>Flaming properties.",
+   "",
+   "<gold><bold>ᴠᴜʟᴄᴀɴ's ᴡʀᴀᴛʜ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.vulcanscrossbow.wrath_cooldown|45}s <yellow>Shift-Shoot",
+   "<gray>Your next shot becomes an <white>explosive magma projectile<gray>,",
+   "<gray>destroying anything it touches.",
+   "",
+   "<gold><bold>sᴄᴀᴛᴛᴇʀsʜᴏᴛ</bold>",
+   "<dark_gray>⏱ 5s <yellow>Shoot",
+   "<gray>The crossbow shoots <white>three tightly-packed <gray>arrows,",
+   "<gray>with each arrow having <white>shield-piercing <gray>properties.",
+   "<gray>The <white>middle <gray>arrow <white>ignites enemies <gray>on fire."
+  ]
+ },
+ {
+  "id": "wandofillusion",
+  "class": "WandOfIllusionWeapon",
+  "season": 1,
+  "display_name": "<gradient:#FFD700:#DA70D6:#FFD700>Wand of Illusion</gradient>",
+  "base_material": "NETHERITE_SWORD",
+  "custom_model_data": 2,
+  "tooltip_style": "wand_of_illusion/wand_of_illusion",
+  "rarity": "epic",
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "config": "enchants.wandofillusion.sharpness",
+    "default": 5
+   },
+   {
+    "enchant": "looting",
+    "config": "enchants.wandofillusion.looting",
+    "default": 5
+   },
+   {
+    "enchant": "sweeping_edge",
+    "config": "enchants.wandofillusion.sweeping_edge",
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "config": "enchants.wandofillusion.unbreaking",
+    "default": 10
+   },
+   {
+    "enchant": "mending",
+    "config": "enchants.wandofillusion.mending",
+    "default": 1
+   }
+  ],
+  "lore": [
+   "<dark_gray>When you kill an enemy with the wand,",
+   "<dark_gray>you capture the mob and gain the ability",
+   "<dark_gray>to disguise as it, capturing its attributes",
+   "<dark_gray>and abilities.",
+   "",
+   "<yellow>Holding Right-Click",
+   "<gray>Disguises you as the mob/player that is currently",
+   "<gray>stored in the wand.",
+   "",
+   "<yellow>Right-Clicking while disguised",
+   "<gray>Uses the mob's ability if applicable.",
+   "",
+   "<yellow>Shift-Left-Clicking",
+   "<gray>Removes your disguise, returning you",
+   "<gray>back to normal.",
+   "",
+   "<red>On Mob Kill",
+   "<gray>Stores the mob's attributes and abilities",
+   "<gray>in the wand.",
+   "",
+   "<red>On Player Kill",
+   "<gray>Stores the name and skin of the player",
+   "<gray>in the wand, making you look identical",
+   "<gray>to the player you killed when disguising.",
+   "",
+   "<dark_gray>Stored<gray>: None"
+  ]
+ },
+ {
+  "id": "windweaver",
+  "class": "WindweaverWeapon",
+  "season": 1,
+  "display_name": "<gradient:#87CEEB:#C0C0C0:#87CEEB>Windweaver</gradient>",
+  "base_material": "NETHERITE_SWORD",
+  "custom_model_data": 12,
+  "tooltip_style": "windweaver/windweaver",
+  "rarity": "rare",
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "config": "enchants.windweaver.sharpness",
+    "default": 5
+   },
+   {
+    "enchant": "looting",
+    "config": "enchants.windweaver.looting",
+    "default": 5
+   },
+   {
+    "enchant": "sweeping_edge",
+    "config": "enchants.windweaver.sweeping_edge",
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "config": "enchants.windweaver.unbreaking",
+    "default": 10
+   },
+   {
+    "enchant": "mending",
+    "config": "enchants.windweaver.mending",
+    "default": 1
+   }
+  ],
+  "lore": [
+   "<dark_gray>A weightless blade braided with stormwind.",
+   "<dark_gray>The air bends before the wielder moves.",
+   "",
+   "<aqua><bold>ᴡɪɴᴅ ʟᴇᴀᴘ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.windweaver.leap_cooldown|15}s <dark_aqua>Offhand",
+   "<gray>Dash in the direction you're looking,",
+   "<gray>then gain <white>Speed IV <gray>for 5 seconds.",
+   "",
+   "<aqua><bold>ᴡɪɴᴅᴡᴇᴀᴠᴇʀ ɢᴜsᴛ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.windweaver.gust_cooldown_min|15}-{cfg:abilities.windweaver.gust_cooldown_max|30}s <dark_aqua>Shift-Offhand",
+   "<gray>Hold crouch to charge a powerful burst.",
+   "<gray>The longer you stay crouched,",
+   "<gray>the stronger the knockback becomes."
+  ]
+ },
+ {
+  "id": "witherbone",
+  "class": "WitherboneWeapon",
+  "season": 1,
+  "display_name": "<gradient:#4B0082:#2F0040:#4B0082>Wither Bone Blade</gradient>",
+  "base_material": "NETHERITE_SWORD",
+  "custom_model_data": 9,
+  "tooltip_style": "witherbone/witherbone",
+  "rarity": "epic",
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "default": 5
+   },
+   {
+    "enchant": "sweeping_edge",
+    "default": 3
+   },
+   {
+    "enchant": "looting",
+    "default": 3
+   }
+  ],
+  "lore": [
+   "<dark_gray>A withered bone blade that drinks momentum.",
+   "<dark_gray>Its marrow still crawls with old rot.",
+   "",
+   "<dark_purple><bold>ᴡɪᴛʜᴇʀ ʟᴇᴀᴘ</bold>",
+   "<dark_gray>⏱ {cfg:abilities.witherbone.leap_cooldown|10}s <light_purple>Offhand",
+   "<gray>Leap in the direction you're looking up to <white>3 times<gray>.",
+   "<gray>Ramming enemies deals wither damage.",
+   "",
+   "<dark_purple><bold>ᴡɪᴛʜᴇʀ ᴘᴜʀɢᴇ</bold>",
+   "<dark_gray>Full meter <light_purple>Shift-Offhand",
+   "<gray>Dealing damage fills your wither meter.",
+   "<gray>Release it when full to send out",
+   "<gray>black sludge that slows enemies."
+  ]
+ }
+]

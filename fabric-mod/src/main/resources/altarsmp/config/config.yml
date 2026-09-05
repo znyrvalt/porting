@@ -1,0 +1,1263 @@
+# AltarSMP Configuration
+# Use /altarsmp reload to apply changes in-game.
+# All cooldowns/durations are in seconds unless noted as ticks (20 ticks = 1s).
+# All damage values are raw damage (2.0 = 1 heart).
+
+# =========================================================
+# GLOBAL SETTINGS
+# =========================================================
+
+# Broadcast a chat message to all players when a legendary weapon is crafted.
+# When true, the altar's coordinates are included in the announcement.
+announce-craft-coords: false
+
+# Two-layer anti-spam protection for ability damage.
+# victim-immunity   : after getting hit by an ability, the victim is immune to ALL
+#                     other abilities for the duration (stops getting stacked by 3 weapons).
+# attacker-cooldown : after your ability lands, you can't deal ability damage again for
+#                     the duration (stops chaining frost throw -> shadow dash etc.).
+ability-immunity:
+  victim-immunity: true
+  victim-duration: 2     # seconds
+  attacker-cooldown: true
+  attacker-duration: 2   # seconds
+
+# Prevents legendary weapons from being placed in storage and/or burning in
+# fire/lava. Each container type is independently toggleable.
+weapon-protection:
+  enabled: true
+  burn-protection: true     # block weapons from burning in fire/lava/cactus/void
+  containers:
+    chest: true
+    barrel: true
+    ender_chest: true
+    hopper: true            # block hoppers from pulling/pushing legendaries
+    shulker: true           # block placing legendaries in shulker boxes
+    bundle: true            # block stuffing legendaries into bundles
+    other: true             # droppers, dispensers, furnaces, brewing, crafters
+
+# Makes weapons completely indestructible (explosions, despawn, cactus, void).
+# Off by default - the burn-protection above is usually enough.
+weapon-destruction-protection:
+  enabled: false
+
+# Players drop their head when killed; cooldown stops farming.
+head-drop:
+  cooldown: 3600  # seconds (3600 = 1 hour)
+
+# Custom tooltip frames per canonical weapon.
+# Requires the AltarSMP_S1A1 resource pack (provides altarsmp:tooltip/<key>).
+# Disable if you're running without the pack or on a Paper build that lacks
+# the setTooltipStyle API (the code will silently no-op either way).
+cosmetics:
+  tooltip_styles_enabled: true
+
+# How fast the floating altar item rotates / how high the hologram text sits.
+altar:
+  rotation_speed: 2.0
+  hologram_height: 2.5
+
+# Default block radius when /altarspawn places altars randomly.
+altar-spawn:
+  default-range: 500
+
+# Copper Pickaxe upgrade gate.
+copper_pickaxe:
+  blocks_required: 25000
+
+# =========================================================
+# ECLIPSE / STAR FALL
+# =========================================================
+# When enabled, Eclipse Sword's "Moonlit Stars" uses the Star Fall bombardment.
+# When disabled, Striker can get a "Nuke Shot" (Shift+F) using the same barrage -
+# requires striker-nuke-shot: true.
+eclipse-revamp:
+  enabled: true
+  striker-nuke-shot: false
+  starfall:
+    cooldown: 60               # seconds
+    radius: 40                 # block radius of the barrage
+    inner-damage: 8.0          # damage within inner-radius (4 hearts)
+    outer-damage: 4.0          # damage outside inner-radius (2 hearts)
+    inner-radius: 20
+    center-crater-radius: 15
+    center-crater-depth: 10
+    impact-count: 40
+    # striker-cooldown: 120    # uncomment to give Striker a different cooldown
+
+# =========================================================
+# COPPER TRIAL
+# =========================================================
+trials:
+  helmet:
+    fragment-drop-chance: 0.10  # 10% chance from ominous vaults
+
+# =========================================================
+# WEAPON ABILITIES
+# =========================================================
+abilities:
+
+  # When false, abilities that permanently destroy blocks (Striker TNT/column,
+  # Nuke Launcher crater) keep their visuals/damage but leave the world intact.
+  # Short-lived block changes (Vulcan's crater - reverts after 1 min) are unaffected.
+  terrain_destruction: true
+
+  # Passive bleed on hit, grapple hook, blood trail dive, nearby tracker.
+  # Bleed values mirror MythicWeapons canonical: 91-tick aura, tick every 15t, +regen.
+  bloodlust:
+    bleed_chance: 0.15
+    bleed_damage: 1.0
+    bleed_duration_ticks: 100      # fork: total bleed lifetime (5s)
+    bleed_damage_interval: 20      # fork: ticks between bleed damage ticks (1 dmg/sec)
+    bleed_particle_interval: 10    # fork: ticks between bleed particle/sound pulses
+    bleed_tick_interval: 15        # (legacy - unused by fork port)
+    bleed_regen_duration: 5        # (legacy - unused by fork port)
+    bleed_cooldown: 10             # seconds before same victim can re-bleed
+    hook_cooldown: 30
+    hook_damage: 4.0
+    hook_distance: 20.0
+    hook_velocity: 2.2
+    hook_pull_speed: 0.65          # fork: constant tow speed toward caster
+    hook_pull_arc: 0.08
+    hook_entity_radius: 1.2        # fork: swept-path catch radius
+    hook_decel_factor: 0.85        # fork: per-tick velocity multiplier once decel starts
+    hook_decel_start_tick: 10      # fork: tick at which hook deceleration begins
+    hook_pull_duration: 40         # fork: constant-tow duration in ticks
+    hook_pull_count: 5             # (legacy - unused by fork port)
+    cobweb_clear_radius: 3
+    trail_cooldown: 60
+    trail_duration: 10
+    trail_scale: 0.3
+    trail_step_height: 1.5         # fork
+    trail_speed_level: 2           # 2 = Speed III
+    trail_resistance_level: 9      # 9 = Resistance X
+    trail_mining_fatigue_level: 3  # fork: Mining Fatigue IV
+    trail_exit_boost: 0.65         # fork: forward resurface hop
+    trail_exit_boost_y: 0.18       # fork: upward resurface hop
+    trail_jump_exit_min_rise: 0.18 # fork: min Y-rise that counts as a jump exit
+    trail_invisibility: true
+    trail_safe_fall_distance: 20.0
+    trail_jump_strength: 0.05      # (legacy - unused by fork port)
+    trail_disable_interaction: true # (legacy - unused by fork port)
+    trail_exit_on_jump: true       # (legacy - unused by fork port)
+    trail_exit_leap_velocity: 0.5  # (legacy - unused by fork port)
+    trail_exit_y_velocity: 0.8     # (legacy - unused by fork port)
+    trail_exit_pause_ticks: 5      # (legacy - unused by fork port)
+    tracker_range: 30.0
+
+  # Throwable scythe, freeze on hit, ice spike command
+  frostscythe:
+    throw_cooldown: 30
+    throw_damage: 6.0
+    throw_return_power: 2.0
+    throw_max_distance: 100
+    throw_model_rotation_x: 0.0
+    throw_model_rotation_y: 0.0
+    throw_model_rotation_z: 90.0
+    throw_model_scale: 1.5
+    throw_model_spin_speed: 0.5
+    freeze_ticks: 100           # 5 seconds
+    freeze_slowness_level: 1    # 1 = Slowness II
+    ice_count: 3
+    ice_velocity: 1.5
+    ice_hitbox: 4.0
+    ice_spawn_height: 4
+    ice_timeout: 15
+    ice_launch_delay: 500       # ms
+    command_cooldown: 45
+    command_damage: 3.0
+
+  # Holy Lance AoE fire attack, Scorching Blade dash, Hallowed Flames passive
+  hyperion:
+    holy_lance_cooldown: 60
+    holy_lance_damage: 6.0
+    holy_lance_radius: 3.0
+    holy_lance_charge_ticks: 20
+    holy_lance_fire_ticks: 100
+    scorching_cooldown: 30
+    scorching_blade_damage: 6.0
+    scorching_radius: 5.0
+    scorching_hitbox: 1.5
+    scorching_lava_duration: 40   # fork: ticks the scorching lava persists before reverting
+    vampire_bonus: 3.0
+    hallowed_flames_damage: 7.0
+
+  # Bat transformation, Crimson Bite health steal
+  nightpiercer:
+    transform_cooldown: 60        # fork (was 30)
+    bite_cooldown: 30             # fork (was 60)
+    bat_duration: 3
+    bat_speed: 0.8
+    bite_charge_timeout: 5        # (legacy - fork bite is instant AOE, no charge)
+    crimson_bite_damage: 4.0      # fork (was 12); now a multi-target cone
+    health_steal: 4.0           # health bonus dealt to attacker via Crimson Bite
+    transform_ram_damage: 14.0   # (legacy - fork transform is mobility-only, no ram)
+    passive_regen_level: 0
+
+  # Shade Soul projectile, Cyclone spin attack
+  pureblade:
+    shade_soul_cooldown: 30
+    cyclone_cooldown: 60
+    shade_soul_damage: 6.0
+    shade_soul_velocity: 2.5
+    shade_soul_max_ticks: 60
+    shade_soul_hit_radius: 3.0
+    shade_soul_slowness_level: 1
+    soul_slow_duration: 100
+    cyclone_speed_level: 9
+    cyclone_duration: 30
+    cyclone_radius: 3
+    cyclone_damage: 1.8
+    cyclone_hit_interval: 6
+    cyclone_cobweb_radius: 3
+
+  # Stealth leap with invis, throwable dagger, backstab pull
+  shadowblade:
+    leap_cooldown: 30
+    dagger_cooldown: 15
+    passive_speed_level: 1
+    leap_distance: 30.0
+    leap_invis_duration: 36     # ticks
+    dagger_distance: 100.0
+    dagger_damage: 3.0
+    dagger_velocity: 1.5
+    dagger_hitbox: 0.8
+    dagger_aoe_radius: 5.0    # self-AOE burst around user on dagger throw
+    dagger_slow_duration: 60    # ticks
+    dagger_slow_level: 1
+    dagger_blind_duration: 60   # ticks
+    backstab_pull_chance: 0.3
+    backstab_pull_strength: 0.35
+
+  # Earth Shatter AoE slam, Stalwart Shield absorption
+  paladinbattleaxe:
+    shatter_cooldown: 45
+    stalwart_cooldown: 45
+    passive_haste_level: 0
+    shatter_radius: 6
+    earth_shatter_damage: 7.0
+    shatter_impact_damage: 6.0
+    shatter_knockback: 0.85
+    stalwart_duration: 100      # ticks
+    stalwart_knockback: 1.2
+    stalwart_damage_cap: 60.0
+    stalwart_min_hit_damage: 4.0  # hits below this don't absorb - pass through normally
+    stalwart_absorption_ratio: 0.5
+    stalwart_release_radius: 5
+
+  # Rapid slash combo, Parry counter
+  cutlass:
+    cuts_cooldown: 15
+    parry_cooldown: 30
+    parry_duration: 7           # ticks
+    cut_damage: 2.0
+    cuts_slash_count: 10
+    cuts_hit_radius: 3
+    parry_block_count: 3
+    parry_slowness_level: 1
+    parry_knockback: 1.8
+    parry_knockback_y: 0.4
+
+  # Meteor slam, Mudslide projectile
+  earthgauntlet:
+    meteor_cooldown: 30
+    mudslide_cooldown: 18
+    mud_damage: 2.0
+    muddied_duration: 4
+    muddied_slowness_level: 2
+    meteor_damage: 7.0
+    meteor_knockback: 8.0
+    meteor_charge_max_ticks: 200
+    meteor_active_ticks: 120             # fork: armed meteor window before it lapses to cooldown
+    meteor_vertical_velocity_cap: 0.55   # fork: cap on meteor pull vertical velocity
+    meteor_nausea_duration: 5
+    mud_revert_time: 1
+    # Mudslide projectile tuning (previously hardcoded).
+    mudslide_range: 100.0    # max distance the mudball can travel
+    mudslide_gravity: 0.0025 # per-tick drop applied to the mudball
+    pull_velocity: 1.5       # how hard a Meteor pull yanks the victim
+
+  # Bone Leap dash, Bone Cage trap
+  boneblade:
+    leap_cooldown: 30
+    cage_cooldown: 60
+    cage_hitbox: 2.0
+    cage_speed: 1.5
+    stun_duration: 4
+    leap_velocity: 1.5
+    leap_speed_duration: 160    # ticks of Speed II during a leap
+    leap_speed_level: 2         # 0 = Speed I, 2 = Speed III
+    leap_damage: 6.0            # dead key - leap_damage is not used at runtime; ram_damage is the real value
+    leap_knockback: 0.9
+    # Skeletal Ram - AoE damage aura active during a leap. These were
+    # previously hardcoded; expose them so admins can tune leap-PvP.
+    ram_duration_ticks: 15      # how long the aura is active after launch
+    ram_radius: 2.0              # blocks
+    ram_throw_strength: 1.4      # knockback applied to victims
+    ram_damage: 7.0              # true damage per victim per leap
+
+  # Wrath of Vulcan magma-block projectile, bonus arrow damage
+  vulcanscrossbow:
+    wrath_cooldown: 45
+    wrath_radius: 5.0
+    wrath_damage: 34.0
+    crater_radius: 5
+    # DEPRECATED - kept for backwards compatibility but no longer used. The new
+    # per-arrow true-damage values below replace it. Editing arrow_bonus_damage
+    # does NOTHING; edit middle_arrow_damage / side_arrow_damage instead.
+    arrow_bonus_damage: 15
+    middle_arrow_damage: 3.0    # true damage, middle arrow (1.5 hearts)
+    side_arrow_damage: 2.0      # true damage, side arrows (1 heart each)
+    middle_arrow_pierce: 3      # how many entities the middle arrow pierces
+    middle_arrow_ignite_ticks: 100   # fire ticks applied on middle-arrow hit
+    wrath_recoil_strength: 1.0  # backward leap velocity after firing Wrath
+    crater_revert_time: 60
+    fire_resistance_level: 0
+    fire_cooldown_enabled: false   # fork option: put the crossbow on cooldown after a normal shot
+    fire_cooldown_ticks: 100       # length of that cooldown when enabled
+
+  # Charge-based leap with wither effects, ranged strike
+  witherbone:
+    leap_cooldown: 10
+    strike_cooldown: 8
+    half_charge: 15             # hits to reach half-charge
+    mid_charge: 35              # hits to reach mid-charge
+    full_charge: 50             # hits to reach full charge (cleansing ready)
+    leap_velocity: 1.4          # initial leap velocity multiplier
+    leap_damage: 6.0            # true damage from leap-ram
+    leap_knockback: 0.9
+    leap_rammer_radius: 1.5     # leap-ram aura radius
+    leap_speed_duration_ticks: 60   # ticks of Speed III during leap chain
+    leap_speed_level: 2             # 0 = Speed I, 2 = Speed III
+    wither_duration: 3              # SECONDS - applied to leap-ram + nearby on launch
+    wither_level: 2                 # fork: leap/ram/strike/sludge wither level (was 1)
+    strike_wither_duration: 4       # fork: SECONDS of wither applied by the purge strike
+    purge_wither_duration: 4        # fork: SECONDS of wither applied by the sludge
+    strike_range: 9                 # X/Z half-range of the strike box
+    strike_height: 3                # Y half-range of the strike box
+    strike_damage: 4.0              # true damage on strike
+    strike_wither_duration_ticks: 40  # WITHER duration applied by strike (ticks)
+    strike_wither_level: 1
+    strike_bone_cage_duration_ticks: 40
+    nearby_wither_radius: 4
+    # Sludge projectiles spawned during Wither Cleansing.
+    sludge_wither_duration_ticks: 40
+    sludge_wither_level: 1
+    # Cleansing AoE - fires once when Wither Cleansing activates. New:
+    # an instant true-damage pulse around the wielder. Lets the cleanse
+    # actually feel impactful at point-blank instead of relying purely
+    # on the sludge follow-up.
+    cleansing_aoe_enabled: true
+    cleansing_aoe_damage: 2.0       # 1 heart of true damage
+    cleansing_aoe_radius: 6.0       # blocks
+    # Self-backfire if the meter sits full without being cleansed.
+    backfire_after_seconds: 5
+    backfire_warning_seconds: 2     # warning shown to player after this many sec at full
+    backfire_damage: 10.0           # vanilla damage applied to the wielder
+
+  # Wind leap, charged Gust knockback
+  windweaver:
+    leap_cooldown: 15
+    gust_cooldown_min: 15
+    gust_cooldown_max: 30
+    max_charge_ticks: 100
+    leap_velocity: 2.2
+    leap_min_y: 0.3
+    leap_speed_duration: 5
+    gust_knockback_base: 2.0
+    gust_knockback_bonus: 4.0
+    gust_radius_base: 4
+    gust_radius_bonus: 4
+    gust_max_damage: 6.0
+    gust_y_knockback_base: 0.7
+    gust_y_knockback_bonus: 0.8
+
+  # Disguise as another player/mob you've killed.
+  # Shift + Right-Click while disguised = use the mob's signature ability
+  # (Warden sonic, Wither skull, Enderman teleport, Dragon breath, etc).
+  # Shift + Left-Click = un-morph back to yourself.
+  wandofillusion:
+    disguise_cooldown: 60
+    ability_cooldown: 15
+    morph_duration: 90
+    disguise_charge_ticks: 100  # ticks (5 seconds)
+    extras_enabled: true        # mob abilities + passives (water/land damage etc.)
+    # Per-mob overrides. Every value is optional - omit any to use the default.
+    # `hearts` is in HEARTS (1 heart = 2 HP). Flyable mobs auto-grant flight.
+    # `water_damage_enabled` / `land_damage_enabled` toggle the passive damage
+    # for blazes (in water) and ocean mobs (out of water).
+    morphs:
+      warden:
+        hearts: 20
+        ability_damage: 5.0     # 2.5 hearts per sonic boom hit
+        ability_range: 20.0
+      wither:
+        hearts: 22
+      ender_dragon:
+        hearts: 25
+      vindicator:
+        hearts: 12
+      blaze:
+        hearts: 7
+        water_damage: 1.0
+        water_damage_enabled: true
+      guardian:
+        hearts: 10
+        land_damage: 1.0
+        land_damage_enabled: true
+      elder_guardian:
+        hearts: 20
+        land_damage: 1.0
+        land_damage_enabled: true
+      cod:
+        hearts: 1.5
+        land_damage: 1.0
+        land_damage_enabled: true
+      salmon:
+        hearts: 1.5
+        land_damage: 1.0
+        land_damage_enabled: true
+      tropical_fish:
+        hearts: 1.5
+        land_damage: 1.0
+        land_damage_enabled: true
+      pufferfish:
+        hearts: 2.5
+        land_damage: 1.0
+        land_damage_enabled: true
+
+  # Kill-gated weapon (kill count stored on item PDC)
+  # F = Grapple (4+ kills) | Shift+F = Hammer Throw (10+ kills)
+  knightfall:
+    grapple:
+      cooldown: 15              # per-charge (3 individual charge timers)
+      launch-height: 0.7
+    hammer_throw:
+      cooldown: 30
+      damage: 10.0              # true damage (bypasses armor)
+
+  # Transforms into a random weapon from crazyslots.weapon_pool below
+  crazyslots:
+    transform_cooldown: 30
+    transform_duration: 600     # ticks (30 seconds)
+
+  # Nuclear strike on a location, massive spherical crater
+  nukelauncher:
+    cooldown: 300               # 5 minutes
+    countdown: 30               # seconds before detonation
+    target_range: 200
+    crater_radius: 100
+    flash_range: 200
+    flash_duration: 30          # blindness duration in ticks
+    kill_radius: 50
+    damage_radius: 100
+    outer_damage: 10.0          # true damage to entities in damage_radius
+    layers_per_tick: 15         # higher = faster carve, more lag
+
+  # Applies the Pale curse on arrow hit
+  palecrossbow:
+    pale_arrow_hitbox: 3.0
+    arrow_bonus_damage: 15
+    pale_effect_duration: 3600  # ticks (3 minutes)
+    pale_effect_level: 1
+    pale_shot:
+      speed: 2.0                # blocks/tick, before gravity decay
+      gravity: 0.0025            # subtracted from vertical velocity every tick (real ballistic arc)
+    pale_roots:
+      cooldown: 45
+      damage: 6.0               # fork: true damage per arch hit (was 3.0)
+      dot_damage: 1.0
+      dot_duration: 2
+      duration_ticks: 100      # fork: arch lifetime + hit-scan window
+      arch_count: 8            # (legacy - fork port grows a fixed 40-step arch)
+      range: 28
+
+  # Strike Shot red column + detonation, TNT arrows
+  striker:
+    carve_terrain: false        # off by default - when true, Strike Shot + TNT arrows break blocks
+    strike_shot:
+      cooldown: 60
+      column_height: 150
+      damage: 8.0               # true damage
+      radius_xz: 5
+      radius_y: 150
+    tnt_arrow:
+      damage: 3.0               # true damage
+      radius: 3
+
+  # Sonic Blast projectile + crater, Echo Shriek AoE debuff
+  echo:
+    sonic_blast:
+      cooldown: 45
+      speed: 2.0                # blocks/tick
+      damage: 10.0              # true damage
+      crater_radius: 6
+      crater_depth: 6
+    shriek:
+      cooldown: 60
+      effect_duration: 200      # ticks
+
+  # Day/night form switching, Moonlit Stars AoE, Moonlit Shadows stealth
+  eclipse:
+    moonlit_stars:
+      cooldown: 45
+      damage: 6.0
+      range: 15
+    moonlit_shadows:
+      cooldown: 30              # seconds between uses
+      duration: 4               # seconds of invisibility
+
+  # ------------------- SEASON 2 WEAPONS -------------------
+
+  # OMEN
+  omen:
+    vault_omen:
+      cooldown: 35              # seconds
+      duration: 7               # seconds the vault lasts
+      tether_radius: 3          # block radius
+      land_triangle_size: 2     # 2-block triangle on landing
+      projectile_speed: 18.0    # blocks per second
+      projectile_distance: 30.0 # maximum travel distance
+    ominous_conjuring:
+      cooldown: 50              # seconds
+      buff_duration: 10         # seconds spear is buffed
+      spell_radius: 16          # players in this radius determine spell level
+      level_2_players: 2
+      level_3_players: 5
+      lvl1_speed_duration: 20   # ticks of speed on direct hit
+      lvl1_speed_amplifier: 1   # 0=Speed I, 1=Speed II, 2=Speed III
+      circle_radius: 4          # forbidden-circle radius around vault landing
+      require_full_charge: true
+      minimum_attack_cooldown: 0.9
+      shot_charge_ticks: 12
+      direct_hit_damage: 4.0
+      shield_break_ticks: 100
+      pull_horizontal: 1.3
+      pull_vertical: 0.35
+      impact_particles: 25
+      activation_particles: 35
+      starfield_radius: 20.0
+      starfield_height: 20.0
+      starfield_count: 200
+      pulse_points: 72
+      pulse_speed: 1.15
+      beam:
+        base_range: 30.0
+        range_per_level: 5.0
+        speed: 1.8
+        hitbox_radius: 1.15
+        belly_offset: -0.7
+        step: 0.14
+        particles_per_step: 2
+        spread: 0.05
+    ominous_projectile:
+      damage: 4.0               # AOE damage (4.0 = 2 hearts)
+      aoe_radius: 3.0           # AOE size on impact
+      speed: 30.0               # blocks per second
+      distance: 25.0            # max travel distance
+
+  # ANCIENT BLADE
+  ancientblade:
+    deep_connection:
+      speed_bonus: 0.25         # +25% speed on sculk
+    swift:
+      kills_required: 2
+      amplifier: 0              # 0=Speed I, 1=Speed II
+    presence:
+      cooldown: 45
+      kills_required: 3
+      mark_duration: 10         # seconds mark lasts (Darkness applied)
+      mark_amplifier: 0         # 0=Darkness I
+    tightened_grip:
+      kills_required: 4
+      amplifier: 1              # 0=Strength I, 1=Strength II
+    echolocation:
+      cooldown: 3
+      kills_required: 1
+      range: 24
+    unyielding_darkness:
+      cooldown: 60
+      kills_required: 5
+      damage: 8.0
+      sonic_count: 5
+
+  # WITHER SYMBIOTE
+  withersymbiote:
+    infection:
+      cooldown-seconds: 40
+      activation-ticks: 100
+      circle-height: 2.0
+      circle-radius: 5.0
+      overhead-pulse-points: 28
+      overhead-pulse-speed: 0.14
+      activation-ink-burst: 32
+      infecting-ticks: 80
+      detonation-window-ticks: 120
+      effect-ticks: 200
+      initial-damage: 2.0
+      detonation-damage: 8.0
+      marked-ink-particles: 1
+    rampage:
+      cooldown-seconds: 120
+      max-ticks: 240
+      start-ticks: 120
+      health-increase: 3.0
+      activation-heal: 3.0
+      speed-attribute-bonus: 0.5
+      lifesteal: 0.5
+      hit-bonus-bars: 3
+      hit-bonus-lockout-ticks: 10
+      hurt-loss-ticks: 20
+      saturation-drain-per-second: 0.75
+      web-break-radius: 2.25
+      required-attack-cooldown: 0.9
+      normal-walk-speed: 0.2
+      exit-effect-ticks: 120
+      exit-health-loss: 3.0
+      exit-border-ticks: 60
+      exit-border-size: 30000000.0
+      exit-border-warning-distance: 30000000
+
+  # TIDEBREAKER
+  tidebreaker:
+    passive:
+      water_breathing_amplifier: 0       # 0=Water Breathing I
+      nautilus_buff_radius: 8            # blocks
+      nautilus_resistance_amplifier: 2   # 0=Resistance I, 2=Resistance III
+      nautilus_speed_amplifier: 4        # 0=Speed I, 4=Speed V
+    stormcall:
+      cooldown: 40
+      duration: 10              # seconds storm lasts
+      radius: 6                 # block radius
+      damage: 2.0               # damage per hit (2.0 = 1 heart)
+      hit_interval: 10          # ticks between strikes (10 ticks = 0.5s)
+      max_targets_per_tick: 2
+    rising_tide:
+      cooldown: 50
+      jet_height: 14            # blocks the player blasts up
+      shockwave_radius: 6       # landing shockwave
+      shockwave_knockback: 1.6
+      wave_distance: 25         # max blocks the staircase wave travels
+      water_damage: 2.5         # damage per hit on staircase wave
+      pull_velocity: 1.1        # speed targets are pulled toward caster on wave hit
+
+  # DRAGONREND
+  dragonrend:
+    hypersonic:
+      cooldown: 40              # seconds before next Hypersonic Slash
+      charge_duration_ms: 2000  # how long player charges before primed
+      duration_ms: 5000         # how long the primed window lasts after charge
+      strike_cooldown_ms: 1000  # ms between consecutive strikes in the window
+      damage: 4.0               # damage per slash strike (4.0 = 2 hearts)
+      detection_range: 16.0     # blocks - max range to find a target
+      detection_cone_dot: 0.91  # 1.0 = directly ahead, 0.91 ~ 25 degree cone
+      teleport_offset: 1.5      # blocks behind target the caster teleports to
+    infinite_void:
+      cooldown: 60              # seconds before next Infinite Void
+      slow_radius: 6.0          # blocks - players within get tick-slowed
+
+# =========================================================
+# VAMPIRE / PALE / CURSE SYSTEM
+# =========================================================
+
+# MASTER toggle for the entire faction system. When false: no auto curse-spreading
+# on kill, no day-sun damage, no rain weakness, no king buffs, no blood moon.
+# Admin /set* commands still work.
+curses:
+  enabled: true
+  # PERMANENT curses (True Vampire / True Pale / True Human) are OFF by default.
+  # Flip these to true if you want kills with the faction weapon to permanently
+  # convert the victim. Normal (curable) curses still apply when these are false.
+  allow_perma: false            # master switch - if false, no permanent statuses regardless of below
+  allow_perma_vampire: false    # Nightpiercer kills create True Vampires
+  allow_perma_pale: false       # Pale Crossbow kills create True Pales
+  allow_perma_human: false      # Hyperion kills create True Humans
+  gate_faction_crafts: true     # only right faction can craft Nightpiercer/Pale Crossbow/Hyperion
+
+vampire:
+  night_damage: 2.0             # bonus damage at night
+  king_health: 10.0             # Vampire King extra max HP (+5 hearts)
+  vampire_health: 4.0           # normal Vampire extra max HP (+2 hearts)
+  hyperion_bonus: 2.0           # extra Hyperion damage vs vampires/pales
+  enable_night_effects: true
+  night_strength_level: 0       # 0 = Strength I
+  night_speed_level: 1          # 1 = Speed II
+  night_fire_resistance: true
+
+pale:
+  backstab_multiplier: 1.4      # melee damage multiplier when backstabbing
+  moss_speed_level: 1           # speed boost on moss (1 = Speed II)
+  king_health: 5.0              # Pale King extra max HP
+  pale_health: 2.0              # normal Pale extra max HP
+  rain_weakness_level: 1        # weakness while exposed to rain (1 = Weakness II)
+
+# Bloodlust kill-tier passives (separate from abilities.bloodlust because
+# the wielder gets these based on their on-item kill count).
+bloodlust:
+  strength_level: 0   # given at 4+ kills (0 = Strength I)
+  speed_level: 1      # given at 1+ kills  (1 = Speed II)
+
+# Knightfall kill-tier passives (kills stored on the item via PDC).
+passives:
+  knightfall:
+    speed:
+      kills-required: 6
+      level: 2          # 2 = Speed II
+
+# Nightpiercer kill behavior (separate from abilities.nightpiercer because
+# this is a curse-system effect, not an ability tuning value).
+nightpiercer:
+  perma_vampire_on_kill: false
+
+# =========================================================
+# TOTEM EFFECTS (applied when a custom weapon's built-in totem activates)
+# =========================================================
+totem:
+  regen_duration: 900       # ticks (45 seconds)
+  regen_level: 1
+  absorption_duration: 100  # ticks (5 seconds)
+  absorption_level: 1
+  fire_resist_duration: 800 # ticks (40 seconds)
+  no_damage_ticks: 20
+
+# =========================================================
+# COPPER ARMOR
+# =========================================================
+copper-armor:
+  # Copper Vision - charge up then strike all players in radius with lightning
+  helmet:
+    cooldown: 30
+    duration: 15
+    radius: 100
+    charge_time: 3
+    lightning_damage: 6.0
+    water_breathing: true
+    fire_resistance: true
+    strength_level: 0
+    armor: 3.0
+    armor_toughness: 3.0
+
+  # Thunder Thorns - every X hits, deals AoE lightning damage + ring of lightning
+  chestplate:
+    thorns_radius: 15.0
+    thorns_damage: 5.0
+    lightning_ring_radius: 5.0
+    lightning_ring_strikes: 8
+    hits_required: 7
+    resistance_level: 0
+
+  # Shockwave - landing from a fall deals AoE damage based on fall distance
+  leggings:
+    min_fall_distance: 5
+    shockwave_base_damage: 2.0
+    shockwave_scaling_interval: 5
+    shockwave_scaling_damage: 1.0
+    shockwave_radius: 5
+
+  # Blazing Trail - permanent speed, fire trail, extra speed on copper blocks
+  boots:
+    speed_level: 2
+    fire_resistance: true
+    copper_block_speed_level: 3
+
+# =========================================================
+# WEAPON ENCHANTMENTS
+# =========================================================
+# Default enchantment levels for each weapon when crafted.
+# Set any value to 0 to remove that enchantment.
+enchants:
+  bloodlust:
+    sharpness: 5
+    looting: 3
+    knockback: 0
+    sweeping_edge: 3
+    unbreaking: 3
+    mending: 1
+  boneblade:
+    sharpness: 5
+    looting: 3
+    knockback: 0
+    sweeping_edge: 3
+    unbreaking: 3
+    mending: 1
+  hyperion:
+    sharpness: 5
+    looting: 3
+    knockback: 0
+    sweeping_edge: 3
+    unbreaking: 3
+    mending: 1
+  nightpiercer:
+    sharpness: 5
+    looting: 3
+    knockback: 0
+    sweeping_edge: 3
+    unbreaking: 3
+    mending: 1
+  frostscythe:
+    sharpness: 5
+    looting: 3
+    knockback: 0
+    sweeping_edge: 3
+    unbreaking: 3
+    mending: 1
+  pureblade:
+    sharpness: 5
+    looting: 3
+    knockback: 0
+    sweeping_edge: 3
+    unbreaking: 3
+    mending: 1
+  paladinbattleaxe:
+    sharpness: 5
+    looting: 3
+    knockback: 0
+    sweeping_edge: 3
+    unbreaking: 3
+    mending: 1
+    efficiency: 5
+  cutlass:
+    sharpness: 5
+    looting: 3
+    knockback: 0
+    sweeping_edge: 3
+    unbreaking: 3
+    mending: 1
+  earthgauntlet:
+    sharpness: 5
+    looting: 3
+    knockback: 0
+    sweeping_edge: 3
+    unbreaking: 3
+    mending: 1
+  shadowblade:
+    sharpness: 5
+    looting: 3
+    knockback: 0
+    sweeping_edge: 3
+    unbreaking: 3
+    mending: 1
+  witherbone:
+    sharpness: 5
+    looting: 3
+    knockback: 0
+    sweeping_edge: 3
+    unbreaking: 3
+    mending: 1
+  windweaver:
+    sharpness: 5
+    looting: 3
+    knockback: 0
+    sweeping_edge: 3
+    unbreaking: 3
+    mending: 1
+  wandofillusion:
+    sharpness: 5
+    looting: 3
+    knockback: 0
+    sweeping_edge: 3
+    unbreaking: 3
+    mending: 1
+  knightfall:
+    wind_burst: 1
+    unbreaking: 3
+    mending: 1
+  crazyslots:
+    sharpness: 5
+    looting: 3
+    knockback: 0
+    sweeping_edge: 3
+    unbreaking: 3
+    mending: 1
+  vulcanscrossbow:
+    quick_charge: 3
+    multishot: 0
+    piercing: 0
+    unbreaking: 3
+    mending: 1
+  palecrossbow:
+    quick_charge: 3
+    multishot: 0
+    piercing: 0
+    unbreaking: 3
+    mending: 1
+
+# =========================================================
+# SEASON 2 - BOW OF DECEPTION AND LIES
+# =========================================================
+# Disabling this leaves existing bows as ordinary enchanted bows and blocks
+# their special melee, owner-binding punishment, and evidence-eating effects.
+bow-of-deception:
+  enabled: true
+
+# =========================================================
+# ALTAR RECIPES
+# =========================================================
+# UPPERCASE for vanilla items (DIAMOND_BLOCK, PLAYER_HEAD, etc.)
+# custom_ prefix for plugin items (custom_weapon_handle, custom_warden_heart, etc.)
+# The number is how many of that item are required.
+recipes:
+  hyperion:
+    custom_hyperion_shard: 5
+    PLAYER_HEAD: 1
+    custom_weapon_handle: 1
+  frostscythe:
+    custom_weapon_handle: 1
+    custom_warden_heart: 1
+    PACKED_ICE: 64
+    BLUE_ICE: 64
+    PRISMARINE_SHARD: 32
+    DIAMOND_BLOCK: 4
+    HEART_OF_THE_SEA: 1
+    TRIDENT: 1
+  nightpiercer:
+    custom_nightpiercer_shard: 5
+    PLAYER_HEAD: 1
+    custom_weapon_handle: 1
+  boneblade:
+    BONE_BLOCK: 64
+    custom_weapon_handle: 1
+    custom_warden_heart: 1
+    IRON_BLOCK: 64
+    COPPER_BLOCK: 64
+    SKELETON_SKULL: 6
+    WITHER_SKELETON_SKULL: 6
+    PLAYER_HEAD: 3
+  pureblade:
+    custom_warden_heart: 2
+    SCULK_SHRIEKER: 64
+    SOUL_LANTERN: 64
+    SOUL_SOIL: 64
+    NETHERITE_BLOCK: 1
+    IRON_BLOCK: 64
+    PLAYER_HEAD: 3
+  earthgauntlet:
+    FIRE_CHARGE: 48
+    COPPER_BLOCK: 64
+    RESIN_BLOCK: 16
+    MUD_BRICK_SLAB: 64
+    MUD_BRICK_STAIRS: 64
+    MUD: 64
+    MUD_BRICKS: 64
+    MUD_BRICK_WALL: 64
+    PLAYER_HEAD: 2
+  cutlass:
+    HEART_OF_THE_SEA: 3
+    NAUTILUS_SHELL: 8
+    PRISMARINE_BRICKS: 64
+    GOLD_BLOCK: 64
+    DRIED_KELP_BLOCK: 64
+    WAXED_CUT_COPPER_STAIRS: 64
+    PLAYER_HEAD: 2
+  vulcan:
+    ANCIENT_DEBRIS: 64
+    MAGMA_CREAM: 64
+    custom_warden_heart: 1
+    custom_vulkan_head: 1
+    BLAZE_ROD: 64
+    TNT: 64
+    PLAYER_HEAD: 3
+  paladinbattleaxe:
+    NETHERITE_INGOT: 6
+    PUFFERFISH: 2
+    NETHER_STAR: 1
+    RAW_GOLD_BLOCK: 64
+    ENCHANTED_GOLDEN_APPLE: 5
+    HEAVY_CORE: 1
+    DRAGON_HEAD: 4
+    END_CRYSTAL: 8
+    TOTEM_OF_UNDYING: 1
+  bloodlust:
+    custom_weapon_handle: 1
+    GOLD_BLOCK: 48
+    custom_warden_heart: 1
+    REDSTONE_BLOCK: 64
+    NETHER_STAR: 3
+    PLAYER_HEAD: 6
+  wandofillusion:
+    GOLD_BLOCK: 32
+    custom_warden_heart: 1
+    TOTEM_OF_UNDYING: 6
+    custom_illusion_core: 1
+    AMETHYST_BLOCK: 64
+    ENCHANTED_GOLDEN_APPLE: 1
+    PLAYER_HEAD: 2
+  crazyslots:
+    # Note: DRAGON_EGG is required but NEVER consumed (kept as proof of ownership).
+    # Any other ingredients added here will be consumed normally.
+    DRAGON_EGG: 1
+  palecrossbow:
+    custom_pale_shard: 5
+    CROSSBOW: 1
+    ECHO_SHARD: 16
+  contagionsignal:
+    custom_pale_crossbow: 1
+    custom_hyperion: 1
+    custom_nightpiercer: 1
+  weaponhandle:
+    GOLD_BLOCK: 32
+    DIAMOND_BLOCK: 16
+    NETHERITE_INGOT: 1
+  copperhelmet:
+    custom_copper_fragment: 5
+  copperchestplate:
+    custom_chestplate_shard: 2
+  copperpickaxeupgrade:
+    custom_copper_pickaxe: 1
+    COPPER_BLOCK: 64
+    LIGHTNING_ROD: 32
+    AMETHYST_BLOCK: 16
+    NETHER_STAR: 1
+  hyperionshard:
+    BLAZE_POWDER: 1
+    GOLD_BLOCK: 16
+    FIRE_CHARGE: 8
+  nightpiercershard:
+    ENDER_PEARL: 32
+    OBSIDIAN: 16
+    FERMENTED_SPIDER_EYE: 8
+    CRIMSON_FUNGUS: 16
+    NETHER_WART_BLOCK: 8
+    CRYING_OBSIDIAN: 4
+  paleshard:
+    BONE_BLOCK: 16
+    COBWEB: 32
+    PHANTOM_MEMBRANE: 8
+    CANDLE: 16
+    SOUL_LANTERN: 4
+    MOSS_BLOCK: 64
+  illusioncore:
+    FERMENTED_SPIDER_EYE: 16
+    NETHER_WART: 16
+    GHAST_TEAR: 8
+    RABBIT_FOOT: 4
+  vulkanhead:
+    WITHER_SKELETON_SKULL: 5
+    NETHERITE_INGOT: 3
+    PLAYER_HEAD: 3
+  playertracker:
+    NETHERITE_INGOT: 2
+    HEAVY_CORE: 1
+    ENDER_EYE: 8
+    FERMENTED_SPIDER_EYE: 4
+  witherbone:
+    GOLD_BLOCK: 64
+    NETHER_STAR: 2
+    WITHER_SKELETON_SKULL: 12
+    PLAYER_HEAD: 6
+  windweaver:
+    IRON_BLOCK: 32
+    ENCHANTED_GOLDEN_APPLE: 2
+    BREEZE_ROD: 64
+    HEAVY_CORE: 1
+    OMINOUS_TRIAL_KEY: 2
+    PLAYER_HEAD: 2
+  shadowblade:
+    DRAGON_BREATH: 4
+    DISC_FRAGMENT_5: 12
+    DRAGON_EGG: 1
+    ECHO_SHARD: 16
+    BLACK_CANDLE: 24
+    PLAYER_HEAD: 2
+  eclipsesword:
+    NETHERITE_INGOT: 3
+    CLOCK: 1
+    FIRE_CHARGE: 64
+    IRON_BLOCK: 64
+    NETHER_STAR: 2
+    ENCHANTED_GOLDEN_APPLE: 4
+    CLOSED_EYEBLOSSOM: 16
+    OPEN_EYEBLOSSOM: 16
+  knightfall:
+    NETHERITE_INGOT: 4
+    HEAVY_CORE: 1
+    BREEZE_ROD: 32
+    IRON_BLOCK: 64
+    GOLD_BLOCK: 32
+    PLAYER_HEAD: 4
+    DIAMOND: 16
+    ENCHANTED_GOLDEN_APPLE: 2
+  striker:
+    NETHERITE_INGOT: 2
+    TNT: 64
+    GUNPOWDER: 64
+    BLAZE_ROD: 32
+    FIRE_CHARGE: 32
+    NETHER_STAR: 1
+    PLAYER_HEAD: 3
+    IRON_BLOCK: 32
+  nukelauncher:
+    NETHERITE_INGOT: 3
+    TNT: 128
+    NETHER_STAR: 3
+    FIRE_CHARGE: 64
+    BLAZE_ROD: 64
+    GUNPOWDER: 128
+    PLAYER_HEAD: 5
+    HEAVY_CORE: 2
+  echo:
+    NETHERITE_INGOT: 3
+    ECHO_SHARD: 32
+    SCULK_CATALYST: 16
+    SCULK_SHRIEKER: 8
+    PLAYER_HEAD: 4
+    DIAMOND: 16
+    NETHER_STAR: 2
+    DISC_FRAGMENT_5: 8
+  fireslash:
+    NETHERITE_INGOT: 2
+    BLAZE_ROD: 64
+    FIRE_CHARGE: 64
+    MAGMA_CREAM: 32
+    NETHER_STAR: 1
+    PLAYER_HEAD: 2
+    LAVA_BUCKET: 8
+    MAGMA_BLOCK: 32
+  wardenhead:
+    NETHERITE_INGOT: 2
+    WITHER_SKELETON_SKULL: 5
+    custom_warden_heart: 2
+  copperpickaxe:
+    COPPER_BLOCK: 100
+    FIRE_CHARGE: 16
+    NETHERITE_PICKAXE: 1
+
+  # ------------------- SEASON 2 ALTAR RECIPES -------------------
+  omen:
+    OMINOUS_TRIAL_KEY: 8
+    BREEZE_ROD: 64
+    COPPER_BLOCK: 64
+    SOUL_TORCH: 32
+    TRIAL_KEY: 16
+    custom_weapon_handle: 1
+    HEAVY_CORE: 1
+    PLAYER_HEAD: 2
+  ancientblade:
+    SCULK_SHRIEKER: 64
+    DIAMOND_BLOCK: 32
+    ECHO_SHARD: 32
+    MUSIC_DISC_5: 1
+    custom_warden_heart: 3
+    PLAYER_HEAD: 3
+  withersymbiote:
+    WITHER_ROSE: 16
+    BLAZE_ROD: 64
+    GHAST_TEAR: 16
+    DRIED_GHAST: 10
+    NETHERITE_INGOT: 2
+    NETHER_STAR: 1
+    custom_soul_in_a_bottle: 1
+    PLAYER_HEAD: 3
+  tidebreaker:
+    HEART_OF_THE_SEA: 1
+    PRISMARINE_CRYSTALS: 64
+    LIGHTNING_ROD: 16
+    DIAMOND_BLOCK: 48
+    custom_fragment_of_the_sea: 5
+    NAUTILUS_SHELL: 4
+    PLAYER_HEAD: 3
+    TRIDENT: 1
+  dragonrend:
+    AMETHYST_CLUSTER: 32
+    ENDER_EYE: 64
+    CRYING_OBSIDIAN: 32
+    custom_dragon_heart: 1
+    NETHERITE_INGOT: 3
+  bowofdeception:
+    BOW: 1
+    custom_weapon_handle: 1
+    ECHO_SHARD: 32
+    FERMENTED_SPIDER_EYE: 32
+    ENDER_EYE: 16
+    PHANTOM_MEMBRANE: 24
+    NETHERITE_INGOT: 2
+    PLAYER_HEAD: 2
+
+# =========================================================
+# CRAZY SLOTS WEAPON POOL
+# =========================================================
+# Weapons that can appear when using Crazy Slots. Set to false to remove from pool.
+crazyslots:
+  # When true, anyone holding a Dragon Egg in their inventory gets Glowing.
+  # Pairs with the Crazy Slots altar requiring (but not consuming) a Dragon Egg.
+  dragon-egg-glowing: true
+
+  weapon_pool:
+    boneblade: true
+    bloodlust: true
+    vulcanscrossbow: true
+    nightpiercer: true
+    hyperion: true
+    pureblade: true
+    earthgauntlet: true
+    cutlass: true
+    shadowblade: true
+    paladinbattleaxe: true
+    windweaver: true
+    witherbone: true
+    wandofillusion: true
+    palecrossbow: true
+    frostscythe: true
+    contagionsignal: true
+    eclipsesword: true
+    knightfall: true
+    striker: true
+    nukelauncher: true
+    echo: true
+    fireslash: true
+
+# =========================================================
+# MINOR CRAZY SLOTS
+# =========================================================
+# One-time gacha roulette. The prize pool is admin-defined: hold an item and run
+# /minorcrazyslots addpool to add it. Each entry is a serialized ItemStack.
+minor-crazy-slots:
+  pool: []
+
+# =========================================================
+# SEASON 2 - WORKBENCH RECIPE TOGGLES
+# =========================================================
+# Each season-2 workbench recipe can be disabled if it conflicts with
+# another plugin or you don't want it.
+workbench-recipes:
+  weapon_handle: true        # Overrides AltarSMP's weapon_handle recipe if AltarSMP is loaded
+  cobweb: true
+  golden_apple: true
+  firework: true              # 8 gunpowder + 1 paper (3x3) -> 16 rockets, flight 3
+
+# Controls both visibility in /recipes (or /recipies) and whether the matching
+# recipe is registered. Restart after changing these startup recipe switches.
+recipes-enabled:
+  weapon_handle: true
+  illusion_core: true
+  vulkan_head: true
+  cobweb: true
+  golden_apple: true
+  firework_bundle: true
+
+# =========================================================
+# SEASON 2 - ENDER DRAGON
+# =========================================================
+# Ender Dragon in The End spawns with this max HP. Whoever deals the most
+# damage when it dies receives a Dragon Heart.
+ender-dragon:
+  max-hp: 25000
+
+# =========================================================
+# SEASON 2 - AMETHYST TOOLS
+# =========================================================
+amethyst-tools:
+  pickaxe:
+    attack_damage: 6.0
+    attack_speed: 1.2
+  axe:
+    attack_damage: 10.0
+    attack_speed: 1.0
+  sound_pitch_min: 0.7
+  sound_pitch_max: 1.3
+
+# =========================================================
+# SEASON 2 - HAPPY GHAST SADDLE
+# =========================================================
+happy-ghast-saddle:
+  speed_level: 2  # 0=Speed I, 1=Speed II, 2=Speed III

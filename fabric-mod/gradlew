@@ -1,0 +1,54 @@
+#!/bin/sh
+# ---------------------------------------------------------------------------
+# AltarSMP Fabric - Gradle launcher (self-bootstrapping)
+#
+# This project targets Minecraft 26.2 / Fabric Loader 0.19.3 / Loom 1.17 which
+# requires Gradle 9.5.1 and JDK 25.
+#
+# The binary `gradle/wrapper/gradle-wrapper.jar` is NOT committed to git (binary
+# artefacts are kept out of the repository).  This script therefore bootstraps
+# itself the first time it runs:
+#
+#   1. If gradle/wrapper/gradle-wrapper.jar exists -> run the standard wrapper.
+#   2. Otherwise download Gradle 9.5.1 into .gradle-dist/ and run it directly.
+#
+# Both paths need network access on the *build* machine only.
+# Termux:  pkg install openjdk-21 (or openjdk-25) curl unzip  &&  ./gradlew build
+# ---------------------------------------------------------------------------
+set -e
+
+APP_HOME=$( cd -P "$( dirname "$0" )" >/dev/null && pwd )
+GRADLE_VERSION=9.5.1
+GRADLE_DIST_URL="https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip"
+WRAPPER_JAR="$APP_HOME/gradle/wrapper/gradle-wrapper.jar"
+DIST_DIR="$APP_HOME/.gradle-dist"
+GRADLE_HOME_DIR="$DIST_DIR/gradle-${GRADLE_VERSION}"
+
+download() {
+    url="$1"; out="$2"
+    if command -v curl >/dev/null 2>&1; then
+        curl -fL --retry 3 -o "$out" "$url"
+    elif command -v wget >/dev/null 2>&1; then
+        wget -O "$out" "$url"
+    else
+        echo "ERROR: neither curl nor wget is available; cannot bootstrap Gradle." >&2
+        exit 1
+    fi
+}
+
+if [ -f "$WRAPPER_JAR" ]; then
+    exec java -Dorg.gradle.appname=gradlew -jar "$WRAPPER_JAR" "$@"
+fi
+
+if [ ! -x "$GRADLE_HOME_DIR/bin/gradle" ]; then
+    echo "[altarsmp] Gradle wrapper jar not committed - bootstrapping Gradle ${GRADLE_VERSION}..."
+    mkdir -p "$DIST_DIR"
+    ZIP="$DIST_DIR/gradle-${GRADLE_VERSION}-bin.zip"
+    download "$GRADLE_DIST_URL" "$ZIP"
+    ( cd "$DIST_DIR" && unzip -q -o "$ZIP" )
+    rm -f "$ZIP"
+    # Optional: regenerate the official wrapper for future use.
+    "$GRADLE_HOME_DIR/bin/gradle" --project-dir "$APP_HOME" wrapper --gradle-version "$GRADLE_VERSION" >/dev/null 2>&1 || true
+fi
+
+exec "$GRADLE_HOME_DIR/bin/gradle" --project-dir "$APP_HOME" "$@"

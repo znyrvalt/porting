@@ -1,0 +1,93 @@
+{
+ "custom_s1": {
+  "custom_weapon_handle": "Weapon Handle",
+  "custom_warden_heart": "Warden's Heart",
+  "custom_hyperion_shard": "Hyperion Shard",
+  "custom_nightpiercer_shard": "Nightpiercer Shard",
+  "custom_illusion_core": "Illusion Core",
+  "custom_vulkan_head": "Vulkan Head",
+  "custom_pale_shard": "Pale Shard",
+  "custom_copper_pickaxe": "Copper Pickaxe",
+  "custom_copper_fragment": "Copper Fragment",
+  "custom_chestplate_shard": "Chestplate Shard",
+  "custom_pale_crossbow": "Pale Crossbow",
+  "custom_hyperion": "Hyperion",
+  "custom_nightpiercer": "Nightpiercer"
+ },
+ "custom_s2": {
+  "custom_weapon_handle": "Weapon Handle",
+  "custom_warden_heart": "Warden's Heart",
+  "custom_soul_in_a_bottle": "Soul In A Bottle",
+  "custom_fragment_of_the_sea": "Fragment of the Sea",
+  "custom_dragon_heart": "Dragon Heart"
+ },
+ "never_consumed": [
+  "DRAGON_EGG"
+ ],
+ "catalog_ids": {
+  "custom_weapon_handle": {
+   "kind": "item",
+   "class": "WeaponHandle"
+  },
+  "custom_warden_heart": {
+   "kind": "item",
+   "class": "WardenHeart"
+  },
+  "custom_hyperion_shard": {
+   "kind": "item",
+   "class": "HyperionShard"
+  },
+  "custom_nightpiercer_shard": {
+   "kind": "item",
+   "class": "NightpiercerShard"
+  },
+  "custom_illusion_core": {
+   "kind": "item",
+   "class": "IllusionCore"
+  },
+  "custom_vulkan_head": {
+   "kind": "item",
+   "class": "VulkanHead"
+  },
+  "custom_pale_shard": {
+   "kind": "item",
+   "class": "PaleShard"
+  },
+  "custom_copper_pickaxe": {
+   "kind": "item",
+   "class": "CopperPickaxe"
+  },
+  "custom_copper_fragment": {
+   "kind": "item",
+   "class": "CopperFragment"
+  },
+  "custom_chestplate_shard": {
+   "kind": "item",
+   "class": "CopperChestplateFragment"
+  },
+  "custom_pale_crossbow": {
+   "kind": "weapon",
+   "class": "PaleCrossbowWeapon"
+  },
+  "custom_hyperion": {
+   "kind": "weapon",
+   "class": "HyperionWeapon"
+  },
+  "custom_nightpiercer": {
+   "kind": "weapon",
+   "class": "NightpiercerWeapon"
+  },
+  "custom_soul_in_a_bottle": {
+   "kind": "item",
+   "class": "SoulInABottle"
+  },
+  "custom_fragment_of_the_sea": {
+   "kind": "item",
+   "class": "FragmentOfTheSea"
+  },
+  "custom_dragon_heart": {
+   "kind": "item",
+   "class": "DragonHeart"
+  }
+ }
+}
