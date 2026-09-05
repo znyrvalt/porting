@@ -1,0 +1,638 @@
+{
+  "format_version": 2,
+  "items": {
+    "minecraft:amethyst_shard": [
+      {
+        "name": "altarsmp:vampire",
+        "custom_model_data": 1,
+        "display_name": "Vampire",
+        "bedrock_options": {
+          "icon": "vampire",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:pale",
+        "custom_model_data": 2,
+        "display_name": "Pale",
+        "bedrock_options": {
+          "icon": "pale",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:human",
+        "custom_model_data": 3,
+        "display_name": "Human",
+        "bedrock_options": {
+          "icon": "human",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:nukeremote",
+        "custom_model_data": 4,
+        "display_name": "Nukeremote",
+        "bedrock_options": {
+          "icon": "nukeremote",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:copper_shard",
+        "custom_model_data": 5,
+        "display_name": "Copper Shard",
+        "bedrock_options": {
+          "icon": "copper_shard"
+        }
+      },
+      {
+        "name": "altarsmp:chestplateshard",
+        "custom_model_data": 6,
+        "display_name": "Chestplateshard",
+        "bedrock_options": {
+          "icon": "chestplateshard"
+        }
+      }
+    ],
+    "minecraft:bow": [
+      {
+        "name": "altarsmp:bow",
+        "custom_model_data": 1,
+        "display_name": "Bow",
+        "bedrock_options": {
+          "icon": "bow",
+          "allow_offhand": true
+        }
+      }
+    ],
+    "minecraft:breeze_rod": [
+      {
+        "name": "altarsmp:weapon_handle",
+        "custom_model_data": 1,
+        "display_name": "Weapon Handle",
+        "bedrock_options": {
+          "icon": "weapon_handle",
+          "allow_offhand": true
+        }
+      }
+    ],
+    "minecraft:clay_ball": [
+      {
+        "name": "altarsmp:vulcsk",
+        "custom_model_data": 3,
+        "display_name": "Vulcsk",
+        "bedrock_options": {
+          "icon": "vulcsk",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:crazy_slots",
+        "custom_model_data": 4,
+        "display_name": "Crazy Slots",
+        "bedrock_options": {
+          "icon": "crazy_slots",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:beam",
+        "custom_model_data": 5,
+        "display_name": "Beam",
+        "bedrock_options": {
+          "icon": "beam",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:black_cubes",
+        "custom_model_data": 6,
+        "display_name": "Black Cubes",
+        "bedrock_options": {
+          "icon": "black_cubes",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:slashing",
+        "custom_model_data": 7,
+        "display_name": "Slashing",
+        "bedrock_options": {
+          "icon": "slashing",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:massive_axe",
+        "custom_model_data": 8,
+        "display_name": "Massive Axe",
+        "bedrock_options": {
+          "icon": "massive_axe",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:warden",
+        "custom_model_data": 9,
+        "display_name": "Warden",
+        "bedrock_options": {
+          "icon": "warden",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:vulcsk_10",
+        "custom_model_data": 10,
+        "display_name": "Vulcsk 10",
+        "bedrock_options": {
+          "icon": "vulcsk_10",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:pale_logs",
+        "custom_model_data": 11,
+        "display_name": "Pale Logs",
+        "bedrock_options": {
+          "icon": "pale_logs",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:soul",
+        "custom_model_data": 15,
+        "display_name": "Soul",
+        "bedrock_options": {
+          "icon": "soul",
+          "allow_offhand": true
+        }
+      }
+    ],
+    "minecraft:crossbow": [
+      {
+        "name": "altarsmp:vulcan",
+        "custom_model_data": 1,
+        "display_name": "Vulcan",
+        "bedrock_options": {
+          "icon": "vulcan",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:pale_2",
+        "custom_model_data": 2,
+        "display_name": "Pale 2",
+        "bedrock_options": {
+          "icon": "pale_2",
+          "allow_offhand": true
+        }
+      }
+    ],
+    "minecraft:diamond_spear": [
+      {
+        "name": "altarsmp:omen",
+        "custom_model_data": 1,
+        "display_name": "Omen",
+        "bedrock_options": {
+          "icon": "omen",
+          "allow_offhand": true
+        }
+      }
+    ],
+    "minecraft:dragon_head": [
+      {
+        "name": "altarsmp:dragonheart",
+        "custom_model_data": 1,
+        "display_name": "Dragonheart",
+        "bedrock_options": {
+          "icon": "dragonheart",
+          "allow_offhand": true
+        }
+      }
+    ],
+    "minecraft:echo_shard": [
+      {
+        "name": "altarsmp:pale_shard",
+        "custom_model_data": 22,
+        "display_name": "Pale Shard",
+        "bedrock_options": {
+          "icon": "pale_shard"
+        }
+      }
+    ],
+    "minecraft:feather": [
+      {
+        "name": "altarsmp:warden_1",
+        "custom_model_data": 1,
+        "display_name": "Warden 1",
+        "bedrock_options": {
+          "icon": "warden_1",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:beam_2",
+        "custom_model_data": 2,
+        "display_name": "Beam 2",
+        "bedrock_options": {
+          "icon": "beam_2",
+          "allow_offhand": true
+        }
+      }
+    ],
+    "minecraft:gold_nugget": [
+      {
+        "name": "altarsmp:hyperion_shard",
+        "custom_model_data": 8,
+        "display_name": "Hyperion Shard",
+        "bedrock_options": {
+          "icon": "hyperion_shard"
+        }
+      }
+    ],
+    "minecraft:heavy_core": [
+      {
+        "name": "altarsmp:relic_core",
+        "custom_model_data": 998,
+        "display_name": "Relic Core",
+        "bedrock_options": {
+          "icon": "relic_core",
+          "allow_offhand": true
+        }
+      }
+    ],
+    "minecraft:iron_nugget": [
+      {
+        "name": "altarsmp:nightpiercer_shard",
+        "custom_model_data": 9,
+        "display_name": "Nightpiercer Shard",
+        "bedrock_options": {
+          "icon": "nightpiercer_shard"
+        }
+      }
+    ],
+    "minecraft:mace": [
+      {
+        "name": "altarsmp:lv1",
+        "custom_model_data": 15,
+        "display_name": "Lv1",
+        "bedrock_options": {
+          "icon": "lv1",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:lv2",
+        "custom_model_data": 16,
+        "display_name": "Lv2",
+        "bedrock_options": {
+          "icon": "lv2",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:lv3",
+        "custom_model_data": 17,
+        "display_name": "Lv3",
+        "bedrock_options": {
+          "icon": "lv3",
+          "allow_offhand": true
+        }
+      }
+    ],
+    "minecraft:netherite_axe": [
+      {
+        "name": "altarsmp:frostsideways",
+        "custom_model_data": 1,
+        "display_name": "Frostsideways",
+        "bedrock_options": {
+          "icon": "frostsideways",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:axe",
+        "custom_model_data": 2,
+        "display_name": "Axe",
+        "bedrock_options": {
+          "icon": "axe",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:amaxe",
+        "custom_model_data": 3,
+        "display_name": "Amaxe",
+        "bedrock_options": {
+          "icon": "amaxe",
+          "allow_offhand": true
+        }
+      }
+    ],
+    "minecraft:netherite_boots": [
+      {
+        "name": "altarsmp:copper_boots",
+        "custom_model_data": 1,
+        "display_name": "Copper Boots",
+        "bedrock_options": {
+          "icon": "copper_boots"
+        }
+      }
+    ],
+    "minecraft:netherite_chestplate": [
+      {
+        "name": "altarsmp:copper_chestplate",
+        "custom_model_data": 1,
+        "display_name": "Copper Chestplate",
+        "bedrock_options": {
+          "icon": "copper_chestplate"
+        }
+      }
+    ],
+    "minecraft:netherite_helmet": [
+      {
+        "name": "altarsmp:copper_helmet",
+        "custom_model_data": 1,
+        "display_name": "Copper Helmet",
+        "bedrock_options": {
+          "icon": "copper_helmet"
+        }
+      }
+    ],
+    "minecraft:netherite_leggings": [
+      {
+        "name": "altarsmp:copper_leggings",
+        "custom_model_data": 1,
+        "display_name": "Copper Leggings",
+        "bedrock_options": {
+          "icon": "copper_leggings"
+        }
+      }
+    ],
+    "minecraft:netherite_pickaxe": [
+      {
+        "name": "altarsmp:copper_pickaxe",
+        "custom_model_data": 1,
+        "display_name": "Copper Pickaxe",
+        "bedrock_options": {
+          "icon": "copper_pickaxe"
+        }
+      },
+      {
+        "name": "altarsmp:ampick",
+        "custom_model_data": 3,
+        "display_name": "Ampick",
+        "bedrock_options": {
+          "icon": "ampick",
+          "allow_offhand": true
+        }
+      }
+    ],
+    "minecraft:netherite_sword": [
+      {
+        "name": "altarsmp:bone_blade",
+        "custom_model_data": 1,
+        "display_name": "Bone Blade",
+        "bedrock_options": {
+          "icon": "bone_blade",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:illusion_wand",
+        "custom_model_data": 2,
+        "display_name": "Illusion Wand",
+        "bedrock_options": {
+          "icon": "illusion_wand",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:bloodlust",
+        "custom_model_data": 3,
+        "display_name": "Bloodlust",
+        "bedrock_options": {
+          "icon": "bloodlust",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:frost",
+        "custom_model_data": 4,
+        "display_name": "Frost",
+        "bedrock_options": {
+          "icon": "frost",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:vamp",
+        "custom_model_data": 5,
+        "display_name": "Vamp",
+        "bedrock_options": {
+          "icon": "vamp",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:hyperion",
+        "custom_model_data": 6,
+        "display_name": "Hyperion",
+        "bedrock_options": {
+          "icon": "hyperion",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:pure_blade",
+        "custom_model_data": 7,
+        "display_name": "Pure Blade",
+        "bedrock_options": {
+          "icon": "pure_blade",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:gauntlet",
+        "custom_model_data": 8,
+        "display_name": "Gauntlet",
+        "bedrock_options": {
+          "icon": "gauntlet",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:witherbone",
+        "custom_model_data": 9,
+        "display_name": "Witherbone",
+        "bedrock_options": {
+          "icon": "witherbone",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:dagger",
+        "custom_model_data": 10,
+        "display_name": "Dagger",
+        "bedrock_options": {
+          "icon": "dagger",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:cutlass",
+        "custom_model_data": 11,
+        "display_name": "Cutlass",
+        "bedrock_options": {
+          "icon": "cutlass",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:wind",
+        "custom_model_data": 12,
+        "display_name": "Wind",
+        "bedrock_options": {
+          "icon": "wind",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:sculk",
+        "custom_model_data": 13,
+        "display_name": "Sculk",
+        "bedrock_options": {
+          "icon": "sculk",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:eclipse",
+        "custom_model_data": 14,
+        "display_name": "Eclipse",
+        "bedrock_options": {
+          "icon": "eclipse",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:ancientblade",
+        "custom_model_data": 25,
+        "display_name": "Ancientblade",
+        "bedrock_options": {
+          "icon": "ancientblade",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:dragonrend",
+        "custom_model_data": 26,
+        "display_name": "Dragonrend",
+        "bedrock_options": {
+          "icon": "dragonrend",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:withersym",
+        "custom_model_data": 27,
+        "display_name": "Withersym",
+        "bedrock_options": {
+          "icon": "withersym",
+          "allow_offhand": true
+        }
+      }
+    ],
+    "minecraft:paper": [
+      {
+        "name": "altarsmp:light_blue_circle",
+        "custom_model_data": 1,
+        "display_name": "Light Blue Circle",
+        "bedrock_options": {
+          "icon": "light_blue_circle"
+        }
+      },
+      {
+        "name": "altarsmp:dragonrend_clock",
+        "custom_model_data": 2,
+        "display_name": "Dragonrend Clock",
+        "bedrock_options": {
+          "icon": "dragonrend_clock",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:dragonrend_short_arrow",
+        "custom_model_data": 3,
+        "display_name": "Dragonrend Short Arrow",
+        "bedrock_options": {
+          "icon": "dragonrend_short_arrow",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:shadow_blob",
+        "custom_model_data": 4,
+        "display_name": "Shadow Blob",
+        "bedrock_options": {
+          "icon": "shadow_blob",
+          "allow_offhand": true
+        }
+      },
+      {
+        "name": "altarsmp:dragonrend_tall_arrow",
+        "custom_model_data": 5,
+        "display_name": "Dragonrend Tall Arrow",
+        "bedrock_options": {
+          "icon": "dragonrend_tall_arrow",
+          "allow_offhand": true
+        }
+      }
+    ],
+    "minecraft:purple_harness": [
+      {
+        "name": "altarsmp:harness",
+        "custom_model_data": 1,
+        "display_name": "Harness",
+        "bedrock_options": {
+          "icon": "harness",
+          "allow_offhand": true
+        }
+      }
+    ],
+    "minecraft:red_concrete": [
+      {
+        "name": "altarsmp:r",
+        "custom_model_data": 1,
+        "display_name": "R",
+        "bedrock_options": {
+          "icon": "r",
+          "allow_offhand": true
+        }
+      }
+    ],
+    "minecraft:stripped_crimson_hyphae": [
+      {
+        "name": "altarsmp:contagion_signal",
+        "custom_model_data": 1,
+        "display_name": "Contagion Signal",
+        "bedrock_options": {
+          "icon": "contagion_signal",
+          "allow_offhand": true
+        }
+      }
+    ],
+    "minecraft:trident": [
+      {
+        "name": "altarsmp:tide",
+        "custom_model_data": 1,
+        "display_name": "Tide",
+        "bedrock_options": {
+          "icon": "tide",
+          "allow_offhand": true
+        }
+      }
+    ]
+  }
+}
