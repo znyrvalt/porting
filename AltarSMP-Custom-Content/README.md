@@ -1,16 +1,20 @@
-# AltarSMP-Custom-Content (2.0.5, first pass)
+# AltarSMP-Custom-Content (2.0.5)
 
-Geyser/Bedrock crossplay package for the AltarSMP Fabric port:
+Geyser/Bedrock crossplay package for the AltarSMP Fabric port, rebuilt from
+scratch by `tools/crossplay/`.
 
-- `geyser/altarsmp-custom-items.json` - Geyser custom-item mappings (format_version 2,
-  `legacy` definitions keyed on `custom_model_data`). Drop it into Geyser's
-  `custom_mappings/` folder.
-- `packs/pack.zip` - the Bedrock resource pack (manifest, item definitions,
-  `textures/item_texture.json`, icons, ability tooltip artwork). Drop it into Geyser's
-  `resource_packs/` folder.
-- `inventory.json` - the full Java-entry to Bedrock-item cross-reference.
+- `geyser/altarsmp-custom-items.json` - Geyser custom-item mappings
+  (format_version 2, `legacy` definitions keyed on `custom_model_data`, one
+  entry per Java (item, model data) pair). Copy into Geyser's `custom_mappings/`
+  folder.
+- `packs/pack.zip` - the Bedrock resource pack: `manifest.json`, one Bedrock
+  item definition per custom item, `item_texture.json`, rendered 128x128 icons,
+  attachables + geometry + packed textures for the 3D weapon models, and the
+  ability tooltip artwork restored from the Java pack. Copy into Geyser's
+  `resource_packs/` folder (or a Bedrock server's resource packs).
+- `inventory.json` - all sixty Java entries cross-referenced to their Bedrock
+  item (or recorded as deliberately vanilla-looking).
 
-This first pass ships the mapping, the definitions and the ability artwork with
-the resolved Java textures as stand-in icons. The 3D weapon models are not
-projected yet, so weapon icons are their source texture rather than a rendered
-view - the follow-up rebuild adds a real icon renderer, attachables and geometry.
+Regenerate with `python3 tools/crossplay/generate_custom_content.py`, verify
+with `python3 tools/crossplay/validate_custom_content.py`. See
+docs/CROSSPLAY-HANDOFF.md for the full story.

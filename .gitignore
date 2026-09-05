@@ -8,6 +8,7 @@ run/
 .idea/
 *.iml
 .vscode/
+__pycache__/
 
 # Local working area used for the 1:1 audit of the original plugin.
 # The authoritative inputs are the four archives committed at the repo root.
