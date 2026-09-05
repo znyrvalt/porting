@@ -22,9 +22,9 @@ altarsmp:cutlass	netherite_sword	11	gui-projection	weapons/arc3/cutlass
 altarsmp:dagger	netherite_sword	10	gui-projection	weapons/arc3/dagger
 altarsmp:dragonheart	dragon_head	1	gui-projection	custom/dragonheart
 altarsmp:dragonrend	netherite_sword	26	gui-projection	custom/dragonrend
-altarsmp:dragonrend_clock	paper	2	gui-projection	custom/dragonrend_clock
-altarsmp:dragonrend_short_arrow	paper	3	gui-projection	custom/dragonrend_short_arrow
-altarsmp:dragonrend_tall_arrow	paper	5	gui-projection	custom/dragonrend_tall_arrow
+altarsmp:dragonrend_clock	paper	2	texture:custom/dragonrend_clock	custom/dragonrend_clock
+altarsmp:dragonrend_short_arrow	paper	3	texture:custom/dragonrend_short_arrow	custom/dragonrend_short_arrow
+altarsmp:dragonrend_tall_arrow	paper	5	texture:custom/dragonrend_tall_arrow	custom/dragonrend_tall_arrow
 altarsmp:eclipse	netherite_sword	14	gui-projection	weapons/arc5/eclipse
 altarsmp:frost	netherite_sword	4	gui-projection	weapons/frost
 altarsmp:frostsideways	netherite_axe	1	gui-projection	custom/frostsideways

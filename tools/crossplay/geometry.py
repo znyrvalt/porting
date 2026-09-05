@@ -3,8 +3,9 @@
 Bedrock cubes carry per-face UVs, which maps onto Java's per-face ``uv``
 rectangles directly, so no atlas rebaking is needed.  Two differences matter:
 
-* Java UVs are expressed in 0..16 layout units and are rescaled onto the real
-  texture size.
+* Java UVs are expressed in the model's declared ``texture_size`` layout, so
+  they are rescaled by (real texture size / declared size) - the same rule the
+  icon renderer uses.
 * Bedrock will not render a zero-thickness cube.  Blockbench planes (a cube with
   ``from`` == ``to`` on one axis) are inflated to a 1/16 sliver, centred on the
   original plane, so they stay visible without moving.
@@ -33,8 +34,10 @@ def convert_elements(model, texture_sizes, declared):
     width, height = 16, 16
     if texture_sizes:
         width, height = texture_sizes
-    sx = width / 16.0
-    sy = height / 16.0
+    dw = float((declared or [16, 16])[0] or 16)
+    dh = float((declared or [16, 16])[1] or 16)
+    sx = width / dw
+    sy = height / dh
 
     cubes = []
     for element in model["elements"]:

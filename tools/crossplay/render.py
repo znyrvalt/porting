@@ -148,10 +148,10 @@ def build_quads(model, textures, view_rotation=None):
             uv = face.get("uv")
             if uv is None:
                 uv = _implicit_uv(face_name, frm, to)
-            # Blockbench UVs are in 0..16 layout units; v already grows
-            # downwards, so there is no flip.
-            sx = image.width / 16.0
-            sy = image.height / 16.0
+            # Blockbench UVs are in the declared texture_size layout; convert to
+            # real pixels.  v already grows downwards - no flip.
+            sx = image.width / float(declared[0] or 16)
+            sy = image.height / float(declared[1] or 16)
             u0, v0, u1, v1 = [float(v) for v in uv]
             uv_px = [(u0 * sx, v0 * sy), (u1 * sx, v0 * sy), (u1 * sx, v1 * sy), (u0 * sx, v1 * sy)]
             uv_px = _rotate_uv(uv_px, int(face.get("rotation", 0) or 0))
