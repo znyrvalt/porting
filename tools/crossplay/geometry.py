@@ -20,29 +20,10 @@ over client-exact rendering.
 
 import math
 
+from javapack import face_uv_rect, uv_basis
 from pngio import encode_png
 
 GEO_FORMAT = '1.12.0'
-
-
-def _face_uv_rect(face, texsize):
-    uv = face.get('uv', [0, 0, 16, 16])
-    k = (face.get('rotation', 0) // 90) % 4
-    u1, v1, u2, v2 = uv
-    if k:
-        # rotate the rect corner assignment by k*90 degrees about the rect centre
-        cx, cy = (u1 + u2) / 2.0, (v1 + v2) / 2.0
-
-        def rotp(u, v):
-            dd_u, dd_v = u - cx, v - cy
-            for _ in range(k):
-                dd_u, dd_v = -dd_v, dd_u
-            return cx + dd_u, cy + dd_v
-
-        u1, v1 = rotp(u1, v1)
-        u2, v2 = rotp(u2, v2)
-    tx, ty = float(texsize[0]), float(texsize[1])
-    return (u1 / tx, v1 / ty, u2 / tx, v2 / ty)
 
 
 def build_atlas(pack, files):
@@ -68,7 +49,7 @@ def build_geometry(pack, chain, name):
     files = pack.used_texture_files(chain)
     atlas_w, atlas_h, atlas_rows, placements = build_atlas(pack, files)
     place = {p[0]: p for p in placements}
-    texsize = chain.texture_size or [16, 16]
+    basis = uv_basis(chain.elements, chain.texture_size)
 
     cubes = []
     lo = [1e9, 1e9, 1e9]
@@ -106,10 +87,10 @@ def build_geometry(pack, chain, name):
             if path is None or path not in place:
                 path = files[0]
             ax, ay, sub_w, sub_h = place[path][1], place[path][2], place[path][3], place[path][4]
-            u1, v1, u2, v2 = _face_uv_rect(face, texsize)
+            x0, y0, w, h = face_uv_rect(face, basis)
             uv_faces[fname] = {
-                'uv': [round(ax + u1 * sub_w, 4), round(ay + v1 * sub_h, 4)],
-                'uv_size': [round((u2 - u1) * sub_w, 4), round((v2 - v1) * sub_h, 4)],
+                'uv': [round(ax + x0 * sub_w, 4), round(ay + y0 * sub_h, 4)],
+                'uv_size': [round(w * sub_w, 4), round(h * sub_h, 4)],
             }
         cube['uv'] = uv_faces
         cubes.append(cube)

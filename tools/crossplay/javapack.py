@@ -277,6 +277,82 @@ class JavaPack(object):
 
 # ------------------------------------------------------------------ content
 
+# Vanilla's element-UV scheme: face uvs divide by this, whatever texture the
+# pixels live on (minecraft.wiki, "Model": uv is [x1, y1, x2, y2] on the 0..16
+# scheme; `texture_size` is listed under "Fields used by Blockbench ... only
+# used by Blockbench and aren't used by Minecraft").
+VANILLA_UV_BASIS = [16, 16]
+
+
+def uv_basis(elements, declared_texture_size):
+    """The basis element-face UVs divide by, honouring the declared Blockbench
+    `texture_size`.
+
+    Blockbench writes `texture_size` (the texture's pixel size) at the root of
+    its Java-model exports, and exports exist in two flavours: UVs laid out on
+    that texture-size grid (uv values up to texture_size), and UVs laid out on
+    vanilla's 0..16 scheme with the field present as metadata - Minecraft
+    itself only ever divides element uvs by 16. Both are honoured here, chosen
+    by the data, never assumed: if any face uv reaches past the 16-grid the
+    export is a texture-size-grid export and the declared value is the basis;
+    otherwise the declared value stays metadata and the vanilla grid is the
+    basis. Dividing this pack's models (uv range 0..16 exactly, declared sizes
+    16/32/64) by their texture_size would sample the top-left fraction of each
+    texture - warden_heart and dragon_heart land wholly on transparent texels
+    that way, which is what scrambled the first icons.
+    """
+    basis = list(VANILLA_UV_BASIS)
+    if declared_texture_size:
+        tx, ty = float(declared_texture_size[0]), float(declared_texture_size[1])
+        if (tx, ty) != (16.0, 16.0):
+            for el in elements or []:
+                for face in el.get('faces', {}).values():
+                    uv = face.get('uv')
+                    if uv and max(uv[0], uv[1], uv[2], uv[3]) > 16.0 + 1e-9:
+                        return [tx, ty]
+    return basis
+
+
+def face_uv_corners(face, basis):
+    """Sample coordinates for one element face, as a 4-tuple of image-space
+    (u, v) in 0..1 matching the quad corners [top-left, top-right,
+    bottom-right, bottom-left] as seen from outside the box.
+
+    The uv divides by the model's honoured basis (uv_basis - the vanilla 16
+    grid, or the declared texture_size for exports laid out on it) - never a
+    hardcoded 16 when the model says otherwise, never 0..1 normalisation. The
+    v axis: this pack's UVs are authored in image space (v measured from the
+    top scanline, y-down), the opposite of bottom-up GL convention, so v is
+    used directly against the pixel rows; a flipped v mirrors the icon and
+    drops samples into transparent rows (verified against a known 16x16
+    texture). A face `rotation` (90-degree steps) rotates which source corner
+    each geometric corner samples.
+    """
+    uv = face.get('uv', [0, 0, 16, 16])
+    tx, ty = float(basis[0]), float(basis[1])
+    u1, v1, u2, v2 = (uv[0] / tx, uv[1] / ty, uv[2] / tx, uv[3] / ty)
+    base = [(u1, v1), (u2, v1), (u2, v2), (u1, v2)]
+    k = (face.get('rotation', 0) // 90) % 4
+    if k:
+        return tuple(base[(i - k) % 4] for i in range(4))
+    return tuple(base)
+
+
+def face_uv_rect(face, basis):
+    """The axis-aligned image-space rect (x0, y0, w, h) in 0..1 covering the
+    face's sampled area under the honoured basis - what Bedrock per-face
+    uv/uv_size can express. Face rotations reduce to their rect (Bedrock's
+    1.12.0 face UV has no rotation), which this pack's geometry accepts as a
+    documented approximation."""
+    uv = face.get('uv', [0, 0, 16, 16])
+    tx, ty = float(basis[0]), float(basis[1])
+    x0 = min(uv[0], uv[2]) / tx
+    x1 = max(uv[0], uv[2]) / tx
+    y0 = min(uv[1], uv[3]) / ty
+    y1 = max(uv[1], uv[3]) / ty
+    return (x0, y0, x1 - x0, y1 - y0)
+
+
 def load_content(content_dir=CONTENT_DIR):
     """The 60 custom_model_data-carrying catalog entries, in stable file order."""
     entries = []

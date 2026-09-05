@@ -11,6 +11,7 @@ determinism: same model in, same pixels out, every run.
 
 import math
 
+from javapack import face_uv_corners, uv_basis
 from pngio import encode_png
 
 ICON_SIZE = 128
@@ -72,6 +73,7 @@ def build_quads(pack, chain):
     the classic item-model grid).
     """
     quads = []
+    basis = uv_basis(chain.elements, chain.texture_size)
     files = pack.used_texture_files(chain)
     textures = {}
     for path in files:
@@ -99,13 +101,9 @@ def build_quads(pack, chain):
             face = el.get('faces', {}).get(fname)
             if face is None:
                 continue
-            uv = face.get('uv', [0, 0, 16, 16])
-            # normalize against the classic 16x16 item grid
-            uvc = [(uv[0] / 16.0, uv[1] / 16.0), (uv[2] / 16.0, uv[1] / 16.0),
-                   (uv[2] / 16.0, uv[3] / 16.0), (uv[0] / 16.0, uv[3] / 16.0)]
-            k = (face.get('rotation', 0) // 90) % 4
-            if k:
-                uvc = uvc[-k:] + uvc[:-k]
+            # honour the model's declared texture_size: sample on the basis
+            # the export actually uses (see javapack.uv_basis / face_uv_corners)
+            uvc = face_uv_corners(face, basis)
             corners = _FACE_CORNERS[fname](frm[0], frm[1], frm[2], to[0], to[1], to[2])
             pts = []
             for c in corners:
@@ -123,6 +121,15 @@ def build_quads(pack, chain):
             depth = (frm[0] + to[0] + frm[1] + to[1] + frm[2] + to[2]) / 6.0
             quads.append((pts, uvc, trows, tw, th, depth))
     return quads
+
+
+def _signed_area(px):
+    """Shoelace area of the projected quad in pixel space (y down). Positive =
+    wound for a face the orthographic camera can see (front-facing), negative
+    or zero = back-facing or degenerate."""
+    (x0, y0), (x1, y1), (x2, y2), (x3, y3) = px
+    return (x1 - x0) * (y2 - y0) - (y1 - y0) * (x2 - x0) \
+        + (x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1)
 
 
 def _project(quads):
@@ -152,6 +159,10 @@ def _project(quads):
     for pts, uvc, trows, tw, th, depth in quads:
         px = [((p[0] - cx) * scale + ICON_SIZE / 2.0, ICON_SIZE / 2.0 - (p[1] - cy) * scale)
               for p in pts]
+        # backface culling: the gui view sees a box's outward faces from one
+        # side only; drawing the far side mirrored is what scrambled the icons
+        if _signed_area(px) <= 0.0:
+            continue
         out.append((px, uvc, trows, tw, th, depth))
     return out
 
@@ -197,7 +208,7 @@ def _triangle(canvas, size, ax, ay, bx, by, cx, cy,
             u = w0 * u_a + w1 * u_b + w2 * u_c
             v = w0 * v_a + w1 * v_b + w2 * v_c
             col = int(u * tw) % tw
-            rowi = int((1.0 - v) * th) % th
+            rowi = int(v * th) % th  # v is already image-space (top-down)
             r, g, b, a = trows[rowi][col]
             if a == 0:
                 continue

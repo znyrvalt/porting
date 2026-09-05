@@ -396,13 +396,15 @@ def c21_definition_count_matches(results):
 @check
 def c22_icons_exist(results):
     """Every definition's minecraft:icon resolves to a packed texture that
-    exists in textures/items/ - no dangling references."""
+    exists in textures/items/ - no dangling references in either direction -
+    and every icon file is the expected square power-of-two size (128x128)."""
+    import pngio
     zf = zipfile.ZipFile(PACK)
     names = set(zf.namelist())
     texture_data = json.loads(zf.read('textures/item_texture.json'))['texture_data']
     missing = []
     n = 0
-    for n_ in zf.namelist():
+    for n_ in sorted(zf.namelist()):
         if not n_.startswith('items/') or not n_.endswith('.json'):
             continue
         n += 1
@@ -411,28 +413,16 @@ def c22_icons_exist(results):
         entry = texture_data.get(icon)
         path = entry['textures'][0] + '.png' if entry else None
         if not path or path not in names:
-            missing.append((n_, icon))
-    results.append('%d icons referenced, all present' % n if not missing
-                   else 'dangling: %s' % missing)
-    return not missing
-
-
-@check
-def c23_icons_square_pot(results):
-    """Every icon is the expected square power-of-two size (128x128)."""
-    import pngio
-    zf = zipfile.ZipFile(PACK)
-    bad = []
-    n = 0
-    for n_ in zf.namelist():
+            missing.append((n_, icon, 'dangling'))
+    for n_ in sorted(names):
         if n_.startswith('textures/items/') and n_.endswith('.png'):
-            n += 1
             w, h = pngio.png_size(zf.read(n_))
             if w != h or w & (w - 1) or w != ICON_SIZE:
-                bad.append((n_, w, h))
-    results.append('%d icons, all %dx%d square power-of-two' % (n, ICON_SIZE, ICON_SIZE)
-                   if not bad else 'bad: %s' % bad)
-    return not bad
+                missing.append((n_, w, h, 'not %dx%d square POT' % (ICON_SIZE, ICON_SIZE)))
+    results.append('%d icons referenced, all present and %dx%d square POT'
+                   % (n, ICON_SIZE, ICON_SIZE) if not missing
+                   else 'bad: %s' % missing)
+    return not missing
 
 
 @check
@@ -552,10 +542,13 @@ def c27_geometry_uv_inside_atlas(results):
 
 @check
 def c28_uv_honours_texture_size(results):
-    """Face UV rects are sampled against each model's declared texture_size:
-    recomputing every rect as (raw uv / texture_size) * sub-texture size + the
-    atlas offset reproduces the shipped geometry exactly (this is the Blockbench
-    basis - not 16x16, not 0..1, and y-flipped into image space)."""
+    """Face UV rects are sampled against each model's honoured Blockbench
+    texture_size basis: exports laid out on the declared texture-size grid use
+    it, vanilla-grid exports use the vanilla 16 scheme (texture_size is
+    Blockbench-only metadata there). Recomputing every rect as
+    min(raw)/basis * sub-texture size + the atlas offset must reproduce the
+    shipped geometry exactly, with image-space v and direction-agnostic
+    (min-based) rect sizes."""
     pack = JavaPack()
     entries = load_content()
     primaries = resolve_entries(pack, entries)
@@ -582,7 +575,13 @@ def c28_uv_honours_texture_size(results):
             placements.append((path, 0, y, w, h))
             y += h
         place = {pl[0]: pl for pl in placements}
-        texsize = chain.texture_size
+        # the honoured basis, recomputed from the raw data (javapack.uv_basis)
+        basis = [16, 16]
+        if chain.texture_size and tuple(chain.texture_size) != (16, 16):
+            if any(max(f['uv'][0], f['uv'][1], f['uv'][2], f['uv'][3]) > 16.0 + 1e-9
+                   for el in chain.elements
+                   for f in el.get('faces', {}).values() if f.get('uv')):
+                basis = list(chain.texture_size)
         elements = [el for el in chain.elements if el.get('from') and el.get('to')]
         if len(cubes) != len(elements):
             bad.append((name, 'cube count %d vs %d' % (len(cubes), len(elements))))
@@ -597,17 +596,17 @@ def c28_uv_honours_texture_size(results):
                 if path not in place:
                     path = files[0]
                 _f, ax, ay, sub_w, sub_h = place[path]
-                want_u = ax + raw[0] / float(texsize[0]) * sub_w
-                want_v = ay + raw[1] / float(texsize[1]) * sub_h
-                want_us = (raw[2] - raw[0]) / float(texsize[0]) * sub_w
-                want_vs = (raw[3] - raw[1]) / float(texsize[1]) * sub_h
+                want_u = ax + min(raw[0], raw[2]) / float(basis[0]) * sub_w
+                want_v = ay + min(raw[1], raw[3]) / float(basis[1]) * sub_h
+                want_us = abs(raw[2] - raw[0]) / float(basis[0]) * sub_w
+                want_vs = abs(raw[3] - raw[1]) / float(basis[1]) * sub_h
                 got = rect['uv'] + rect['uv_size']
                 want = [round(want_u, 4), round(want_v, 4), round(want_us, 4), round(want_vs, 4)]
                 if any(abs(g - w_) > 0.01 for g, w_ in zip(got, want)):
                     bad.append((name, face, got, want))
         if bad and bad[-1][0] == name:
             continue
-    results.append('%d 3D models sample UVs on their declared texture_size' % n
+    results.append('%d 3D models sample UVs on their honoured basis' % n
                    if not bad else 'wrong basis: %s' % bad[:4])
     return not bad
 
