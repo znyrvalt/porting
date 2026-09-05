@@ -2,7 +2,7 @@
  {
   "class": "CopperChestplateFragment",
   "base_material": "COPPER_BLOCK",
-  "custom_model_data": null,
+  "custom_model_data": 1,
   "display_name": null,
   "tooltip_style": null,
   "rarity": null,
@@ -19,7 +19,7 @@
  {
   "class": "CopperFragment",
   "base_material": "COPPER_INGOT",
-  "custom_model_data": null,
+  "custom_model_data": 1,
   "display_name": null,
   "tooltip_style": null,
   "rarity": null,
@@ -35,9 +35,9 @@
  },
  {
   "class": "CopperPickaxe",
-  "base_material": null,
-  "custom_model_data": null,
-  "display_name": null,
+  "base_material": "NETHERITE_PICKAXE",
+  "custom_model_data": 1,
+  "display_name": "<gold>Copper Pickaxe",
   "tooltip_style": null,
   "rarity": null,
   "lore": [],
@@ -79,7 +79,7 @@
  {
   "class": "IllusionCore",
   "base_material": "HEAVY_CORE",
-  "custom_model_data": null,
+  "custom_model_data": 1,
   "display_name": null,
   "tooltip_style": null,
   "rarity": null,
@@ -304,7 +304,7 @@
  {
   "class": "FragmentOfTheSea",
   "base_material": "NAUTILUS_SHELL",
-  "custom_model_data": null,
+  "custom_model_data": 1,
   "display_name": null,
   "tooltip_style": null,
   "rarity": null,

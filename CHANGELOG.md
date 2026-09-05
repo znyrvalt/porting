@@ -4,6 +4,52 @@ The AltarSMP Fabric port. The original plugin was version 1.2 (Season 1) plus th
 AltarSMPS2 module; the port starts its own numbering at 2.0.0 because it is a
 different artifact for a different platform, not a release of the plugin.
 
+## 2.0.5 — Bedrock/Geyser crossplay, restored ability artwork, model-data fixes
+
+### Fixed
+
+**Model data.** The content catalogue and the pack's `range_dispatch` definitions
+now agree on every entry. Ten entries carried no `custom_model_data` or pointed
+at a threshold no dispatcher declared; all sixty customisable entries now carry
+one (`armor.json` 8, `items.json` 22, `weapons_s1.json` 24, `weapons_s2.json` 6).
+Values trace to the original plugin sources (`Altar_SMPS1-2-sources-FRESH.jar`)
+or to the pack's own dispatchers:
+
+- `CopperPickaxe` (base) regains its plugin truth: `NETHERITE_PICKAXE`, model
+  data 1 - the same copper-pickaxe visual and dispatcher slot as
+  `CopperPickaxeII`, exactly as the plugin stamped them.
+- `CopperFragment`, `CopperChestplateFragment`, `IllusionCore`,
+  `FragmentOfTheSea` get reserved discriminators (1) on materials the pack does
+  not dispatch (`copper_ingot`, `copper_block`, `nautilus_shell`) or below the
+  dispatcher's lowest threshold (`heavy_core` declares 998/999), so they keep
+  rendering the vanilla base item.
+- The four `CopperDiamondArmor` pieces get model data 1, the slot their
+  netherite siblings use for the copper appearance their own lore promises.
+- `Omen` moves to `DIAMOND_SPEAR` (model data 1) - the plugin's own preference
+  (`C.a("DIAMOND_SPEAR", MACE)`) and the only material whose dispatcher actually
+  draws the Omen model (`diamond_spear:1 -> custom/omen`); `mace:1` was dangling.
+- `Bow of Deception` gets the reserved discriminator 0 on `BOW` (the dispatcher
+  declares only 1, which belongs to Striker); the item is a plain vanilla bow
+  by design and identity comes from its PDC key.
+
+### Added
+
+**Restored ability artwork.** The full tooltip sprite set
+(`assets/altarsmp/textures/gui/sprites/tooltip/**`, 192 files) now lives in the
+mod's own resources again, restored byte-for-byte from
+`AltarSMP-ResourcePack.zip`, so every ability frame/background ships with the
+mod rather than only through the pack-unpack build step.
+
+**Crossplay package (first pass).** `AltarSMP-Custom-Content/`: a Geyser
+custom-item mapping (`geyser/altarsmp-custom-items.json`, format_version 2
+`legacy` definitions keyed on `custom_model_data`) and a Bedrock resource pack
+(`packs/pack.zip`: manifest, item definitions, `item_texture.json`, icons and
+the ability tooltip artwork), plus `inventory.json` cross-referencing all sixty
+Java entries. Bedrock players finally see the legendaries instead of the base
+item. First-pass caveat: 3D weapon models are not projected yet, so their icons
+are the source textures; the next commit rebuilds the package from scratch with
+a real icon renderer, attachables and geometry.
+
 ## 2.0.0 — the Fabric port
 
 ### Added

@@ -1,0 +1,846 @@
+{
+ "entries": [
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:bloodlust",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "NETHERITE_SWORD",
+    "class": "BloodlustWeapon",
+    "custom_model_data": 3,
+    "id": "bloodlust"
+   },
+   "model": "weapons/bloodlust",
+   "resolution": "model",
+   "tooltip_style": "bloodlust/bloodlust"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:boneblade",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "NETHERITE_SWORD",
+    "class": "BoneBladeWeapon",
+    "custom_model_data": 1,
+    "id": "boneblade"
+   },
+   "model": "weapons/bone_blade",
+   "resolution": "model",
+   "tooltip_style": "bone_blade/bone_blade"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:contagionsignal",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "STRIPPED_CRIMSON_HYPHAE",
+    "class": "ContagionSignalWeapon",
+    "custom_model_data": 1,
+    "id": "contagionsignal"
+   },
+   "model": "custom/contagion_signal",
+   "resolution": "model",
+   "tooltip_style": "contagion_signal/contagion_signal"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:crazyslots",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "CLAY_BALL",
+    "class": "CrazySlotsWeapon",
+    "custom_model_data": 4,
+    "id": "crazyslots"
+   },
+   "model": "custom/crazy_slots",
+   "resolution": "model",
+   "tooltip_style": "crazy_slots/crazy_slots"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:cutlass",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "NETHERITE_SWORD",
+    "class": "CutlassWeapon",
+    "custom_model_data": 11,
+    "id": "cutlass"
+   },
+   "model": "weapons/arc3/cutlass",
+   "resolution": "model",
+   "tooltip_style": "cutlass/cutlass"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:earthgauntlet",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "NETHERITE_SWORD",
+    "class": "EarthGauntletWeapon",
+    "custom_model_data": 8,
+    "id": "earthgauntlet"
+   },
+   "model": "weapons/arc3/gauntlet",
+   "resolution": "model",
+   "tooltip_style": "earth_gauntlet/earth_gauntlet"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:echo",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "NETHERITE_SWORD",
+    "class": "EchoWeapon",
+    "custom_model_data": 13,
+    "id": "echo"
+   },
+   "model": "weapons/arc5/sculk",
+   "resolution": "model",
+   "tooltip_style": "echo/echo"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:eclipsesword",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "NETHERITE_SWORD",
+    "class": "EclipseSwordWeapon",
+    "custom_model_data": 14,
+    "id": "eclipsesword"
+   },
+   "model": "weapons/arc5/eclipse",
+   "resolution": "model",
+   "tooltip_style": "eclipse_sword/eclipse_sword"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": null,
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "NETHERITE_SWORD",
+    "class": "FireSlashWeapon",
+    "custom_model_data": 0,
+    "id": "fire_slash"
+   },
+   "model": null,
+   "resolution": "vanilla",
+   "tooltip_style": "fire_slash/fire_slash"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:frost_scythe",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "NETHERITE_SWORD",
+    "class": "FrostScytheWeapon",
+    "custom_model_data": 4,
+    "id": "frost_scythe"
+   },
+   "model": "weapons/frost",
+   "resolution": "model",
+   "tooltip_style": "frost_scythe/frost_scythe"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:hyperion",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "NETHERITE_SWORD",
+    "class": "HyperionWeapon",
+    "custom_model_data": 6,
+    "id": "hyperion"
+   },
+   "model": "weapons/hyperion",
+   "resolution": "model",
+   "tooltip_style": "hyperion/hyperion"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:knightfall",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "MACE",
+    "class": "KnightfallWeapon",
+    "custom_model_data": 15,
+    "id": "knightfall"
+   },
+   "model": "weapons/arc5/mace/lv1",
+   "resolution": "model",
+   "tooltip_style": "knightfall/knightfall"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:crazyslots",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "CLAY_BALL",
+    "class": "MinorCrazySlotsWeapon",
+    "custom_model_data": 4,
+    "id": "minor_crazy_slots"
+   },
+   "model": "custom/crazy_slots",
+   "resolution": "model",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:nightpiercer",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "NETHERITE_SWORD",
+    "class": "NightpiercerWeapon",
+    "custom_model_data": 5,
+    "id": "nightpiercer"
+   },
+   "model": "weapons/vamp",
+   "resolution": "model",
+   "tooltip_style": "nightpiercer/nightpiercer"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:nuke_launcher",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "AMETHYST_SHARD",
+    "class": "NukeLauncherWeapon",
+    "custom_model_data": 4,
+    "id": "nuke_launcher"
+   },
+   "model": "weapons/arc5/nukeremote",
+   "resolution": "model",
+   "tooltip_style": "nuke_launcher/nuke_launcher"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:paladinbattleaxe",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "NETHERITE_AXE",
+    "class": "PaladinBattleAxeWeapon",
+    "custom_model_data": 2,
+    "id": "paladinbattleaxe"
+   },
+   "model": "weapons/arc3/axe",
+   "resolution": "model",
+   "tooltip_style": "paladin_axe/paladin_axe"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:palecrossbow",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "CROSSBOW",
+    "class": "PaleCrossbowWeapon",
+    "custom_model_data": 2,
+    "id": "palecrossbow"
+   },
+   "model": "weapons/pale",
+   "resolution": "model",
+   "tooltip_style": "pale_crossbow/pale_crossbow"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:pureblade",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "NETHERITE_SWORD",
+    "class": "PureBladeWeapon",
+    "custom_model_data": 7,
+    "id": "pureblade"
+   },
+   "model": "weapons/arc3/pure_blade",
+   "resolution": "model",
+   "tooltip_style": "pure_blade/pure_blade"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:shadowblade",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "NETHERITE_SWORD",
+    "class": "ShadowBladeWeapon",
+    "custom_model_data": 10,
+    "id": "shadowblade"
+   },
+   "model": "weapons/arc3/dagger",
+   "resolution": "model",
+   "tooltip_style": "shadow_blade/shadow_blade"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:striker",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "BOW",
+    "class": "StrikerWeapon",
+    "custom_model_data": 1,
+    "id": "striker"
+   },
+   "model": "weapons/arc5/bow",
+   "resolution": "model",
+   "tooltip_style": "striker/striker"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:vulcanscrossbow",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "CROSSBOW",
+    "class": "VulcansCrossbowWeapon",
+    "custom_model_data": 1,
+    "id": "vulcanscrossbow"
+   },
+   "model": "minecraft:weapons/vulcan/vulcanloading3",
+   "resolution": "model",
+   "tooltip_style": "vulcans_crossbow/vulcans_crossbow"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:wandofillusion",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "NETHERITE_SWORD",
+    "class": "WandOfIllusionWeapon",
+    "custom_model_data": 2,
+    "id": "wandofillusion"
+   },
+   "model": "weapons/illusion_wand",
+   "resolution": "model",
+   "tooltip_style": "wand_of_illusion/wand_of_illusion"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:windweaver",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "NETHERITE_SWORD",
+    "class": "WindweaverWeapon",
+    "custom_model_data": 12,
+    "id": "windweaver"
+   },
+   "model": "weapons/arc3/wind",
+   "resolution": "model",
+   "tooltip_style": "windweaver/windweaver"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:witherbone",
+   "file": "weapons_s1",
+   "java": {
+    "base_material": "NETHERITE_SWORD",
+    "class": "WitherboneWeapon",
+    "custom_model_data": 9,
+    "id": "witherbone"
+   },
+   "model": "weapons/arc3/witherbone",
+   "resolution": "model",
+   "tooltip_style": "witherbone/witherbone"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:ancient_blade",
+   "file": "weapons_s2",
+   "java": {
+    "base_material": "NETHERITE_SWORD",
+    "class": "AncientBladeWeapon",
+    "custom_model_data": 25,
+    "id": "ancient_blade"
+   },
+   "model": "custom/ancientblade",
+   "resolution": "model",
+   "tooltip_style": "ancient_blade/ancient_blade"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:dragonrend",
+   "file": "weapons_s2",
+   "java": {
+    "base_material": "NETHERITE_SWORD",
+    "class": "DragonrendWeapon",
+    "custom_model_data": 26,
+    "id": "dragonrend"
+   },
+   "model": "custom/dragonrend",
+   "resolution": "model",
+   "tooltip_style": "dragonrend/dragonrend"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:omen",
+   "file": "weapons_s2",
+   "java": {
+    "base_material": "DIAMOND_SPEAR",
+    "class": "OmenWeapon",
+    "custom_model_data": 1,
+    "id": "omen"
+   },
+   "model": "custom/omen",
+   "resolution": "model",
+   "tooltip_style": "omen/omen"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:tidebreaker",
+   "file": "weapons_s2",
+   "java": {
+    "base_material": "TRIDENT",
+    "class": "TidebreakerWeapon",
+    "custom_model_data": 1,
+    "id": "tidebreaker"
+   },
+   "model": "custom/tide",
+   "resolution": "model",
+   "tooltip_style": "tidebreaker/tidebreaker"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:wither_symbiote",
+   "file": "weapons_s2",
+   "java": {
+    "base_material": "NETHERITE_SWORD",
+    "class": "WitherSymbioteWeapon",
+    "custom_model_data": 27,
+    "id": "wither_symbiote"
+   },
+   "model": "custom/hotbarsym",
+   "resolution": "model",
+   "tooltip_style": "wither_symbiote/wither_symbiote"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": null,
+   "file": "weapons_s2",
+   "java": {
+    "base_material": "BOW",
+    "class": "BowOfDeceptionWeapon",
+    "custom_model_data": 0,
+    "id": "bow_of_deception"
+   },
+   "model": null,
+   "resolution": "vanilla",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:copper_boots",
+   "file": "armor",
+   "java": {
+    "base_material": "NETHERITE_BOOTS",
+    "class": "CopperBoots",
+    "custom_model_data": 1,
+    "id": "copper_boots"
+   },
+   "model": "custom:item/copper_boots",
+   "resolution": "model",
+   "tooltip_style": "copper_armor/copper_armor"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:copper_chestplate",
+   "file": "armor",
+   "java": {
+    "base_material": "NETHERITE_CHESTPLATE",
+    "class": "CopperChestplate",
+    "custom_model_data": 1,
+    "id": "copper_chestplate"
+   },
+   "model": "custom:item/copper_chestplate",
+   "resolution": "model",
+   "tooltip_style": "copper_armor/copper_armor"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:copper_diamond_helmet",
+   "file": "armor",
+   "java": {
+    "base_material": "DIAMOND_HELMET",
+    "class": "CopperDiamondArmor",
+    "custom_model_data": 1,
+    "id": "copper_diamond_helmet"
+   },
+   "model": "custom:item/copper_helmet",
+   "resolution": "model",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:copper_diamond_chestplate",
+   "file": "armor",
+   "java": {
+    "base_material": "DIAMOND_CHESTPLATE",
+    "class": "CopperDiamondArmor",
+    "custom_model_data": 1,
+    "id": "copper_diamond_chestplate"
+   },
+   "model": "custom:item/copper_chestplate",
+   "resolution": "model",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:copper_diamond_leggings",
+   "file": "armor",
+   "java": {
+    "base_material": "DIAMOND_LEGGINGS",
+    "class": "CopperDiamondArmor",
+    "custom_model_data": 1,
+    "id": "copper_diamond_leggings"
+   },
+   "model": "custom:item/copper_leggings",
+   "resolution": "model",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:copper_diamond_boots",
+   "file": "armor",
+   "java": {
+    "base_material": "DIAMOND_BOOTS",
+    "class": "CopperDiamondArmor",
+    "custom_model_data": 1,
+    "id": "copper_diamond_boots"
+   },
+   "model": "custom:item/copper_boots",
+   "resolution": "model",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:copper_helmet",
+   "file": "armor",
+   "java": {
+    "base_material": "NETHERITE_HELMET",
+    "class": "CopperHelmet",
+    "custom_model_data": 1,
+    "id": "copper_helmet"
+   },
+   "model": "custom:item/copper_helmet",
+   "resolution": "model",
+   "tooltip_style": "copper_armor/copper_armor"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:copper_leggings",
+   "file": "armor",
+   "java": {
+    "base_material": "NETHERITE_LEGGINGS",
+    "class": "CopperLeggings",
+    "custom_model_data": 1,
+    "id": "copper_leggings"
+   },
+   "model": "custom:item/copper_leggings",
+   "resolution": "model",
+   "tooltip_style": "copper_armor/copper_armor"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": null,
+   "file": "items",
+   "java": {
+    "base_material": "COPPER_BLOCK",
+    "class": "CopperChestplateFragment",
+    "custom_model_data": 1,
+    "id": null
+   },
+   "model": null,
+   "resolution": "vanilla",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": null,
+   "file": "items",
+   "java": {
+    "base_material": "COPPER_INGOT",
+    "class": "CopperFragment",
+    "custom_model_data": 1,
+    "id": null
+   },
+   "model": null,
+   "resolution": "vanilla",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:copper_pickaxe",
+   "file": "items",
+   "java": {
+    "base_material": "NETHERITE_PICKAXE",
+    "class": "CopperPickaxe",
+    "custom_model_data": 1,
+    "id": null
+   },
+   "model": "custom/copper_pickaxe",
+   "resolution": "model",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:copper_pickaxe",
+   "file": "items",
+   "java": {
+    "base_material": "NETHERITE_PICKAXE",
+    "class": "CopperPickaxeII",
+    "custom_model_data": 1,
+    "id": null
+   },
+   "model": "custom/copper_pickaxe",
+   "resolution": "model",
+   "tooltip_style": "copper_armor/copper_armor"
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:hyperion_shard",
+   "file": "items",
+   "java": {
+    "base_material": "GOLD_NUGGET",
+    "class": "HyperionShard",
+    "custom_model_data": 8,
+    "id": null
+   },
+   "model": "custom/hyperion_shard",
+   "resolution": "model",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": null,
+   "file": "items",
+   "java": {
+    "base_material": "HEAVY_CORE",
+    "class": "IllusionCore",
+    "custom_model_data": 1,
+    "id": null
+   },
+   "model": null,
+   "resolution": "vanilla",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:nightpiercer_shard",
+   "file": "items",
+   "java": {
+    "base_material": "IRON_NUGGET",
+    "class": "NightpiercerShard",
+    "custom_model_data": 9,
+    "id": null
+   },
+   "model": "custom/nightpiercer_shard",
+   "resolution": "model",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:pale_shard",
+   "file": "items",
+   "java": {
+    "base_material": "ECHO_SHARD",
+    "class": "PaleShard",
+    "custom_model_data": 22,
+    "id": null
+   },
+   "model": "custom/pale_shard",
+   "resolution": "model",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": null,
+   "file": "items",
+   "java": {
+    "base_material": "RECOVERY_COMPASS",
+    "class": "PlayerTrackerItem",
+    "custom_model_data": 2000,
+    "id": null
+   },
+   "model": null,
+   "resolution": "vanilla",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:vulkan_head",
+   "file": "items",
+   "java": {
+    "base_material": "CLAY_BALL",
+    "class": "VulkanHead",
+    "custom_model_data": 10,
+    "id": null
+   },
+   "model": "custom/vulcsk",
+   "resolution": "model",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": null,
+   "file": "items",
+   "java": {
+    "base_material": "ECHO_SHARD",
+    "class": "WardenHead",
+    "custom_model_data": 11,
+    "id": null
+   },
+   "model": null,
+   "resolution": "vanilla",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:warden_heart",
+   "file": "items",
+   "java": {
+    "base_material": "CLAY_BALL",
+    "class": "WardenHeart",
+    "custom_model_data": 9,
+    "id": null
+   },
+   "model": "custom/warden",
+   "resolution": "model",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:weapon_handle",
+   "file": "items",
+   "java": {
+    "base_material": "BREEZE_ROD",
+    "class": "WeaponHandle",
+    "custom_model_data": 1,
+    "id": null
+   },
+   "model": "custom/weapon_handle",
+   "resolution": "model",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": null,
+   "file": "items",
+   "java": {
+    "base_material": "NETHER_STAR",
+    "class": "WitherHeart",
+    "custom_model_data": 20,
+    "id": null
+   },
+   "model": null,
+   "resolution": "vanilla",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:amethyst_axe",
+   "file": "items",
+   "java": {
+    "base_material": "NETHERITE_AXE",
+    "class": "AmethystAxe",
+    "custom_model_data": 3,
+    "id": null
+   },
+   "model": "custom/amaxe",
+   "resolution": "model",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:amethyst_pickaxe",
+   "file": "items",
+   "java": {
+    "base_material": "NETHERITE_PICKAXE",
+    "class": "AmethystPickaxe",
+    "custom_model_data": 3,
+    "id": null
+   },
+   "model": "custom/ampick",
+   "resolution": "model",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": null,
+   "file": "items",
+   "java": {
+    "base_material": "SADDLE",
+    "class": "BlackGhastSaddle",
+    "custom_model_data": 1,
+    "id": null
+   },
+   "model": null,
+   "resolution": "vanilla",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:dragon_heart",
+   "file": "items",
+   "java": {
+    "base_material": "DRAGON_HEAD",
+    "class": "DragonHeart",
+    "custom_model_data": 1,
+    "id": null
+   },
+   "model": "custom/dragonheart",
+   "resolution": "model",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": null,
+   "file": "items",
+   "java": {
+    "base_material": "NAUTILUS_SHELL",
+    "class": "FragmentOfTheSea",
+    "custom_model_data": 1,
+    "id": null
+   },
+   "model": null,
+   "resolution": "vanilla",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:soul_in_a_bottle",
+   "file": "items",
+   "java": {
+    "base_material": "CLAY_BALL",
+    "class": "SoulInABottle",
+    "custom_model_data": 15,
+    "id": null
+   },
+   "model": "custom/soul",
+   "resolution": "model",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:warden_heart",
+   "file": "items",
+   "java": {
+    "base_material": "CLAY_BALL",
+    "class": "WardenHeart",
+    "custom_model_data": 9,
+    "id": null
+   },
+   "model": "custom/warden",
+   "resolution": "model",
+   "tooltip_style": null
+  },
+  {
+   "alias_of": null,
+   "bedrock_identifier": "altarsmp:weapon_handle",
+   "file": "items",
+   "java": {
+    "base_material": "BREEZE_ROD",
+    "class": "WeaponHandle",
+    "custom_model_data": 1,
+    "id": null
+   },
+   "model": "custom/weapon_handle",
+   "resolution": "model",
+   "tooltip_style": null
+  }
+ ],
+ "package": "AltarSMP-Custom-Content",
+ "version": "2.0.5"
+}

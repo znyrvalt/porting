@@ -1,0 +1,697 @@
+{
+ "format_version": 2,
+ "items": {
+  "minecraft:amethyst_shard": [
+   {
+    "bedrock_identifier": "altarsmp:nuke_launcher",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": false,
+     "icon": "altarsmp_nuke_launcher"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 4,
+    "display_name": "Nuke Launcher",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:bow": [
+   {
+    "bedrock_identifier": "altarsmp:striker",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_striker"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 1,
+    "display_name": "Striker",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:breeze_rod": [
+   {
+    "bedrock_identifier": "altarsmp:weapon_handle",
+    "bedrock_options": {
+     "creative_category": "items",
+     "display_handheld": false,
+     "icon": "altarsmp_weapon_handle"
+    },
+    "components": {
+     "minecraft:max_stack_size": 64
+    },
+    "custom_model_data": 1,
+    "display_name": "Weapon Handle",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:clay_ball": [
+   {
+    "bedrock_identifier": "altarsmp:crazyslots",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": false,
+     "icon": "altarsmp_crazyslots"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 4,
+    "display_name": "Crazy Slots",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:warden_heart",
+    "bedrock_options": {
+     "creative_category": "items",
+     "display_handheld": false,
+     "icon": "altarsmp_warden_heart"
+    },
+    "components": {
+     "minecraft:max_stack_size": 64
+    },
+    "custom_model_data": 9,
+    "display_name": "Warden Heart",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:vulkan_head",
+    "bedrock_options": {
+     "creative_category": "items",
+     "display_handheld": false,
+     "icon": "altarsmp_vulkan_head"
+    },
+    "components": {
+     "minecraft:max_stack_size": 64
+    },
+    "custom_model_data": 10,
+    "display_name": "Vulkan Head",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:soul_in_a_bottle",
+    "bedrock_options": {
+     "creative_category": "items",
+     "display_handheld": false,
+     "icon": "altarsmp_soul_in_a_bottle"
+    },
+    "components": {
+     "minecraft:max_stack_size": 64
+    },
+    "custom_model_data": 15,
+    "display_name": "Soul In A Bottle",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:crossbow": [
+   {
+    "bedrock_identifier": "altarsmp:vulcanscrossbow",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_vulcanscrossbow"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 1,
+    "display_name": "Vulcan's Crossbow",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:palecrossbow",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_palecrossbow"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 2,
+    "display_name": "||||||||||||",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:diamond_boots": [
+   {
+    "bedrock_identifier": "altarsmp:copper_diamond_boots",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": false,
+     "icon": "altarsmp_copper_diamond_boots"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 1,
+    "display_name": "Copper Boots",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:diamond_chestplate": [
+   {
+    "bedrock_identifier": "altarsmp:copper_diamond_chestplate",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": false,
+     "icon": "altarsmp_copper_diamond_chestplate"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 1,
+    "display_name": "Copper Chestplate",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:diamond_helmet": [
+   {
+    "bedrock_identifier": "altarsmp:copper_diamond_helmet",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": false,
+     "icon": "altarsmp_copper_diamond_helmet"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 1,
+    "display_name": "Copper Helmet",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:diamond_leggings": [
+   {
+    "bedrock_identifier": "altarsmp:copper_diamond_leggings",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": false,
+     "icon": "altarsmp_copper_diamond_leggings"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 1,
+    "display_name": "Copper Leggings",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:diamond_spear": [
+   {
+    "bedrock_identifier": "altarsmp:omen",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_omen"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 1,
+    "display_name": "Omen",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:dragon_head": [
+   {
+    "bedrock_identifier": "altarsmp:dragon_heart",
+    "bedrock_options": {
+     "creative_category": "items",
+     "display_handheld": false,
+     "icon": "altarsmp_dragon_heart"
+    },
+    "components": {
+     "minecraft:max_stack_size": 64
+    },
+    "custom_model_data": 1,
+    "display_name": "Dragon Heart",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:echo_shard": [
+   {
+    "bedrock_identifier": "altarsmp:pale_shard",
+    "bedrock_options": {
+     "creative_category": "items",
+     "display_handheld": false,
+     "icon": "altarsmp_pale_shard"
+    },
+    "components": {
+     "minecraft:max_stack_size": 64
+    },
+    "custom_model_data": 22,
+    "display_name": "Pale Shard",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:gold_nugget": [
+   {
+    "bedrock_identifier": "altarsmp:hyperion_shard",
+    "bedrock_options": {
+     "creative_category": "items",
+     "display_handheld": false,
+     "icon": "altarsmp_hyperion_shard"
+    },
+    "components": {
+     "minecraft:max_stack_size": 64
+    },
+    "custom_model_data": 8,
+    "display_name": "Hyperion Shard",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:iron_nugget": [
+   {
+    "bedrock_identifier": "altarsmp:nightpiercer_shard",
+    "bedrock_options": {
+     "creative_category": "items",
+     "display_handheld": false,
+     "icon": "altarsmp_nightpiercer_shard"
+    },
+    "components": {
+     "minecraft:max_stack_size": 64
+    },
+    "custom_model_data": 9,
+    "display_name": "Nightpiercer Shard",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:mace": [
+   {
+    "bedrock_identifier": "altarsmp:knightfall",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_knightfall"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 15,
+    "display_name": "Knightfall",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:netherite_axe": [
+   {
+    "bedrock_identifier": "altarsmp:paladinbattleaxe",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_paladinbattleaxe"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 2,
+    "display_name": "Paladin's Battle Axe",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:amethyst_axe",
+    "bedrock_options": {
+     "creative_category": "items",
+     "display_handheld": true,
+     "icon": "altarsmp_amethyst_axe"
+    },
+    "components": {
+     "minecraft:max_stack_size": 64
+    },
+    "custom_model_data": 3,
+    "display_name": "Amethyst Axe",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:netherite_boots": [
+   {
+    "bedrock_identifier": "altarsmp:copper_boots",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": false,
+     "icon": "altarsmp_copper_boots"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 1,
+    "display_name": "Copper Boots",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:netherite_chestplate": [
+   {
+    "bedrock_identifier": "altarsmp:copper_chestplate",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": false,
+     "icon": "altarsmp_copper_chestplate"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 1,
+    "display_name": "Copper Chestplate",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:netherite_helmet": [
+   {
+    "bedrock_identifier": "altarsmp:copper_helmet",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": false,
+     "icon": "altarsmp_copper_helmet"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 1,
+    "display_name": "Copper Helmet",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:netherite_leggings": [
+   {
+    "bedrock_identifier": "altarsmp:copper_leggings",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": false,
+     "icon": "altarsmp_copper_leggings"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 1,
+    "display_name": "Copper Leggings",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:netherite_pickaxe": [
+   {
+    "bedrock_identifier": "altarsmp:copper_pickaxe",
+    "bedrock_options": {
+     "creative_category": "items",
+     "display_handheld": true,
+     "icon": "altarsmp_copper_pickaxe"
+    },
+    "components": {
+     "minecraft:max_stack_size": 64
+    },
+    "custom_model_data": 1,
+    "display_name": "Copper Pickaxe",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:amethyst_pickaxe",
+    "bedrock_options": {
+     "creative_category": "items",
+     "display_handheld": true,
+     "icon": "altarsmp_amethyst_pickaxe"
+    },
+    "components": {
+     "minecraft:max_stack_size": 64
+    },
+    "custom_model_data": 3,
+    "display_name": "Amethyst Pickaxe",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:netherite_sword": [
+   {
+    "bedrock_identifier": "altarsmp:boneblade",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_boneblade"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 1,
+    "display_name": "Bone Blade",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:wandofillusion",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_wandofillusion"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 2,
+    "display_name": "Wand of Illusion",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:bloodlust",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_bloodlust"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 3,
+    "display_name": "Bloodlust",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:frost_scythe",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_frost_scythe"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 4,
+    "display_name": "Frost Scythe",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:nightpiercer",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_nightpiercer"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 5,
+    "display_name": "Nightpiercer",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:hyperion",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_hyperion"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 6,
+    "display_name": "Hyperion",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:pureblade",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_pureblade"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 7,
+    "display_name": "Pure Blade",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:earthgauntlet",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_earthgauntlet"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 8,
+    "display_name": "Earth Gauntlet",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:witherbone",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_witherbone"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 9,
+    "display_name": "Wither Bone Blade",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:shadowblade",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_shadowblade"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 10,
+    "display_name": "Shadow Blade",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:cutlass",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_cutlass"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 11,
+    "display_name": "Cutlass",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:windweaver",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_windweaver"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 12,
+    "display_name": "Windweaver",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:echo",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_echo"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 13,
+    "display_name": "Echo",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:eclipsesword",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_eclipsesword"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 14,
+    "display_name": "Eclipse Sword",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:ancient_blade",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_ancient_blade"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 25,
+    "display_name": "Ancient Blade",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:dragonrend",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_dragonrend"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 26,
+    "display_name": "Dragonrend",
+    "type": "legacy"
+   },
+   {
+    "bedrock_identifier": "altarsmp:wither_symbiote",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_wither_symbiote"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 27,
+    "display_name": "Wither Symbiote",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:stripped_crimson_hyphae": [
+   {
+    "bedrock_identifier": "altarsmp:contagionsignal",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": false,
+     "icon": "altarsmp_contagionsignal"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 1,
+    "display_name": "Contagion Signal",
+    "type": "legacy"
+   }
+  ],
+  "minecraft:trident": [
+   {
+    "bedrock_identifier": "altarsmp:tidebreaker",
+    "bedrock_options": {
+     "creative_category": "equipment",
+     "display_handheld": true,
+     "icon": "altarsmp_tidebreaker"
+    },
+    "components": {
+     "minecraft:max_stack_size": 1
+    },
+    "custom_model_data": 1,
+    "display_name": "Tidebreaker",
+    "type": "legacy"
+   }
+  ]
+ }
+}
