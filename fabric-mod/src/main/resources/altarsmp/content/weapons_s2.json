@@ -1,0 +1,303 @@
+[
+ {
+  "id": "ancient_blade",
+  "class": "AncientBladeWeapon",
+  "season": 2,
+  "display_name": "<gradient:#1a5d8a:#5ad4e8><bold>Ancient Blade</bold></gradient>",
+  "plain_display": "Ancient Blade",
+  "base_material": "NETHERITE_SWORD",
+  "custom_model_data": 25,
+  "tooltip_style": "ancient_blade/ancient_blade",
+  "rarity": null,
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "default": 7
+   },
+   {
+    "enchant": "looting",
+    "default": 3
+   },
+   {
+    "enchant": "sweeping_edge",
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "default": 3
+   }
+  ],
+  "lore": [
+   "<gray>A Legendary Sword that predates most civilisations.",
+   "<red>Kills: <white>0",
+   "",
+   "<gold>Sharpness <red>VII",
+   "<white>Looting III",
+   "<white>Sweeping Edge III",
+   "",
+   "<aqua>DEEP CONNECTION <gray>| <red>0 KILLS",
+   "<gray>Gain <white>+25% Speed<gray> while standing on any Sculk block.",
+   "<dark_gray>Stacks with Speed Potions.",
+   "",
+   "<aqua>ECHOLOCATION <gray>| <red>1 KILL",
+   "<gray>(<white>3s<gray>) <yellow>CROUCH",
+   "<gray>Crouch to listen for players. Players within <white>24 blocks",
+   "<gray>of you will play a tendril sound at their location.",
+   "",
+   "<aqua>SWIFT <gray>| <red>2 KILLS",
+   "<gray>Gain permanent <white>Speed I<gray> while held.",
+   "",
+   "<aqua>PRESENCE <gray>| <red>3 KILLS",
+   "<gray>(<white>45s<gray>) <yellow>OFFHAND",
+   "<gray>Your next hit marks a player for <white>10s<gray>.",
+   "<gray>Marked players receive Darkness, and",
+   "<gray>cannot have Absorption.",
+   "",
+   "<aqua>TIGHTENED GRIP <gray>| <red>4 KILLS",
+   "<gray>Gain permanent <white>Strength II<gray> while held.",
+   "",
+   "<aqua>UNYIELDING DARKNESS <gray>| <red>5 KILLS",
+   "<gray>(<white>60s<gray>) <yellow>OFFHAND+CROUCH",
+   "<gray>Jump in the air unleashing a Sculk Catalyst",
+   "<gray>projectile where you look, exploding into",
+   "<gray>smaller Sonic Boom projectiles."
+  ]
+ },
+ {
+  "id": "dragonrend",
+  "class": "DragonrendWeapon",
+  "season": 2,
+  "display_name": "<gradient:#5b1d80:#d96bc4><bold>Dragonrend</bold></gradient>",
+  "plain_display": "Dragonrend",
+  "base_material": "NETHERITE_SWORD",
+  "custom_model_data": 26,
+  "tooltip_style": "dragonrend/dragonrend",
+  "rarity": null,
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "default": 7
+   },
+   {
+    "enchant": "looting",
+    "default": 3
+   },
+   {
+    "enchant": "sweeping_edge",
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "default": 3
+   }
+  ],
+  "lore": [
+   "<gray>A Legendary Sword made from the Ender Dragon's heart.",
+   "<gold>Sharpness <red>VII",
+   "<white>Looting III",
+   "<white>Sweeping Edge III",
+   "",
+   "<light_purple><bold>HYPERSONIC SLASH",
+   "<gray><italic>Cooldown 40s - Offhand",
+   "<gray>After a short charge, swing while looking",
+   "<gray>at a player within 16 blocks to teleport",
+   "<gray>and slash. Consecutive windows halve.",
+   "",
+   "<light_purple><bold>INFINITE VOID",
+   "<gray><italic>Cooldown 60s - Offhand + Crouch",
+   "<gray>Place a Void Clock at your feet,",
+   "<gray>drastically slowing time for players",
+   "<gray>in a 6-block radius for 10s."
+  ]
+ },
+ {
+  "id": "omen",
+  "class": "OmenWeapon",
+  "season": 2,
+  "display_name": "<gradient:#ff7b3a:#a83d3d:#3d8a4a><bold>Omen</bold></gradient>",
+  "plain_display": "Omen",
+  "base_material": "MACE",
+  "custom_model_data": 1,
+  "tooltip_style": "omen/omen",
+  "rarity": null,
+  "unbreakable": true,
+  "enchants": [],
+  "lore": [
+   "<gray>A Legendary Spear imbued with the powers of the Trial Chambers.",
+   "<gold>Sharpness <red>VII",
+   "<white>Looting III",
+   "",
+   "<aqua>VAULT OMEN",
+   "<gray>(<white>35s<gray>) <yellow>OFFHAND",
+   "<gray>Throw a Vault Omen where you look lasting <white>7s<gray>,",
+   "<gray>tethering players who enter it within a <white>3 block radius<gray>.",
+   "<gray>Players are Tethered until Vault Omen expires.",
+   "",
+   "<aqua>OMINOUS CONJURING",
+   "<gray>(<white>50s<gray>) <yellow>OFFHAND+CROUCH",
+   "<gray>Power your spear with Trial Omen, making your melee attacks",
+   "<gray>throw Ominous Projectiles for <white>10s<gray>, dealing AOE damage.",
+   "<gray>Players within a <white>16 block radius<gray> that you contribute to your Spell Level.",
+   "<gray>Spell Level stacks special properties and increases spell distance.",
+   "",
+   "<white>Lv.1 (0-1 Players) | <gray>Direct Hits grant +50% Speed for 1s.",
+   "<white>Lv.2 (2-4 Players) | <gray>Ominous Projectiles ignore Shields.",
+   "<white>Lv.3 (5+ Players) | <gray>Direct Hits pull you towards target. (Uncrouched)"
+  ]
+ },
+ {
+  "id": "tidebreaker",
+  "class": "TidebreakerWeapon",
+  "season": 2,
+  "display_name": "<gradient:#1aa8c4:#5af2cc><bold>Tidebreaker</bold></gradient>",
+  "plain_display": "Tidebreaker",
+  "base_material": "TRIDENT",
+  "custom_model_data": 1,
+  "tooltip_style": "tidebreaker/tidebreaker",
+  "rarity": null,
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "default": 7
+   },
+   {
+    "enchant": "looting",
+    "default": 3
+   },
+   {
+    "enchant": "sweeping_edge",
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "default": 3
+   }
+  ],
+  "lore": [
+   "<gray>A Legendary Trident that channels the ocean within the wielder.",
+   "<gold>Sharpness <red>VII",
+   "<white>Looting III",
+   "<white>Sweeping Edge III",
+   "",
+   "<aqua>Passive <gray>| Nautiluses gain <white>Resistance III & Speed V<gray> while held.",
+   "<aqua>Passive <gray>| Gain permanent <white>Water Breathing<gray> while held.",
+   "",
+   "<aqua>STORMCALL",
+   "<gray>(<white>40s<gray>) <yellow>OFFHAND",
+   "<gray>Throw your Trident, summoning a Storm where it lands.",
+   "<gray>The storm damages two entities within a <white>6 block radius<gray> every <white>0.5s<gray>,",
+   "<gray>always targetting the entities with the highest HP. Lasts <white>10s<gray>.",
+   "",
+   "<aqua>RISING TIDE",
+   "<gray>(<white>50s<gray>) <yellow>OFFHAND+CROUCH",
+   "<aqua>Looking Up <gray>| Place a jet of water underneath yourself to blast",
+   "<gray>up in the air, breaking through webs in the process, followed by a",
+   "<gray>tidal shockwave when landing, knocking enemies back.",
+   "<aqua>Looking Down <gray>| Throw a long-lasting wave of water where you look,",
+   "<gray>pulling players towards you on hit."
+  ]
+ },
+ {
+  "id": "wither_symbiote",
+  "class": "WitherSymbioteWeapon",
+  "season": 2,
+  "display_name": "<gradient:#1a1a1a:#525252:#C8C8C8><bold>Wither Symbiote</bold></gradient>",
+  "plain_display": "Wither Symbiote",
+  "base_material": "NETHERITE_SWORD",
+  "custom_model_data": 27,
+  "tooltip_style": "wither_symbiote/wither_symbiote",
+  "rarity": null,
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "default": 7
+   },
+   {
+    "enchant": "looting",
+    "default": 3
+   },
+   {
+    "enchant": "sweeping_edge",
+    "default": 3
+   },
+   {
+    "enchant": "unbreaking",
+    "default": 3
+   }
+  ],
+  "lore": [
+   "<dark_gray>It's ready to latch on and take the shape of a weapon.",
+   "<gold>Sharpness <red>VII",
+   "<white>Looting III",
+   "<white>Sweeping Edge III",
+   "",
+   "<dark_green>SYMBIOTE INFECTION",
+   "<gray>(<white>40s<gray>) <yellow>OFFHAND",
+   "<gray>Your next hit inflicts the target with an <green>infection",
+   "<gray>which can they can also pass to another target.",
+   "<gray>Once the infection ends, they get damaged and weakened.",
+   "<gray>The infection can be remotely triggered to detonate.",
+   "",
+   "<dark_green>SYMBIOTE RAMPAGE",
+   "<gray>(<white>120s<gray>) <yellow>OFFHAND+CROUCH",
+   "<gray>Go beyond the human's physical limit at the cost",
+   "<gray>of your own life. Rampage grants multiple buffs,",
+   "<gray>but needs to be sustained by both dealing damage and",
+   "<gray>not receiving damage, becoming more difficult over time.",
+   "",
+   "<green>+ Increase your HP by 3<red>❤",
+   "<green>+ Heal your HP by 3<red>❤",
+   "<green>+ Instantly break nearby webs",
+   "<green>+ 0.5<red>❤ <green>Lifesteal every hit",
+   "<green>+ 50% Increased Speed",
+   "<red>- You lose Saturation quicker.",
+   "<red>- You become Weak when exiting rampage.",
+   "<red>- You become Withered when exiting rampage.",
+   "<red>- Lose 3<dark_red>❤ <red>when exiting rampage."
+  ]
+ },
+ {
+  "id": "bow_of_deception",
+  "class": "BowOfDeceptionWeapon",
+  "season": 2,
+  "display_name": "<aqua>Bow of Deception and Lies",
+  "base_material": "BOW",
+  "custom_model_data": null,
+  "tooltip_style": null,
+  "rarity": null,
+  "unbreakable": true,
+  "enchants": [
+   {
+    "enchant": "sharpness",
+    "default": 10
+   }
+  ],
+  "lore": [
+   "<gray>have fun {owner|leekleek}",
+   "",
+   "<white>!! Sneak + Right-Click to eat the evidence. !!",
+   "<aqua>---------------------------------------",
+   "",
+   "<aqua><bold>ITEM-DROP > MELEE HIT</bold>",
+   "<gray>Hit a player with this bow to make them drop",
+   "<gray>their held item.",
+   "<gray>⏱ NO COOLDOWN.",
+   "",
+   "<aqua><bold>ARMOR-DROP > SHIFT + MELEE HIT</bold>",
+   "<gray>Sneak then melee a player to make them drop",
+   "<gray>every armor piece.",
+   "<gray>⏱ NO COOLDOWN."
+  ],
+  "identity": {
+   "key": "altarsmps2:bow_of_deception",
+   "type": "byte",
+   "value": 1
+  },
+  "owner_bound": true,
+  "enabled_path": "bow-of-deception.enabled"
+ }
+]
