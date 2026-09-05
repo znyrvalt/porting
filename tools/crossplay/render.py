@@ -14,6 +14,11 @@ import math
 from pngio import encode_png
 
 ICON_SIZE = 128
+# The canvas is the projection's coordinate basis: it spans CANVAS_UNITS
+# canvas-relative units across the icon, whatever the model's own grid is.
+CANVAS_UNITS = 16.0
+# Uniform border kept free on every side; also the headroom auto-fit targets.
+FIT_MARGIN = 4
 
 # canonical quad corners per face, model space, order: top-left, top-right,
 # bottom-right, bottom-left "as seen from outside the box"
@@ -121,19 +126,28 @@ def build_quads(pack, chain):
 
 
 def _project(quads):
-    """Model-space quads -> canvas pixels, in model-relative units.
+    """Model-space quads -> canvas pixels.
 
-    The model's own bounding box is centred on the canvas and everything is
-    drawn at the classic fixed item-grid scale (16 model units across the
-    icon). Models bigger than the canvas simply run past it - that is the
-    known limitation this first cut ships with.
+    The projection is computed in canvas-relative units: the base scale maps
+    the canvas (CANVAS_UNITS across) onto the icon, independent of any
+    model's own grid. The model's projected bounds are then measured against
+    that canvas, and a model whose bounds exceed the drawable area is
+    auto-fitted: one uniform scale factor shrinks it to fit (aspect ratio
+    preserved - never stretched, never clipped), while everything that
+    already fits keeps the canvas base scale.
     """
     xs = [p[0] for q in quads for p in q[0]]
     ys = [p[1] for q in quads for p in q[0]]
     if not xs:
         return []
     cx, cy = (min(xs) + max(xs)) / 2.0, (min(ys) + max(ys)) / 2.0
-    scale = ICON_SIZE / 16.0 * 0.9
+    drawable = ICON_SIZE - 2 * FIT_MARGIN
+    # canvas-relative base scale: CANVAS_UNITS across the drawable area
+    scale = drawable / CANVAS_UNITS
+    span = max(max(xs) - min(xs), max(ys) - min(ys))
+    if span * scale > drawable:
+        # auto-fit: uniform scale-to-fit, preserving aspect
+        scale = drawable / span
     out = []
     for pts, uvc, trows, tw, th, depth in quads:
         px = [((p[0] - cx) * scale + ICON_SIZE / 2.0, ICON_SIZE / 2.0 - (p[1] - cy) * scale)

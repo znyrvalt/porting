@@ -456,10 +456,43 @@ def c24_texture_atlas_resolves(results):
     return not dangling and not extra
 
 
+@check
+def c25_icons_fit_canvas(results):
+    """Auto-fit / no clipping: every rendered 3D-model icon's opaque pixels
+    stay inside the canvas with at least a one-pixel border (flat icons are
+    exempt - a full-bleed sprite is the vanilla look they are meant to keep)."""
+    import pngio
+    zf = zipfile.ZipFile(PACK)
+    inventory = load_json(INVENTORY)
+    flat_names = {r['icon'][len('textures/items/'):-len('.png')]
+                  for r in inventory['entries'] if r.get('model_kind') == 'flat'}
+    bad = []
+    n = 0
+    for n_ in sorted(zf.namelist()):
+        if not n_.startswith('textures/items/') or not n_.endswith('.png'):
+            continue
+        name = n_[len('textures/items/'):-len('.png')]
+        w, h, rows = pngio.decode_png(zf.read(n_))
+        pts = [(x, y) for y in range(h) for x in range(w) if rows[y][x][3]]
+        if not pts:
+            bad.append((name, 'empty'))
+            continue
+        xs = [p[0] for p in pts]
+        ys = [p[1] for p in pts]
+        n += 1
+        if name in flat_names:
+            continue
+        if min(xs) < 1 or min(ys) < 1 or max(xs) > w - 2 or max(ys) > h - 2:
+            bad.append((name, (min(xs), min(ys), max(xs), max(ys))))
+    results.append('%d rendered icons, all inside the 1px border' % n if not bad
+                   else 'clipped/empty: %s' % bad)
+    return not bad
+
+
 # ---------------------------------------------------------------- geometry
 
 @check
-def c25_attachables_resolve(results):
+def c26_attachables_resolve(results):
     """Every attachable's identifier, geometry and texture references resolve
     inside the pack."""
     zf = zipfile.ZipFile(PACK)
@@ -486,7 +519,7 @@ def c25_attachables_resolve(results):
 
 
 @check
-def c26_geometry_uv_inside_atlas(results):
+def c27_geometry_uv_inside_atlas(results):
     """Every geometry face UV rect fits inside its atlas (uv and uv+uv_size
     within texture_width/texture_height, which match the packed png)."""
     import pngio
@@ -518,7 +551,7 @@ def c26_geometry_uv_inside_atlas(results):
 
 
 @check
-def c27_uv_honours_texture_size(results):
+def c28_uv_honours_texture_size(results):
     """Face UV rects are sampled against each model's declared texture_size:
     recomputing every rect as (raw uv / texture_size) * sub-texture size + the
     atlas offset reproduces the shipped geometry exactly (this is the Blockbench
@@ -582,7 +615,7 @@ def c27_uv_honours_texture_size(results):
 # ---------------------------------------------------------------- artwork
 
 @check
-def c28_ability_artwork(results):
+def c29_ability_artwork(results):
     """Ability artwork: every tooltip_style in the catalogue resolves to a
     background+frame pair in the pack, and all 96 artwork pngs are shipped."""
     zf = zipfile.ZipFile(PACK)
@@ -607,7 +640,7 @@ def c28_ability_artwork(results):
 # ---------------------------------------------------------------- reproducibility
 
 @check
-def c29_reproducible_bytes(results):
+def c30_reproducible_bytes(results):
     """pack.zip is byte-for-byte reproducible: regenerating the package in this
     process reproduces the committed archive's sha256."""
     import generate_custom_content as gen
