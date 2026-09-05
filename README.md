@@ -58,7 +58,7 @@ the plugin into JSON (`fabric-mod/src/main/resources/altarsmp/content/`).
 ```bash
 bash tools/bootstrap-wrapper.sh     # once: fetches gradle-wrapper.jar
 cd fabric-mod
-./gradlew build                     # -> build/libs/altarsmp-fabric-2.0.0.jar
+./gradlew build                     # -> build/libs/altarsmp-fabric-2.0.5.jar
 ./gradlew releaseBundle             # -> ../dist/ (jar, pack, sources, docs, SHA256SUMS.txt)
 ```
 

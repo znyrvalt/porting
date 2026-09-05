@@ -4,6 +4,34 @@ The AltarSMP Fabric port. The original plugin was version 1.2 (Season 1) plus th
 AltarSMPS2 module; the port starts its own numbering at 2.0.0 because it is a
 different artifact for a different platform, not a release of the plugin.
 
+## 2.0.5 — Bedrock crossplay
+
+### Added
+
+**Bedrock/Geyser crossplay.** `docs/crossplay.md` explains what a Bedrock client
+sees without help (every custom weapon as its base item, because Bedrock has no
+model data) and what the port does about it. `tools/crossplay/` holds the build
+tooling; `pngcodec.py` is the PNG reader/writer everything else stands on, built
+on `struct` and `zlib` so the toolchain needs nothing outside the standard
+library.
+
+**Restored ability artwork.** The `mythicweapons` `fx_*` and `vfx_*` item
+definitions, their models and textures, and `paladin_hammer_fx.png` are back in
+the asset set, so the item displays the abilities spawn have artwork instead of
+falling back to their base item.
+
+### Fixed
+
+**Model data.** `ItemFactory#applyModelData` writes the model number to the
+legacy integer slot and the `CustomModelData` float list, matching what the
+plugin did and what modern item dispatch reads. The call sites that compute a
+number at runtime — Knightfall's kill tiers, Dragonrend's void-clock pieces,
+Tidebreaker's thrown trident, the blue-circle VFX — all route through it.
+
+### Changed
+
+`mod_version` is 2.0.5, matching the shipped jar.
+
 ## 2.0.0 — the Fabric port
 
 ### Added
