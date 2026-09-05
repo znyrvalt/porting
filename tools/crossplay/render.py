@@ -8,7 +8,9 @@ to be rasterised once at build time.  The renderer is deliberately small:
   225 deg around Y) unless the model overrides it;
 * faces are drawn back-to-front (painter's algorithm) with bilinear sampling of
   the face's UV rectangle;
-* the projection places one model unit at one icon pixel;
+* the projection works in *canvas-relative* units: one model unit is
+  ``canvas / 16``, and if the projected silhouette is larger than the slot the
+  whole model is uniformly scaled down to fit rather than clipped;
 * rendering runs at 4x supersample and is box-filtered down to 32x32.
 
 If the GUI view produces nothing (flat planes lying in the ground plane, which
@@ -208,14 +210,19 @@ def rasterise(quads, size=ICON_SIZE, supersample=SUPERSAMPLE):
     if box is None:
         return None
     canvas = size * supersample
-    unit = float(supersample)  # one model unit per icon pixel
+    unit = canvas / 16.0  # one model unit, canvas-relative
     min_x, min_y, max_x, max_y = box
+    width = max(max_x - min_x, 1e-6)
+    height = max(max_y - min_y, 1e-6)
+    fit = 1.0
+    if width * unit > canvas or height * unit > canvas:
+        fit = min(canvas / (width * unit), canvas / (height * unit))
     centre_x = (min_x + max_x) / 2.0
     centre_y = (min_y + max_y) / 2.0
 
     def project(point):
-        x = canvas / 2.0 + (point[0] - centre_x) * unit
-        y = canvas / 2.0 - (point[1] - centre_y) * unit
+        x = canvas / 2.0 + (point[0] - centre_x) * unit * fit
+        y = canvas / 2.0 - (point[1] - centre_y) * unit * fit
         return x, y
 
     image = pngcodec.blank(canvas, canvas)
